@@ -1,0 +1,314 @@
+<app-header></app-header>
+
+<div class="main-panel">
+    <div class="content">
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                    <div>
+                        <h2 class="text-white pb-2 fw-bold">Monitoramento Financeiro</h2>
+                    </div>
+                    <div class="ml-md-auto py-2 py-md-0">
+                        <button type="button" data-toggle="modal" data-target="#cadastrarNovoLancamentoFinanceiro" class="btn btn-info btn-border btn-round"> <span class="btn-label"> <i class="fa fa-plus"></i></span> Novo Lançamento Financeiro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-inner mt--5">
+            <div class="row mt--2">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4><b>Receitas</b></h4>
+                                    <p class="text-muted">Total de Receitas</p>
+                                </div>
+                                <h2 class="text-info fw-bold"><a routerLink="/receita-listar"
+                                        style="text-decoration: none;">{{totalReceitaCadastrada | currency : "BRL":
+                                        true}}</a></h2>
+                            </div>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-info w-100" role="progressbar" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <p class="text-muted mb-0">Percentual de Receitas Utilizadas</p>
+                                <p class="text-muted mb-0">{{percentualReceitaUtilizada}} %</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4><b>Despesas</b></h4>
+                                    <p class="text-muted">Total de Despesas</p>
+                                </div>
+                                <h2 class="text-danger fw-bold"><a href="/monitoramento-financeiro"
+                                        style="text-decoration: none;">{{totalDespesaCadastrada | currency : "BRL": true}}</a></h2>
+                            </div>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-danger w-0" role="progressbar" aria-valuenow="100"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <p class="text-muted mb-0">Percentual de Despesas Pagas</p>
+                                <p class="text-muted mb-0">{{percentualDespesaPagas}} %</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="" style="text-decoration: none;">
+                        <div class="card card-secondary bg-dark-gradient">
+                            <div class="card-body bubble-shadow">
+                                <div class="pull-right">
+                                    Conta Corrente
+                                </div>
+                                <h3 class="text-white pb-2 fw-bold">Nubank</h3>
+                                <div class="text-center">
+                                    <p class="h1 fw-bold">R$ 11.96</p>
+                                </div>
+                                <div class="pull-left">
+                                    <p>Crédito/Débito</p>
+                                </div>
+                                <div class="pull-right">
+                                    <div class="pull-right">
+                                        <h3 class="fw-bold op-10"> </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="" style="text-decoration: none;">
+                        <div class="card card-dark bg-primary-gradient">
+                            <div class="card-body skew-shadow">
+                                <div class="pull-right">
+                                    Conta Corrente
+                                </div>
+                                <h3 class="text-white pb-2 fw-bold">Santander</h3>
+                                <div class="text-center">
+                                    <p class="h1 fw-bold">R$ 8.504,96</p>
+                                </div>
+                                <div class="pull-left">
+                                    <p>Débito</p>
+                                </div>
+                                <div class="pull-right">
+                                    <div class="pull-right">
+                                        <h3 class="fw-bold op-10"> </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="" style="text-decoration: none;">
+                        <div class="card card-dark bg-warning-gradient">
+                            <div class="card-body curves-shadow">
+                                <div class="pull-right">
+                                    Conta Poupança
+                                </div>
+                                <h3 class="text-white pb-2 fw-bold">Caixa Econômica</h3>
+                                <div class="text-center">
+                                    <p class="h1 fw-bold">R$ 1.451,96</p>
+                                </div>
+                                <div class="pull-left">
+                                    <p>Débito</p>
+                                </div>
+                                <div class="pull-right">
+                                    <div class="pull-right">
+                                        <h3 class="fw-bold op-10"> </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Últimas Receitas</div>
+                        </div>
+                        <div class="card-body pb-0" *ngFor="let receitaModel_ of receitaModelList">
+                            <div class="d-flex">
+                                <div class="avatar">
+                                    <span class="avatar-title rounded-circle border border-white bg-info">A</span>
+                                </div>
+                                <div class="flex-1 pt-1 ml-2">
+                                    <h6 class="fw-bold mb-1">{{receitaModel_.responsavelPagamento}}</h6>
+                                    <small class="text-muted">Pagamento de Seguro Desemprego <a
+                                            href="#">RECFIX20210214001</a></small>
+                                </div>
+                                <div class="d-flex ml-auto align-items-center">
+                                    <h3 class="text-info fw-bold">+ {{receitaModel_.valorPagamento | currency : "BRL":
+                                        true }}</h3>
+                                </div>
+                            </div>
+                            <div class="separator-dashed"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Últimas Despesas</div>
+                        </div>
+                        <div class="card-body pb-0">
+                            <div class="d-flex">
+                                <div class="avatar">
+                                    <img src="../assets/img/logoproduct3.svg" alt="..."
+                                        class="avatar-img rounded-circle">
+                                </div>
+                                <div class="flex-1 pt-1 ml-2">
+                                    <h6 class="fw-bold mb-1">Banco Nubank</h6>
+                                    <small class="text-muted">Pagamento de Fatura Mensal</small>
+                                </div>
+                                <div class="d-flex ml-auto align-items-center">
+                                    <h3 class="text-danger fw-bold">- R$3.500,00</h3>
+                                </div>
+                            </div>
+                            <div class="separator-dashed"></div>
+                            <div class="pull-in">
+                                <canvas id="topProductsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Últimas Movimentações Financeiras</div>
+                                <div class="card-tools">
+                                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                                        <span class="btn-label">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        VER TODOS
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ol class="activity-feed">
+                                <li class="feed-item feed-item-danger">
+                                    <time class="date" datetime="9-25">Despesa Variável</time>
+                                    <span class="text">Aquisição na <a href="#">Panificadora Rei do Pão
+                                            (Taguatinga Centro)</a></span>
+                                </li>
+                                <li class="feed-item feed-item-info">
+                                    <time class="date" datetime="9-23">Receita Fixa</time>
+                                    <span class="text">Recebimentos de <a href="single-group.php">Banco Caixa
+                                            Econômica Federal</a></span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Últimos Lançamentos Financeiros</div>
+                                <div class="card-tools">
+                                    <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                                        <span class="btn-label">
+                                            <i class="fa fa-pencil"></i>
+                                        </span>
+                                        VER TODOS
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="avatar">
+                                    <span class="avatar-title rounded-circle border border-white bg-info">SPV</span>
+                                </div>
+                                <div class="flex-1 ml-3 pt-1">
+                                    <h6 class="text-uppercase fw-bold mb-1">Supermercado Pra Você (Taguatinga
+                                        Centro)<span class="text-warning pl-3">Pendente</span></h6>
+                                    <span class="text-muted">Alimentos</span>
+                                </div>
+                                <div class="float-right pt-1">
+                                    <small class="text-muted">R$ 38,49</small>
+                                </div>
+                            </div>
+                            <div class="separator-dashed"></div>
+                            <div class="d-flex">
+                                <div class="avatar avatar-away">
+                                    <span class="avatar-title rounded-circle border border-white bg-danger">LA</span>
+                                </div>
+                                <div class="flex-1 ml-3 pt-1">
+                                    <h6 class="text-uppercase fw-bold mb-1">Lojas Americanas<span
+                                            class="text-success pl-3">Pago</span></h6>
+                                    <span class="text-muted">Is there any update plan for RTL version near
+                                        future?</span>
+                                </div>
+                                <div class="float-right pt-1">
+                                    <small class="text-muted">2 Days Ago</small>
+                                </div>
+                            </div>
+                            <div class="separator-dashed"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>
+
+<div id="cadastrarNovoLancamentoFinanceiro" class="modal animated fadeIn" tabindex="-1" role="dialog" focus >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cadastrar Lançamento Financeiro</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5 col-md-12">
+                        <div class="card-body">
+                            <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-pills-icons justify-content-center">
+                                <li class="nav-item col-md-3">
+                                    <a (click)="redirecionarPaginaCadastrarReceita()" class="nav-link active">
+                                        <i class="icon-arrow-up-circle"></i>
+                                        <p class="text-center fw-bold">Cadastrar Receita</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item col-md-3">
+                                    <a class="nav-link active" id="pills-profile-tab-icon" data-toggle="pill" href="#pills-profile-icon" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
+                                        <i class="icon-arrow-down-circle"></i>
+                                        <p class="text-center fw-bold">Cadastrar Despesa</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item col-md-3">
+                                    <a class="nav-link active" id="pills-contact-tab-icon" data-toggle="pill" href="#pills-contact-icon" role="tab" aria-controls="pills-contact-icon" aria-selected="false">
+                                        <i class="icon-clock"></i>
+                                        <p class="text-center fw-bold">Cadastrar Empréstimos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

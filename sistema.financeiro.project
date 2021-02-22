@@ -1,0 +1,6 @@
+# Comandos
+
+    npm install ngx-toastr
+    npm install @angular/animations
+    
+    npm install ngx-toastr @angular/animations

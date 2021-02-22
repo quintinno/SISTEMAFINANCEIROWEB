@@ -1,0 +1,16 @@
+{
+  "receita": [
+    {
+      "responsavelPagamento": "Banco Caixa Econômica Federal",
+      "id": 3,
+      "valorPagamento": "1000",
+      "periodoFinanceiro": "Mensal",
+      "situacaoPagamento": "Pago",
+      "dataRecebimento": "05/02/2021",
+      "dataVenciemento": "14/02/2021",
+      "numeroParcela": "05/05",
+      "formaPagamento": "Transferência Bancária",
+      "contaBancariaDeposito": "Banco Santander S.A (XXXX.YYYYYY-T)"
+    }
+  ]
+}

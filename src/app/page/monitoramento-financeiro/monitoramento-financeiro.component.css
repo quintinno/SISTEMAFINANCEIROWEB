@@ -1,0 +1,9 @@
+.modal-content {
+    border-radius: 0.4rem !important;
+    border: 0 !important;
+    margin-top: 20% !important;
+    margin-left: -50% !important;
+    width: 1000px !important;
+    height: 300px !important;
+    transition: all 2s !important;
+}

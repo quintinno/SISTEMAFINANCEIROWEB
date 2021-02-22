@@ -1,0 +1,143 @@
+<app-header></app-header>
+
+<form (ngSubmit)="cadastrarContrato()">
+
+    <div class="main-panel">
+        <div class="col-md-12" style="margin-top: 90px;">
+
+            <div *ngIf="isApresentarMensagemCadastroSucesso == true">
+                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+                        <a (click)="desabilitarAlerta()">×</a>
+                    </button>
+                    <span data-notify="icon" class="fa fa-bell"></span>
+                    <span data-notify="title">Sistema Financeiro</span>
+                    <span data-notify="message">Contrato Cadastrado com Sucesso!</span>
+                </div>
+            </div>
+        
+            <div *ngIf="isApresentarMensagemErro == true">
+                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-danger" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+                        <a (click)="desabilitarAlerta()">×</a>
+                    </button>
+                    <span data-notify="icon" class="fa fa-bell"></span>
+                    <span data-notify="title">Sistema Financeiro</span>
+                    <span data-notify="message">Erro ao tentar cadastrar o Contrato</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Cadastro de Contrato</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="empresa-pagadora">Empresa</label>
+                                <select name="pessoaContratante" [(ngModel)]="contratoModel.pessoaContratante" class="form-control">
+                                    <option>Selecionar</option>
+                                    <option *ngFor="let pessoa_model_ of pessoaJuridicaList" [ngValue]="pessoa_model_"> {{pessoa_model_.nome}} </option>
+                                    <option>Outro</option>
+                                </select>
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-lg-5">
+                            <div class="form-group">
+                                <label for="empresa-pagadora">Tipo de Contrato</label>
+                                <select name="tipo_contrato" [(ngModel)]="contratoModel.tipoContrato" class="form-control">
+                                    <option>Selecionar</option>
+                                    <option *ngFor="let tipo_contrato_model_ of tipoContratoList" [ngValue]="tipo_contrato_model_"> {{tipo_contrato_model_.descricao}} </option>
+                                    <option>Outro</option>
+                                </select>
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3">
+                            <div class="form-group">
+                                <label for="pessoa_contratante">Pessoa Vinculada</label>
+                                <select name="pessoa_contratante" [(ngModel)]="contratoModel.pessoaContratado" class="form-control">
+                                    <option>Selecionar</option>
+                                    <option *ngFor="let pessoa_fisica_ of pessoaFisicaList" [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
+                                    <option>Outro</option>
+                                </select>
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-4">
+                            <div class="form-group">
+                                <label for="dataInicioVigencia">Inicío da Vigência</label>
+                                <input type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" placeholder="DD/MM/AAAA" class="form-control form-control" />
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-lg-4">
+                            <div class="form-group">
+                                <label for="dataFimVigencia">Encerramento da Vigência</label>
+                                <input type="text" name="dataFimVigencia" [(ngModel)]="contratoModel.dataFimVigencia" placeholder="DD/MM/AAAA" class="form-control form-control" />
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="isATivo">Situação</label>
+                                <select name="isATivo" [(ngModel)]="contratoModel.isATivo" class="form-control">
+                                    <option>Selecionar</option>
+                                    <option value="true">Ativo</option>
+                                    <option value="false">Inativo</option>
+                                    <option>Outro</option>
+                                </select>
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-primary col-md-3" style="margin: 4px;">Cadastrar Contrato</button>
+                    <button type="button" class="btn btn-secondary col-md-3" style="margin: 10px;">Alterar Contrato</button>
+                    <button type="button" class="btn btn-warning col-md-3" style="margin: 10px;">Excluir Contrato</button>
+                    <button type="button" routerLink="/contrato-monitoramento" class="btn btn-danger btn-border col-md-2" style="margin: 10px;">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="cadastrarResponsavelPagamentoModal" class="modal animated fadeIn" tabindex="-1" role="dialog" focus >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cadastrar Responsável pelo Pagamento</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-lg-6">
+                        <div class="form-group">
+                            <label for="responsavel-pagamento">Nome</label>
+                            <input type="text" class="form-control form-control" >
+                            <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-6">
+                        <div class="form-group">
+                            <label for="categoria-responsavel-pagamento">Categoria</label>
+                            <input type="text" class="form-control form-control" />
+                            <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary col-md-10">Cadastrar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary btn-border col-md-2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

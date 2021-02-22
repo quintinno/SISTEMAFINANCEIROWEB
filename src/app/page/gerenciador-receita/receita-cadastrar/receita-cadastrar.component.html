@@ -1,0 +1,172 @@
+<app-header></app-header>
+
+<form (ngSubmit)="cadastrarReceita()">
+    <div class="main-panel">
+        <div class="col-md-12" style="margin-top: 100px;">
+            
+            <div *ngIf="isApresentarMensagemSucesso == true" style="margin-top: 150px;">
+                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a (click)="desabilitarAlerta()">×</a></button><span data-notify="icon" class="fa fa-bell"></span> <span data-notify="title">Sistema Financeiro</span> <span data-notify="message">Receita Cadastrada com Sucesso!</span><a href="index.html" target="_blank" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
+                </div>
+            </div>
+
+            <div *ngIf="isApresentarMensagemErro == true" style="margin-top: 150px;">
+                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-danger" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a (click)="desabilitarAlerta()">×</a></button><span data-notify="icon" class="fa fa-bell"></span> <span data-notify="title">Sistema Financeiro</span> <span data-notify="message">Erro ao tentar cadastrar a Receita</span><a href="index.html" target="_blank" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Cadastro de Receita</div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div [ngClass]="{'col-md-3 col-lg-3' : receitaModel.tipoReceita != null, 'col-md-12 col-lg-12' : receitaModel.tipoReceita == null}">
+                            <div class="form-group">
+                                <label for="tipoReceita">Tipo de Receita</label>
+                                <select class="form-control" id="tipoReceita" name="tipoReceita" [(ngModel)]="receitaModel.tipoReceita">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_receita_ of tipoReceitaModelList" [ngValue]="tipo_receita_"> {{tipo_receita_}} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div *ngIf="receitaModel.tipoReceita != null" [ngClass]="{'col-md-5 col-lg-3': receitaModel.responsavelPagamento == 'Outro', 'col-md-6 col-lg-4': receitaModel.responsavelPagamento != 'Outro'}">
+                            <div class="form-group">
+                                <label for="responsavelPagamento">Responsável pelo Pagamento</label>
+                                <select id="responsavelPagamento" name="responsavelPagamento" [(ngModel)]="receitaModel.responsavelPagamento" class="form-control">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let responsavel_pagamento_ of responsavelPagamentoList" [ngValue]="responsavel_pagamento_"> {{responsavel_pagamento_.nome}} </option>
+                                    <option>Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div *ngIf="receitaModel.responsavelPagamento == 'Outro'" class="col-md-1 col-lg-1">
+                            <div class="animated fadeIn" style="margin-top: 36px;">
+                                <button type="button" data-toggle="modal" data-target="#cadastrarResponsavelPagamentoModal" class="btn btn-round btn-primary btn-border">+</button>
+                            </div>
+                        </div>
+                        <div *ngIf="receitaModel.tipoReceita != null" class="col-md-4 col-lg-5">
+                            <div class="form-group">
+                                <label for="categoriaReceita">Categoria de Receita</label>
+                                <select class="form-control" id="categoriaReceita" name="categoriaReceita" [(ngModel)]="receitaModel.categoriaReceita">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let categoria_receita_ of categoriaReceitaModel" [ngValue]="categoria_receita_"> {{categoria_receita_.descricao}} </option>
+                                    <option>Outra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="receitaModel.tipoReceita != null" class="row">
+                        <div *ngIf="receitaModel.tipoReceita == 'Receita Fixa'" class="col-md-4 col-lg-2">
+                            <div class="form-group">
+                                <label for="dataPrevisaoRecebimento">Data Previsão Recebimento</label>
+                                <input id="dataPrevisaoRecebimento" type="text" name="dataPrevisaoRecebimento" [(ngModel)]="receitaModel.dataPrevisaoRecebimento" placeholder="DD/MM/AAAA" class="form-control form-control" />
+                            </div>
+                        </div>
+                        <div [ngClass]="{'col-md-2 col-lg-2': receitaModel.tipoReceita != 'Receita Variável', 'col-md-4 col-lg-4' : receitaModel.tipoReceita == 'Receita Variável'}">
+                            <div class="form-group">
+                                <label for="dataRecebimentoPagamento">Data Recebimento</label>
+                                <input id="dataRecebimentoPagamento" type="text" name="dataRecebimentoPagamento" [(ngModel)]="receitaModel.dataRecebimentoPagamento" placeholder="DD/MM/AAAA" class="form-control form-control" />
+                            </div>
+                        </div>
+                        <div *ngIf="receitaModel.tipoReceita == 'Receita Fixa'" class="col-md-4 col-lg-2">
+                            <div class="form-group">
+                                <label for="quantidadeParcela">Quantidade da Parcelas</label>
+                                <input type="text" id="quantidadeParcela" name="quantidadeParcela" [(ngModel)]="receitaModel.quantidadeParcela" class="form-control" />
+                            </div>
+                        </div>
+                        <div [ngClass]="{'col-md-3 col-lg-3': receitaModel.tipoReceita == 'Receita Fixa', 'col-md-4 col-lg-4' : receitaModel.tipoReceita == 'Receita Variável'}">
+                            <div class="form-group">
+                                <label for="tipoFormaPagamento">Forma Pagamento</label>
+                                <select id="tipoFormaPagamento" name="tipoFormaPagamento" [(ngModel)]="receitaModel.tipoFormaPagamento" class="form-control">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
+                                    <option>Outra</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div [ngClass]="{'col-md-3 col-lg-3': receitaModel.tipoReceita == 'Receita Fixa', 'col-md-4 col-lg-4' : receitaModel.tipoReceita == 'Receita Variável'}">
+                            <div class="form-group">
+                                <label for="contaBancariaDeposito">Conta Bancária Depósito</label>
+                                <select id="contaBancariaDeposito" name="contaBancariaDeposito" [(ngModel)]="receitaModel.contaBancariaDeposito" class="form-control">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let conta_bancaria_ of contaBancariaList" [ngValue]="conta_bancaria_"> {{conta_bancaria_.contrato.pessoaContratante.nome}}  </option>
+                                    <option>Outra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="receitaModel.tipoReceita != null" class="row">
+                        <div [ngClass]="{'col-md-6 col-lg-6': receitaModel.tipoReceita == 'Receita Variável', 'col-md-4 col-lg-4' : receitaModel.tipoReceita == 'Receita Fixa'}">
+                            <div class="form-group">
+                                <label for="tipoSituacaoPagamento">Situação do Pagamento</label>
+                                <select id="tipoSituacaoPagamento" name="tipoSituacaoPagamento" [(ngModel)]="receitaModel.tipoSituacaoPagamento" class="form-control">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_situacao_pagamento_ of tipoSituacaoPagamentoList" [ngValue]="tipo_situacao_pagamento_"> {{tipo_situacao_pagamento_}} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div *ngIf="receitaModel.tipoReceita == 'Receita Fixa'" class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="tipoPeriodoFinanceiro">Período Financeiro</label>
+                                <select id="tipoPeriodoFinanceiro" name="tipoPeriodoFinanceiro" [(ngModel)]="receitaModel.tipoPeriodoFinanceiro" class="form-control">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_periodo_financeiro_ of tipoPeriodoFinanceiroList" [ngValue]="tipo_periodo_financeiro_"> {{tipo_periodo_financeiro_}} </option>
+                                    <option>Outro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div [ngClass]="{'col-md-6 col-lg-6': receitaModel.tipoReceita == 'Receita Variável', 'col-md-4 col-lg-4' : receitaModel.tipoReceita == 'Receita Fixa'}">
+                            <div class="form-group">
+                                <label for="valorPagamento">Valor do Pagamento</label>
+                                <input id="valorPagamento" type="text" name="valorPagamento" [(ngModel)]="receitaModel.valorPagamento" placeholder="R$ 00,00" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card-action">
+                    <button id="cadastrarReceita" [disabled]="receitaModel.tipoReceita == null" class="btn btn-primary btn-lg col-md-6" style="margin: 4px;">Cadastrar Receita</button>
+                    <button type="button" [disabled]="receitaModel.tipoReceita == null" (click)="cadastrarNovaReceita()" class="btn btn-warning btn-lg col-md-3" style="margin: 4px;">Cadastrar Outra</button>
+                    <button type="button" (click)="redirecionarPaginaMonitoramentoReceita()" class="btn btn-danger btn-border btn-lg col-md-2" style="margin: 4px;">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="cadastrarResponsavelPagamentoModal" class="modal animated fadeIn" tabindex="-1" role="dialog" focus >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cadastrar Responsável pelo Pagamento</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-lg-6">
+                        <div class="form-group">
+                            <label for="responsavel-pagamento">Nome</label>
+                            <input type="text" class="form-control form-control" >
+                            <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-6">
+                        <div class="form-group">
+                            <label for="categoria-responsavel-pagamento">Categoria</label>
+                            <input type="text" class="form-control form-control" />
+                            <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary col-md-10">Cadastrar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary btn-border col-md-2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
