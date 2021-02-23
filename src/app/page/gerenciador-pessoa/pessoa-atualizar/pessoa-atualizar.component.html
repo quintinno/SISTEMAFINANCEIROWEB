@@ -1,1 +1,676 @@
-<p>pessoa-atualizar works!</p>
+<app-header></app-header>
+
+<!-- <div class="main-panel">
+    <div class="col-md-12" style="margin-top: 90px;">
+
+        <div *ngIf="isApresentarMensagemCadastroSucesso == true">
+            <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert"
+                data-notify-position="top-right"
+                style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+                    style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+                    <a (click)="desabilitarAlertaCadastrarDadosPessoa()">×</a></button>
+                <span data-notify="icon" class="fa fa-bell"></span>
+                <span data-notify="title">Sistema Financeiro</span>
+                <span data-notify="message">Dados da Pessoa Cadastrado com Sucesso!</span>
+            </div>
+        </div>
+
+        <div *ngIf="isApresentarMensagemRemocaoSucesso == true">
+            <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert"
+                data-notify-position="top-right"
+                style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 2s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+                    style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+                    <a (click)="desabilitarAlertaCadastrarDadosPessoa()">×</a></button>
+                <span data-notify="icon" class="fa fa-bell"></span>
+                <span data-notify="title">Sistema Financeiro</span>
+                <span data-notify="message">Pessoa Removida com Sucesso!</span>
+            </div>
+        </div>
+
+        <div *ngIf="isApresentarMensagemErroCadastroDadosDuplicados == true">
+            <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-danger" role="alert"
+                data-notify-position="top-right"
+                style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+                    style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+                    <a (click)="desabilitarAlertaCadastrarDadosPessoa()">×</a></button>
+                <span data-notify="icon" class="fa fa-bell"></span>
+                <span data-notify="title">Sistema Financeiro</span>
+                <span data-notify="message">Essa pessoa já cadastrada no sistema!</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <a routerLink="/pessoa-monitoramento" style="text-decoration: none;"><i class="icon-arrow-left"></i></a> Cadastro de Pessoas
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card-body">
+                    <ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border"
+                        role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab-nobd" data-toggle="pill"
+                                href="#pills-home-nobd_dadospessoais" role="tab" aria-controls="pills-home-nobd"
+                                aria-selected="true">Dados Pessoais</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill"
+                                href="#pills-profile-nobd" role="tab" aria-controls="pills-profile-nobd"
+                                aria-selected="false">Documentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab-nobd" data-toggle="pill"
+                                href="#pills-contact-nobd" role="tab" aria-controls="pills-contact-nobd"
+                                aria-selected="false">Endereço</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab-nobd_telefone" data-toggle="pill"
+                                href="#pills-contact-nobd_telefone" role="tab" aria-controls="pills-contact-nobd"
+                                aria-selected="false">Telefone</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab-nobd_email" data-toggle="pill"
+                                href="#pills-contact-nobd_email" role="tab" aria-controls="pills-contact-nobd"
+                                aria-selected="false">E-mail</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab-nobd_redesocial" data-toggle="pill"
+                                href="#pills-contact-nobd_redesocial" role="tab" aria-controls="pills-contact-nobd"
+                                aria-selected="false">Rede Social</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
+
+                        <div class="tab-pane fade show active" id="pills-home-nobd_dadospessoais" role="tabpanel"
+                            aria-labelledby="pills-home-tab-nobd">
+                            <form (ngSubmit)="cadastrarDadosPessoa()">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="nome">Nome Completo</label>
+                                                <input type="text" name="nome" [(ngModel)]="pessoaModel.nome"
+                                                    class="form-control form-control" id="defaultInput">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="tipoPessoa">Tipo de Pessoa</label>
+                                                <select name="tipoPessoa" [(ngModel)]="pessoaModel.tipoPessoa"
+                                                    class="form-control" placeholder="Selecione">
+                                                    <option>Selecionar</option>
+                                                    <option *ngFor="let tipo_pessoa_model_ of tipoPessoaModelList" [ngValue]="tipo_pessoa_model_">{{ tipo_pessoa_model_.descricao }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="isPessoaFinanceira">Pessoa Financeira</label>
+                                                <select name="isPessoaFinanceira"
+                                                    [(ngModel)]="pessoaModel.isPessoaFinanceira" class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option [ngValue]="true" selected>Sim</option>
+                                                    <option [ngValue]="false">Não</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="isAtivo">Instituição Financeira</label>
+                                                <select name="isAtivo" [(ngModel)]="pessoaModel.isInstituicaoFinanceira"
+                                                    class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option [ngValue]="true" selected>Sim</option>
+                                                    <option [ngValue]="false">Não</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="isAtivo">Situação</label>
+                                                <select name="isAtivo" [(ngModel)]="pessoaModel.isAtivo"
+                                                    class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option [ngValue]="true" selected>Ativo</option>
+                                                    <option [ngValue]="false">Inativo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <button class="btn btn-secondary btn-round btn-lg col-md-12">Cadastrar Dados da Pessoa</button>
+                                </div>
+                            </form>
+
+                            <div>
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive table-hover table-sales">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nome</th>
+                                                                <th>Tipo de Pessoa</th>
+                                                                <th>Permite Transação Financeira</th>
+                                                                <th>Situação</th>
+                                                                <th>Ações</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let pessoa_model_ of pessoaModelList">
+                                                                <td class="text-uppercase"> {{pessoa_model_.nome}} </td>
+                                                                <td class="text-uppercase"> Pessoa Física </td>
+                                                                <td class="text-uppercase"> Sim </td>
+                                                                <td class="text-uppercase"> Ativa </td>
+                                                                <td>
+                                                                    <div>
+                                                                        <a (click)="atualizarPessoa(pessoa_model_.codigo)"
+                                                                            class="btn"> <i class="fas fa-edit"></i>
+                                                                        </a>
+                                                                        <a (click)="removerPessoa(pessoa_model_.codigo)"
+                                                                            class="btn"> <i class="fas fa-trash"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-profile-nobd" role="tabpanel"
+                            aria-labelledby="pills-profile-tab-nobd">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Documento</label>
+                                            <select class="form-control">
+                                                <option>Selecionar</option>
+                                                <option>RG - Registro Geral</option>
+                                                <option>CPF - Cadastro de Pessoa Física</option>
+                                                <option>TE - Titulo de Eleitor</option>
+                                                <option>CNH - Carteira Nacional de Habiltação</option>
+                                                <option>CTPS - Carteira de Trabalho e Previdência Social
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Número</label>
+                                            <input type="text" class="form-control form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Complemento</label>
+                                            <input type="text" class="form-control form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Orgão Expedição</label>
+                                            <select class="form-control">
+                                                <option>Selecionar</option>
+                                                <option>SSP - Secretaria de Segurança Pública</option>
+                                                <option>Outro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Data Emissão</label>
+                                            <input type="text" class="form-control form-control"
+                                                placeholder="DD/MM/AAAA" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Data Validade</label>
+                                            <input type="text" class="form-control form-control"
+                                                placeholder="DD/MM/AAAA" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <button id="displayNotif"
+                                        class="btn btn-primary btn-round btn-border btn-lg col-md-12">Cadastrar
+                                        Documento</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="card-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive table-hover table-sales">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Documento</th>
+                                                                <th>Número</th>
+                                                                <th>Data Validade</th>
+                                                                <th>Data Vencimento</th>
+                                                                <th>Arquivo</th>
+                                                                <th>Ações</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-uppercase">RG - Registro Geral
+                                                                </td>
+                                                                <td class="text-uppercase">24.69.935</td>
+                                                                <td class="text-uppercase">01/05/2002</td>
+                                                                <td class="text-uppercase">01/02/2019</td>
+                                                                <td>
+                                                                    <h4 class="list-group-item-title text-truncate">
+                                                                        <span class="fa fa-file-pdf"></span>
+                                                                        <a href="#">registro-geral.pdf</a>
+                                                                    </h4>
+                                                                </td>
+                                                                <td>
+                                                                    <button><i class="fa fa-download"></i></button>
+                                                                    <button>Alterar</button>
+                                                                    <button>Deletar</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator-dashed"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact-nobd" role="tabpanel"
+                            aria-labelledby="pills-contact-tab-nobd">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Estado</label>
+                                            <select class="form-control">
+                                                <option>Selecionar</option>
+                                                <option>DF - Distrito Federal</option>
+                                                <option>GO - Goiás</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Tipo de Endereço</label>
+                                            <select class="form-control">
+                                                <option>Selecionar</option>
+                                                <option>RD - Residencial</option>
+                                                <option>CM - Comercial</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Logradouro</label>
+                                            <select class="form-control">
+                                                <option>Selecionar</option>
+                                                <option>Quadra</option>
+                                                <option>Outro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <div class="form-group">
+                                            <label for="complemento">Compemento</label>
+                                            <input type="text" class="form-control form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-2">
+                                        <div class="form-group">
+                                            <label for="complemento">Número</label>
+                                            <input type="text" class="form-control form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-5">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Bairro</label>
+                                            <input type="text" class="form-control form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-5">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">CEP</label>
+                                            <input type="text" class="form-control form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-10">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Ponto de Referência</label>
+                                            <input type="text" class="form-control form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2">
+                                        <div class="form-group">
+                                            <label for="data-recebimento disable">Situação</label>
+                                            <select class="form-control">
+                                                <option>Selecionar</option>
+                                                <option>Ativo</option>
+                                                <option>Inativo</option>
+                                                <option>Outro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <button id="displayNotif"
+                                    class="btn btn-primary btn-round btn-border btn-lg col-md-12">Cadastrar
+                                    Endereço</button>
+                            </div>
+                            <div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive table-hover table-sales">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Endereço Completo</th>
+                                                            <th>Tipo</th>
+                                                            <th>Cidade</th>
+                                                            <th>CEP</th>
+                                                            <th>Ações</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-uppercase">Quadra 207 Conjunto A
+                                                                Lote 13</td>
+                                                            <td class="text-uppercase">Residencial</td>
+                                                            <td class="text-uppercase">Santa Maria Sul - DF</td>
+                                                            <td class="text-uppercase">72.507-407</td>
+                                                            <td>
+                                                                <button>Alterar</button>
+                                                                <button>Deletar</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact-nobd_telefone" role="tabpanel"
+                            aria-labelledby="pills-contact-tab-nobd">
+                            <div class="tab-pane fade show active" id="pills-home-nobd_telefone" role="tabpanel"
+                                aria-labelledby="pills-home-tab-nobd">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Tipo do Telefone</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>Pessoal</option>
+                                                    <option>Empresarial</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Número do Telefone</label>
+                                                <input type="text" class="form-control form-control" id="defaultInput"
+                                                    placeholder="(XX) XXXX-XXXX" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Operadora</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>Claro</option>
+                                                    <option>Vivo</option>
+                                                    <option>TIM</option>
+                                                    <option>OI</option>
+                                                    <option>Outra</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Pais</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>Brasil</option>
+                                                    <option>Paraguai</option>
+                                                    <option>Outro</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-2">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">DDD</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>061</option>
+                                                    <option>062</option>
+                                                    <option>Outro</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Estado</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>DF - Distrito Federal</option>
+                                                    <option>MG - Minas Gerais</option>
+                                                    <option>Outro</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-2">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">DDI</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>+55</option>
+                                                    <option>Outro</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <button id="displayNotif"
+                                        class="btn btn-primary btn-round btn-border btn-lg col-md-12">Cadastrar
+                                        Telefone</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact-nobd_email" role="tabpanel"
+                            aria-labelledby="pills-contact-tab-nobd">
+                            <div class="tab-pane fade show active" id="pills-home-nobd_email" role="tabpanel"
+                                aria-labelledby="pills-home-tab-nobd">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Tipo de E-mail</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>Pessoal</option>
+                                                    <option>Empresarial</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="complemento">E-mail</label>
+                                                <input type="text" class="form-control form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">E-mail Principal</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>Sim</option>
+                                                    <option>Não</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <button id="displayNotif"
+                                        class="btn btn-primary btn-round btn-border btn-lg col-md-12">Cadastrar
+                                        E-mail</button>
+                                </div>
+                                <div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive table-hover table-sales">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Tipo</th>
+                                                                <th>Número</th>
+                                                                <th>Principal</th>
+                                                                <th>Ações</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-uppercase">Pessoal</td>
+                                                                <td class="fw-bold">josequintino@hotmail.com.br</td>
+                                                                <td class="text-uppercase">SIM</td>
+                                                                <td>
+                                                                    <button>Alterar</button>
+                                                                    <button>Deletar</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact-nobd_redesocial" role="tabpanel"
+                            aria-labelledby="pills-contact-tab-nobd">
+                            <div class="tab-pane fade show active" id="pills-home-nobd_redesocial" role="tabpanel"
+                                aria-labelledby="pills-home-tab-nobd">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Nome da Rede Social</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>Facebook</option>
+                                                    <option>Instagram</option>
+                                                    <option>Parler</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="data-recebimento disable">Tipo de Rede Social</label>
+                                                <select class="form-control">
+                                                    <option>Selecionar</option>
+                                                    <option>Pessoal</option>
+                                                    <option>Comercial</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-lg-6">
+                                            <div class="form-group">
+                                                <label for="complemento">Link da Rede Social</label>
+                                                <input type="text" class="form-control form-control"
+                                                    placeholder="http://www.redesocial.com" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-action">
+                                    <button id="displayNotif"
+                                        class="btn btn-primary btn-round btn-border btn-lg col-md-12">Cadastrar Rede
+                                        Social</button>
+                                </div>
+                                <div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive table-hover table-sales">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Rede Social</th>
+                                                                <th>Tipo</th>
+                                                                <th>Link</th>
+                                                                <th>Ações</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-uppercase">Facebook</td>
+                                                                <td class="text-uppercase">Pessoal</td>
+                                                                <td class="fw-bold">http://www.facebook.com/josequintinn
+                                                                </td>
+                                                                <td>
+                                                                    <button>Alterar</button>
+                                                                    <button>Deletar</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-action">
+                    <button id="cadastrarReceita" class="btn btn-primary btn-lg col-md-6" style="margin: 10px;">Cadastrar Pessoa</button>
+                    <button type="button" class="btn btn-warning btn-lg col-md-3" style="margin: 10px;">Cadastrar Outra</button>
+                    <button type="button" class="btn btn-danger btn-border btn-lg col-md-2" style="margin: 10px;">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> -->

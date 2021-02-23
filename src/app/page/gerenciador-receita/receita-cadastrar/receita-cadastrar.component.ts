@@ -62,9 +62,9 @@ export class ReceitaCadastrarComponent implements OnInit {
     debugger;
     this.gerenciadorReceitaService.cadastrarReceita(this.receitaModel).subscribe( response => {
       this.isApresentarMensagemSucesso = true;
-      // this.limparCampos();
+      this.limparCampos();
       setTimeout(() => {
-        // this.redirecionarPaginaMonitoramentoReceita();
+        this.redirecionarPaginaMonitoramentoReceita();
       }, 2000);
     }, responseError => {
       console.error( responseError );
