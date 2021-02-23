@@ -60,7 +60,6 @@ export class ContratoAtualizarComponent implements OnInit {
   recuperarPessoaFisicaModelList() {
     this.gerenciadorPessoaService.recuperarPessoaFisicaList().subscribe( response => {
       this.pessoaFisicaList = response;
-      console.log(this.pessoaFisicaList);
     });
   }
 

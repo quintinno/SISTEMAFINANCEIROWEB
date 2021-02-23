@@ -1,130 +1,39 @@
-<!-- <app-header></app-header>
+<app-header></app-header>
 
 <form (ngSubmit)="atualizarReceita()">
     <div class="main-panel">
         <div class="col-md-12" style="margin-top: 90px;">
-            
-            <div *ngIf="isApresentarMensagem == true">
-                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
-                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a (click)="desabilitarAlerta()">×</a></button><span data-notify="icon" class="fa fa-bell"></span> <span data-notify="title">Sistema Financeiro</span> <span data-notify="message">Receita Cadastrada com Sucesso!</span><a href="index.html" target="_blank" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
+
+            <!-- <div *ngIf="isApresentarMensagem == true">
+                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert"
+                    data-notify-position="top-right"
+                    style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+                        style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a
+                            (click)="desabilitarAlerta()">×</a></button><span data-notify="icon"
+                        class="fa fa-bell"></span> <span data-notify="title">Sistema Financeiro</span> <span
+                        data-notify="message">Receita Cadastrada com Sucesso!</span><a href="index.html" target="_blank"
+                        data-notify="url"
+                        style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
                 </div>
-            </div>
-            
+            </div> -->
+
             <div class="card">
+
                 <div class="card-header">
                     <div class="card-title">Atualizar dados da Receita</div>
                 </div>
+
                 <div class="card-body">
-                    <div class="row">
-                        <div [ngClass]="{'col-md-5 col-lg-5': receitaModel.responsavelPagamento == 'Outro', 'col-md-6 col-lg-6': receitaModel.responsavelPagamento != 'Outro'}">
-                            <div class="form-group">
-                                <label for="responsavelPagamento">Responsável pelo Pagamento</label>
-                                <select id="responsavelPagamento" name="responsavelPagamento" [(ngModel)]="receitaModel.responsavelPagamento" class="form-control">
-                                    <option>Selecionar</option>
-                                    <option>Banco Caixa Econômica Federal</option>
-                                    <option>Indra Company Brazil (Contrato de Trabalho - CLT)</option>
-                                    <option>Banco Nubank</option>
-                                    <option>Banco Santander S.A</option>
-                                    <option>Outro</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div *ngIf="receitaModel.responsavelPagamento == 'Outro'" class="col-md-1 col-lg-1">
-                            <div style="margin-top: 36px;">
-                                <button type="button" data-toggle="modal" data-target="#cadastrarResponsavelPagamentoModal" class="btn btn-round btn-primary btn-border fw-bold">+</button>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-lg-3">
-                            <div class="form-group">
-                                <label for="dataPrevisaoRecebimento">Data Previsão Recebimento</label>
-                                <input id="dataPrevisaoRecebimento" type="text" name="dataPrevisaoRecebimento" [(ngModel)]="receitaModel.dataPrevisaoRecebimento" placeholder="DD/MM/AAAA" class="form-control form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-8 col-lg-3">
-                            <div class="form-group">
-                                <label for="dataRecebimentoPagamento">Data Recebimento</label>
-                                <input id="dataRecebimentoPagamento" type="text" name="dataRecebimentoPagamento" [(ngModel)]="receitaModel.dataRecebimentoPagamento" placeholder="DD/MM/AAAA" class="form-control form-control" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <label for="numeroParcela">Número da Parcela</label>
-                                <select class="form-control" id="numeroParcela" name="numeroParcela" [(ngModel)]="receitaModel.numeroParcela">
-                                    <option>Selecionar</option>
-                                    <option>01/05</option>
-                                    <option>02/05</option>
-                                    <option>03/05</option>
-                                    <option>04/05</option>
-                                    <option>05/05</option>
-                                    <option>Outra</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <label for="tipoFormaPagamento">Forma Pagamento</label>
-                                <select id="tipoFormaPagamento" name="tipoFormaPagamento" [(ngModel)]="receitaModel.tipoFormaPagamento" class="form-control">
-                                    <option>Selecionar</option>
-                                    <option>Transferência Bancária</option>
-                                    <option>Outra</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <label for="contaBancariaDeposito">Conta Bancária Depósito</label>
-                                <select id="contaBancariaDeposito" name="contaBancariaDeposito" [(ngModel)]="receitaModel.contaBancariaDeposito" class="form-control">
-                                    <option>Selecionar</option>
-                                    <option>Banco Caixa Econômica Federal (XXXX.YYYYYY-T)</option>
-                                    <option>Banco Nubank (XXXX.YYYYYY-T)</option>
-                                    <option>Banco Santander S.A (XXXX.YYYYYY-T)</option>
-                                    <option>Outra</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <label for="tipoSituacaoPagamento">Situação do Pagamento</label>
-                                <select id="tipoSituacaoPagamento" name="tipoSituacaoPagamento" [(ngModel)]="receitaModel.tipoSituacaoPagamento" class="form-control">
-                                    <option>Selecionar</option>
-                                    <option>Pendente</option>
-                                    <option>Pago</option>
-                                    <option>Vencido</option>
-                                    <option>Aguardando Confirmação do Depósito</option>
-                                    <option>Outra</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <label for="tipoPeriodoFinanceiro">Período Financeiro</label>
-                                <select id="tipoPeriodoFinanceiro" name="tipoPeriodoFinanceiro" [(ngModel)]="receitaModel.tipoPeriodoFinanceiro" class="form-control">
-                                    <option>Selecionar</option>
-                                    <option>Único</option>
-                                    <option>Mensal</option>
-                                    <option>Anual</option>
-                                    <option>Outro</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <label for="valorPagamento">Valor do Pagamento</label>
-                                <input id="valorPagamento" type="text" name="valorPagamento" [(ngModel)]="receitaModel.valorPagamento" placeholder="R$ 00,00" class="form-control form-control" />
-                            </div>
-                        </div>
-                    </div>
                     
                 </div>
-                <div class="card-action">
+
+                <!-- <div class="card-action">
                     <button id="atualizar-Receita" class="btn btn-primary btn-lg col-md-10">Atualizar Receita</button>
                     <button type="button" (click)="redirecionarPaginaMonitoramentoReceita()" class="btn btn-danger btn-border btn-lg col-md-2">Cancelar</button>
-                </div>
+                </div> -->
+
             </div>
         </div>
     </div>
-</form> -->
+</form>

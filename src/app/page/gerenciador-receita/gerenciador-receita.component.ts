@@ -12,7 +12,9 @@ export class GerenciadorReceitaComponent implements OnInit {
     
   receitaModelList : ReceitaModel[];
 
-  constructor( private gerenciadorReceitaService: GerenciadorReceitaService, private router: Router ) { }
+  constructor(
+    private router: Router,
+    private gerenciadorReceitaService: GerenciadorReceitaService) { }
 
   ngOnInit(): void {
     this.gerarGraficosMonitoramentoReceita();
@@ -35,8 +37,20 @@ export class GerenciadorReceitaComponent implements OnInit {
     });
   }
 
+  recuperarReceitasFixas() {
+    this.gerenciadorReceitaService.recuperarReceitaFixaList().subscribe( response => {
+      this.receitaModelList = response;
+    });
+  }
+
+  recuperarReceitasVariaveis() {
+    this.gerenciadorReceitaService.recuperarReceitaVariavelList().subscribe( response => {
+      this.receitaModelList = response;
+    });
+  }
+
   redirecionarPaginaAtualizarReceita(codigo: number) {
-    // this.router.navigate(["atualizarReceita", codigo]);
+    this.router.navigate(["receita-atualizar", codigo]);
   }
 
   public gerarGraficosMonitoramentoReceita() {

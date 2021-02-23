@@ -32,4 +32,12 @@ export class GerenciadorReceitaService {
     return this.httpClient.delete(`${this.URL_BASE_API_RECEITA}/${codigo}`);
   }
 
+  recuperarReceitaFixaList() : Observable<ReceitaModel[]> {
+    return this.httpClient.get<ReceitaModel[]>(`${this.URL_BASE_API_RECEITA}/fixa`);
+  }
+
+  recuperarReceitaVariavelList() : Observable<ReceitaModel[]> {
+    return this.httpClient.get<ReceitaModel[]>(`${this.URL_BASE_API_RECEITA}/variavel`);
+  }
+
 }

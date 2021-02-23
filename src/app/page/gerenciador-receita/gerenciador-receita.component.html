@@ -71,13 +71,18 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Receitas Cadastradas</div>
+                                <div class="card-title fw-bold">Receitas Cadastradas</div>
                                 <div class="card-tools">
-                                    <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab"
-                                        role="tablist">
-                                        <li class="nav-item"> <a class="nav-link active" id="pills-week"
-                                                data-toggle="pill" href="#pills-week" role="tab"
-                                                aria-selected="false">Mês Atual</a> </li>
+                                    <ul class="nav nav-pills nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a id="filtrarTodos" (click)="recuperarReceita()" class="nav-link btn-primary active" style="cursor: pointer;">Todos</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="filtrarReceitasFixas" (click)="recuperarReceitasFixas()" class="nav-link btn-secondary active" style="cursor: pointer;">Receitas Fixas</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a id="filtrarReceitasVariaveis" (click)="recuperarReceitasVariaveis()" class="nav-link btn-warning active" style="cursor: pointer;">Receitas Variáveis</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -90,44 +95,31 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Empresa</th>
-                                                        <th>Categoria</th>
+                                                        <th class="text-center">Origem Recurso</th>
                                                         <th>Conta Depósito</th>
-                                                        <th>Parcela</th>
                                                         <th>Valor</th>
                                                         <th>Situação</th>
+                                                        <th>Ações</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- <tr>
-                                                        <td style="width: 350px;">
-                                                            <a href="/pages/page-gerenciador-receita-table.html">
-                                                                <div class="d-flex">
-                                                                    <div class="avatar"> <span
-                                                                            class="avatar-title border border-white bg-info">CEF</span>
-                                                                    </div>
-                                                                    <div class="flex-1 ml-3 pt-3">
-                                                                        <h6 class="text-uppercase fw-bold mb-1">Banco
-                                                                            Caixa Econômica Federal</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </td>
-                                                        <td class="text-center">Fixa</td>
-                                                        <td class="text-uppercase">Banco Santander (XXXX.XXXX-1)</td>
-                                                        <td>01/05</td>
-                                                        <td class="fw-bold">R$ 2.000,00</td>
-                                                        <td><span
-                                                                class="text-warning text-uppercase fw-bold pl-3">Pendente</span>
-                                                        </td>
-                                                    </tr> -->
                                                     <tr *ngFor="let receitaModel_ of receitaModelList">
-                                                        <a routerLink="/receita-listar" class="btn btn-link"><td>{{receitaModel_.responsavelPagamento}}</td></a>
-                                                            <td>{{receitaModel_.dataVenciemento}}</td>
-                                                            <td>{{receitaModel_.contaBancariaDeposito}}</td>
-                                                            <td>{{receitaModel_.numeroParcela}}</td>
-                                                            <td>{{receitaModel_.valorPagamento | currency : "BRL": true }}</td>
-                                                            <td class="text-rigth"><span [ngClass]="{'text-success pl-3': receitaModel_.situacaoPagamento == 'Pago', 'text-warning pl-3': receitaModel_.situacaoPagamento == 'Pendente', 'text-danger pl-3': receitaModel_.situacaoPagamento == 'Vencido'}">{{receitaModel_.situacaoPagamento}}</span></td>
+                                                        <div class="avatar avatar-online"></div>
+                                                        <a (click)="redirecionarPaginaAtualizarReceita(receitaModel_.codigo)" class="btn btn-link fw-bold">
+                                                            <td>{{receitaModel_.responsavelPagamento.nome}}</td>
+                                                        </a>
+                                                        <td>{{receitaModel_.contaBancariaDeposito.contrato.pessoaContratante.nome}}</td>
+                                                        <td class="fw-bold">{{receitaModel_.valorPagamento | currency : "BRL": true }}</td>
+                                                        <td class="text-rigth fw-bold">
+                                                            <span [ngClass]="{
+                                                                    'text-success pl-3': receitaModel_.tipoSituacaoPagamento == 'Pago', 
+                                                                    'text-warning pl-3': receitaModel_.tipoSituacaoPagamento == 'Pendente', 
+                                                                    'text-danger pl-3': receitaModel_.tipoSituacaoPagamento == 'Vencido'}">{{receitaModel_.tipoSituacaoPagamento}}
+                                                            </span>
+                                                        </td>
+                                                        <a class="btn btn-link fw-bold">
+                                                            <td>[Gerenciar]</td>
+                                                        </a>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -44,7 +44,6 @@ export class ContaBancariaCadastrarComponent implements OnInit {
   }
 
   cadastrarContaBancaria() {
-    console.log(this.contaBancariaModel);
     this.gerenciadorContaBancariaService.cadastrar(this.contaBancariaModel).subscribe( response => {
       this.limparCampos();
       this.isApresentarMensagemCadastroSucesso = true;

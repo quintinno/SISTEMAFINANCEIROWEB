@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: "receita-cadastrar", component: ReceitaCadastrarComponent },
   { path: "receita-listar", component: ReceitaListarComponent },
   { path: "receita-monitoramento", component: GerenciadorReceitaComponent },
-  { path: "receita-atualizar/:id", component: ReceitaAtualizarComponent },
+  { path: "receita-atualizar/:codigo", component: ReceitaAtualizarComponent },
   { path: "pessoa-monitoramento", component: GerenciadorPessoaComponent },
   { path: "pessoa-cadastrar", component: PessoaCadastrarComponent },
   { path: "gerenciador-configuracao", component: GerenciadorConfiguracaoComponent },

@@ -17,7 +17,7 @@ export class ReceitaAtualizarComponent implements OnInit {
   constructor( private gerenciadorReceitaService : GerenciadorReceitaService, private router: Router, private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
-    this.recuperarReceitaPorId();
+    this.recuperarReceitaPorCodigo();
   }
 
   atualizarReceita() {
@@ -26,14 +26,14 @@ export class ReceitaAtualizarComponent implements OnInit {
     });
   }
 
-  recuperarReceitaPorId() {
-    let id = this.recuperarReceitaId();
+  recuperarReceitaPorCodigo() {
+    let id = this.recuperarReceitaCodigo();
     this.gerenciadorReceitaService.recuperarReceitaPorId(id).subscribe( response => {
       this.receitaModel = response;
     });
   }
 
-  private recuperarReceitaId() {
+  private recuperarReceitaCodigo() {
     return this.activatedRoute.snapshot.params["codigo"];
   }
 
