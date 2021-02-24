@@ -105,20 +105,22 @@
                                                 <tbody>
                                                     <tr *ngFor="let receitaModel_ of receitaModelList">
                                                         <div class="avatar avatar-online"></div>
-                                                        <a (click)="redirecionarPaginaAtualizarReceita(receitaModel_.codigo)" class="btn btn-link fw-bold">
+                                                        <a (click)="redirecionarPaginaDetalharReceita(receitaModel_.codigo)" class="btn btn-link fw-bold">
                                                             <td>{{receitaModel_.responsavelPagamento.nome}}</td>
                                                         </a>
                                                         <td>{{receitaModel_.contaBancariaDeposito.contrato.pessoaContratante.nome}}</td>
                                                         <td class="fw-bold">{{receitaModel_.valorPagamento | currency : "BRL": true }}</td>
                                                         <td class="text-rigth fw-bold">
                                                             <span [ngClass]="{
-                                                                    'text-success pl-3': receitaModel_.tipoSituacaoPagamento == 'Pago', 
-                                                                    'text-warning pl-3': receitaModel_.tipoSituacaoPagamento == 'Pendente', 
-                                                                    'text-danger pl-3': receitaModel_.tipoSituacaoPagamento == 'Vencido'}">{{receitaModel_.tipoSituacaoPagamento}}
+                                                                    'badge text-success pl-3': receitaModel_.tipoSituacaoPagamento == 'Pago', 
+                                                                    'badge text-warning pl-3': receitaModel_.tipoSituacaoPagamento == 'Pendente', 
+                                                                    'badge text-danger pl-3': receitaModel_.tipoSituacaoPagamento == 'Vencido'}">{{receitaModel_.tipoSituacaoPagamento}}
                                                             </span>
                                                         </td>
-                                                        <a class="btn btn-link fw-bold">
-                                                            <td>[Gerenciar]</td>
+                                                        <a (click)="redirecionarPaginaDetalharReceita(receitaModel_.codigo)" class="btn btn-link fw-bold">
+                                                            <td>
+                                                                <i class="fas fa-th"></i>
+                                                            </td>
                                                         </a>
                                                     </tr>
                                                 </tbody>

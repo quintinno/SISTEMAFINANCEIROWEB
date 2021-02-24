@@ -16,7 +16,7 @@ export class GerenciadorReceitaService {
     return this.httpClient.get<ReceitaModel[]>(`${this.URL_BASE_API_RECEITA}`);
   }
 
-  recuperarReceitaPorId(codigo: number) : Observable<ReceitaModel> {
+  recuperarReceitaPorCodigo(codigo: number) : Observable<ReceitaModel> {
     return this.httpClient.get<ReceitaModel>(`${this.URL_BASE_API_RECEITA}/${codigo}`);
   }
 

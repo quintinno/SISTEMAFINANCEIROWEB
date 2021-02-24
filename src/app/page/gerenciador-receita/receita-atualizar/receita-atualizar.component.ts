@@ -28,7 +28,7 @@ export class ReceitaAtualizarComponent implements OnInit {
 
   recuperarReceitaPorCodigo() {
     let id = this.recuperarReceitaCodigo();
-    this.gerenciadorReceitaService.recuperarReceitaPorId(id).subscribe( response => {
+    this.gerenciadorReceitaService.recuperarReceitaPorCodigo(id).subscribe( response => {
       this.receitaModel = response;
     });
   }

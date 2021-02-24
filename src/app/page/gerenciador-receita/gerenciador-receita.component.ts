@@ -53,6 +53,10 @@ export class GerenciadorReceitaComponent implements OnInit {
     this.router.navigate(["receita-atualizar", codigo]);
   }
 
+  redirecionarPaginaDetalharReceita(codigo: number) {
+    this.router.navigate(["receita-detalhar", codigo]);
+  }
+
   public gerarGraficosMonitoramentoReceita() {
   //   Circles.create({
   //     id: 'circles-1',
