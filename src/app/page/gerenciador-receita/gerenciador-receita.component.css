@@ -1,0 +1,20 @@
+.icone{
+    /* width: 200px; */
+    /* min-height: 150px; */
+    /* margin: 5px; */
+    /* padding: 10px; */
+    text-align: center;
+    /* border-radius: 6px; */
+    /* border: 2px solid transparent; */
+}
+
+.icone:hover {
+    /* width: 200px; */
+    /* min-height: 150px; */
+    /* margin: 5px; */
+    /* padding: 10px; */
+    /* text-align: center; */
+    /* border-radius: 6px; */
+    /* border: 2px solid transparent; */
+    color: #003882;
+}

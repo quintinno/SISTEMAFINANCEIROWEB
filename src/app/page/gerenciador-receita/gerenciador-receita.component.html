@@ -6,131 +6,164 @@
             <div class="page-inner py-5">
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
-                        <h2 class="text-white pb-2 fw-bold">Monitoramento de Receitas</h2>
+                        <h1 class="text-white pb-2 fw-bold">Monitoramento de Receitas</h1>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a routerLink="/receita-cadastrar"
-                            class="btn btn-info btn-border btn-round"> <span class="btn-label"> <i
-                                    class="fa fa-plus"></i></span> Cadastrar Receita</a>
+                        <a routerLink="/receita-cadastrar" class="btn btn-info btn-border btn-round"> <span class="btn-label"> <i class="fa fa-plus"></i></span>Cadastrar Receita</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="page-inner mt--5">
             <div class="row mt--2">
-                <div class="col-md-6">
+
+                <div class="col-md-12">
                     <div class="card full-height">
                         <div class="card-body">
-                            <div class="card-title">Percentual Anual de Receitas</div>
-                            <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-                                <div class="px-2 pb-2 pb-md-0 text-center">
-                                    <div id="circles-2"></div>
-                                    <h6 class="fw-bold mt-3 mb-0">Receitas Pendentes</h6>
+                            <div class="card-title"></div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h2><b>Percentual Anual de Receitas</b></h2>
+                                    <p class="text-muted"></p>
                                 </div>
-                                <div class="px-2 pb-2 pb-md-0 text-center">
-                                    <div id="circles-3"></div>
-                                    <h6 class="fw-bold mt-3 mb-0">Receitas Fixas</h6>
-                                </div>
-                                <div class="px-2 pb-2 pb-md-0 text-center">
-                                    <div id="circles-1"></div>
-                                    <h6 class="fw-bold mt-3 mb-0">Receitas Variáveis</h6>
-                                </div>
+                                <h4 class="fw-bold"></h4>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card full-height">
-                        <div class="card-body">
-                            <div class="card-title">Histórico Anual de Receitas</div>
-                            <div class="row py-3">
-                                <div class="col-md-4 d-flex flex-column justify-content-around">
-                                    <div>
-                                        <h6 class="fw-bold text-uppercase text-success op-8">Receita Acumulada
-                                        </h6>
-                                        <h3 class="fw-bold">R$ 1.500.00</h3>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold text-uppercase text-danger op-8">Receita Pendente
-                                        </h6>
-                                        <h3 class="fw-bold">R$ 5.5478,00</h3>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <h5><b>Receitas Recebidas</b></h5>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                            <div class="progress progress-xl">
+                                                <div role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 48%" class="progress-bar progress-bar-striped progress-bar-animated bg-success"></div>
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <p class="text-muted mb-0"></p>
+                                                <p class="text-muted mb-0">48%</p>
+                                            </div>
+                                            <br />
+                                            <div class="text-center">
+                                                <h2 class="text-primary fw-bold">R$ 13.060,00</h2>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <div id="chart-container">
-                                        <canvas id="totalIncomeChart"></canvas>
+                                
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <h5><b>Receitas a Receber</b></h5>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                            <div class="progress progress-xl">
+                                                <div role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 18%" class="progress-bar progress-bar-striped progress-bar-animated bg-danger"></div>
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <p class="text-muted mb-0"></p>
+                                                <p class="text-muted mb-0">8%</p>
+                                            </div>
+                                            <br />
+                                            <div class="text-center">
+                                                <h2 class="text-danger fw-bold">R$ 53.060,00</h2>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-head-row">
-                                <div class="card-title fw-bold">Receitas Cadastradas</div>
-                                <div class="card-tools">
-                                    <ul class="nav nav-pills nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a id="filtrarTodos" (click)="recuperarReceita()" class="nav-link btn-primary active" style="cursor: pointer;">Todos</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a id="filtrarReceitasFixas" (click)="recuperarReceitasFixas()" class="nav-link btn-secondary active" style="cursor: pointer;">Receitas Fixas</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a id="filtrarReceitasVariaveis" (click)="recuperarReceitasVariaveis()" class="nav-link btn-warning active" style="cursor: pointer;">Receitas Variáveis</a>
-                                        </li>
-                                    </ul>
-                                </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row">
+                            <div class="card-title fw-bold">Receitas Cadastradas</div>
+                            <div class="card-tools">
+                                <ul class="nav nav-pills nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a id="filtrarTodos" (click)="recuperarReceita()"
+                                           class="nav-link btn-primary active" style="cursor: pointer;">Todos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="filtrarReceitasFixas" (click)="recuperarReceitasFixas()"
+                                           class="nav-link btn-secondary active" style="cursor: pointer;">Receitas
+                                            Fixas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="filtrarReceitasVariaveis" (click)="recuperarReceitasVariaveis()"
+                                           class="nav-link btn-warning active" style="cursor: pointer;">Receitas
+                                            Variáveis</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
+                    </div>
+                    <div class="card-body">
                         <div class="card-body">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="table-responsive table-hover table-sales">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center">Origem Recurso</th>
-                                                        <th>Conta Depósito</th>
-                                                        <th>Valor</th>
-                                                        <th>Situação</th>
-                                                        <th>Ações</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let receitaModel_ of receitaModelList">
-                                                        <div class="avatar avatar-online"></div>
-                                                        <a (click)="redirecionarPaginaDetalharReceita(receitaModel_.codigo)" class="btn btn-link fw-bold">
-                                                            <td>{{receitaModel_.responsavelPagamento.nome}}</td>
-                                                        </a>
-                                                        <td>{{receitaModel_.contaBancariaDeposito.contrato.pessoaContratante.nome}}</td>
-                                                        <td class="fw-bold">{{receitaModel_.valorPagamento | currency : "BRL": true }}</td>
-                                                        <td class="text-rigth fw-bold">
-                                                            <span [ngClass]="{
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive table-hover table-sales">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Origem Recurso</th>
+                                                    <th>Categoria</th>
+                                                    <th>Depósito</th>
+                                                    <th>Valor</th>
+                                                    <th>Situação</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let receitaModel_ of receitaModelList">
+                                                    <a (click)="redirecionarPaginaDetalharReceita(receitaModel_.codigo)"
+                                                       class="btn btn-link fw-bold">
+                                                        <td>{{receitaModel_.responsavelPagamento.nome}}</td>
+                                                    </a>
+                                                    <td> {{receitaModel_.categoriaReceita.descricao}} </td>
+                                                    <!-- <td>{{receitaModel_.contaBancariaDeposito.contrato.pessoaContratante.nome}}</td> -->
+                                                    <td>
+                                                        <div class="col icone">
+                                                            <span class="ibb-caixa fa-2x"></span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="fw-bold">{{receitaModel_.valorPagamento | currency :
+                                                        "BRL": true }}</td>
+                                                    <td class="text-rigth fw-bold">
+                                                        <span
+                                                              [ngClass]="{
                                                                     'badge text-success pl-3': receitaModel_.tipoSituacaoPagamento == 'Pago', 
                                                                     'badge text-warning pl-3': receitaModel_.tipoSituacaoPagamento == 'Pendente', 
                                                                     'badge text-danger pl-3': receitaModel_.tipoSituacaoPagamento == 'Vencido'}">{{receitaModel_.tipoSituacaoPagamento}}
-                                                            </span>
+                                                        </span>
+                                                    </td>
+                                                    <a (click)="redirecionarPaginaDetalharReceita(receitaModel_.codigo)"
+                                                       class="btn btn-link fw-bold">
+                                                        <td>
+                                                            <i class="fas fa-th"></i>
                                                         </td>
-                                                        <a (click)="redirecionarPaginaDetalharReceita(receitaModel_.codigo)" class="btn btn-link fw-bold">
-                                                            <td>
-                                                                <i class="fas fa-th"></i>
-                                                            </td>
-                                                        </a>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    </a>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <div class="separator-dashed"></div>
                         </div>
+                        <div class="separator-dashed"></div>
                     </div>
                 </div>
             </div>

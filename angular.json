@@ -31,7 +31,10 @@
               "src/assets/css/bootstrap.min.css",
               "src/assets/css/atlantis.css",
               "src/assets/css/demo.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/js/plugin/icones-bancos-brasileiros-master/assets/css/style.css",
+              "src/assets/js/plugin/icones-bancos-brasileiros-master/assets/css/styles.min.css",
+              "src/assets/js/plugin/icones-bancos-brasileiros-master/dist/icones-bancos-brasileiros.css"
             ],
             "scripts": [
               "src/assets/js/core/jquery.3.2.1.min.js",
