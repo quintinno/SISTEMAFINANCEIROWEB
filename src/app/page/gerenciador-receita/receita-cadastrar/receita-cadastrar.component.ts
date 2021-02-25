@@ -108,7 +108,32 @@ export class ReceitaCadastrarComponent implements OnInit {
   recuperarContaBancariaList() {
     this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe( response => {
       this.contaBancariaList = response;
+      this.configurarNomeContaBancaria(this.contaBancariaList);
     });
+  }
+
+  /*
+    Formato: <INSTITUICAO_FINANCEIRA> (<TIPO_CONTA[CCR, CPP, CSL]><AGENCIA><CONTA>)
+    Exemplo: Banco Santander (CCR34410101244)
+  */
+  private configurarNomeContaBancaria(contaBancariaList: ContaBancariaModel[]) {
+    let nomeContaBancariaConfigurada;
+    let tipoConta;
+    for( let index = 0 ; index < contaBancariaList.length ; index++ ) {
+      if(contaBancariaList[index].tipoContaBancaria.descricao == "Conta Corrente") {
+        tipoConta = "CCR";
+      }
+      if(contaBancariaList[index].tipoContaBancaria.descricao == "Conta Poupança") {
+        tipoConta = "CPP";
+      }
+      if(contaBancariaList[index].tipoContaBancaria.descricao == "Conta Poupança") {
+        tipoConta = "CSL";
+      }
+      nomeContaBancariaConfigurada = contaBancariaList[index].contrato.pessoaContratante.nome
+        .concat(" (", tipoConta, contaBancariaList[index].numeroAgencia)
+        .concat(contaBancariaList[index].numeroConta, ")");
+        contaBancariaList[index].contrato.pessoaContratante.nome = nomeContaBancariaConfigurada;
+      }
   }
 
   recuperarTipoSituacaoPagamentoList() {
