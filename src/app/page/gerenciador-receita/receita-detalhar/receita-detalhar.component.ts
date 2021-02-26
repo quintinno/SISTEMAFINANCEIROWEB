@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PessoaModel } from 'src/app/model/pessoa-model';
-import { TipoReceitaModel } from 'src/app/model/tipo-receita-model';
-import { GerenciadorPessoaService } from 'src/app/service/gerenciador-pessoa.service';
-import { ReceitaModel } from '../../../model/receita-model';
-import { GerenciadorReceitaService } from '../../../service/gerenciador-receita.service';
-import { GerenciadorTipoReceitaService } from '../../../service/gerenciador-tipo-receita.service';
-import { GerenciadorCategoriaReceitaService } from '../../../service/gerenciador-categoria-receita.service';
-import { GerenciadorTipoFormaPagamentoService } from '../../../service/gerenciador-tipo-forma-pagamento.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaReceitaModel } from 'src/app/model/categoria-receita-model';
-import { TipoFormaPagamentoModel } from 'src/app/model/tipo-forma-pagamento-model';
-import { GerenciadorContaBancariaService } from 'src/app/service/gerenciador-conta-bancaria.service';
-import { GerenciadorTipoSituacaoPagamentoService } from 'src/app/service/gerenciador-tipo-situacao-pagamento.service';
 import { ContaBancariaModel } from 'src/app/model/conta-bancaria-model';
-import { TipoSituacaoPagamentoModel } from 'src/app/model/tipo-situacao-pagamento-model';
-import { GerenciadorTipoPeriodoFinanceiroService } from 'src/app/service/gerenciador-tipo-periodo-financeiro.service';
-import { TipoPeriodoFinanceiroModel } from 'src/app/model/tipo-periodo-financeiro-model';
-import { GerenciadorParcelamentoService } from 'src/app/service/gerenciador-parcelamento.service';
 import { ParcelamentoModel } from 'src/app/model/parcelamento-model';
+import { PessoaModel } from 'src/app/model/pessoa-model';
+import { TipoFormaPagamentoModel } from 'src/app/model/tipo-forma-pagamento-model';
+import { TipoPeriodoFinanceiroModel } from 'src/app/model/tipo-periodo-financeiro-model';
+import { TipoReceitaModel } from 'src/app/model/tipo-receita-model';
+import { TipoSituacaoPagamentoModel } from 'src/app/model/tipo-situacao-pagamento-model';
+import { GerenciadorContaBancariaService } from 'src/app/service/gerenciador-conta-bancaria.service';
+import { GerenciadorParcelamentoService } from 'src/app/service/gerenciador-parcelamento.service';
+import { GerenciadorPessoaService } from 'src/app/service/gerenciador-pessoa.service';
+import { GerenciadorTipoPeriodoFinanceiroService } from 'src/app/service/gerenciador-tipo-periodo-financeiro.service';
+import { GerenciadorTipoSituacaoPagamentoService } from 'src/app/service/gerenciador-tipo-situacao-pagamento.service';
+import { ReceitaModel } from '../../../model/receita-model';
+import { GerenciadorCategoriaReceitaService } from '../../../service/gerenciador-categoria-receita.service';
+import { GerenciadorReceitaService } from '../../../service/gerenciador-receita.service';
+import { GerenciadorTipoFormaPagamentoService } from '../../../service/gerenciador-tipo-forma-pagamento.service';
+import { GerenciadorTipoReceitaService } from '../../../service/gerenciador-tipo-receita.service';
 
 @Component({
   selector: 'app-receita-detalhar',
@@ -41,6 +41,7 @@ export class ReceitaDetalharComponent implements OnInit {
   isApresentarMensagemSucesso: boolean = false;
   isApresentarMensagemErro: boolean = false;
   isApresentarMensagemSucessoRemocaoReceita: boolean = false;
+  isApresentarMensagemSucessoPagamentoParcelaRegistradaSucesso: boolean = false;
   isEsconderConteudo: boolean = false;
 
   constructor(
@@ -103,7 +104,7 @@ export class ReceitaDetalharComponent implements OnInit {
   registrarPagamentoParcela(parcelamentoModel: ParcelamentoModel) {
     debugger;
     this.gerenciadorParcelamentoService.registrarPagamentoParcela(this.parcelamentoModel).subscribe( response => {
-      this.isApresentarMensagemSucesso = true;
+      this.isApresentarMensagemSucessoPagamentoParcelaRegistradaSucesso = true;
     }, responseError => {
       console.error(responseError);
     });
@@ -161,8 +162,12 @@ export class ReceitaDetalharComponent implements OnInit {
 
   recuperarParcelamentoList() {
     this.gerenciadorParcelamentoService.recuperarParcelamentoList().subscribe( response => {
-      this.parcelamentoList = response;
+      this.parcelamentoList = this.ordenarPacelamentoListPorNumeroParcelas(response);
     });
+  }
+
+  private ordenarPacelamentoListPorNumeroParcelas(parcelamentoList: ParcelamentoModel[]) {
+    return parcelamentoList.sort((parcelamentoX, parcelamentoY) => parcelamentoX.numeroParcela - parcelamentoY.numeroParcela);
   }
 
   redirecionarPaginaMonitoramentoReceita() {
@@ -171,6 +176,10 @@ export class ReceitaDetalharComponent implements OnInit {
 
   redirecionarPaginaAtualizarReceita(codigo: number) {
     this.router.navigate(["receita-atualizar", codigo]);
+  }
+
+  desabilitarAlerta() {
+    this.isApresentarMensagemSucessoPagamentoParcelaRegistradaSucesso = false;
   }
   
   limparCampos() {

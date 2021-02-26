@@ -3,16 +3,22 @@
 <div class="main-panel">
 	<div class="col-md-12" style="margin-top: 100px;">
 
-		<div *ngIf="isApresentarMensagemSucessoRemocaoReceita == true" style="margin-top: 150px;">
-			<div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert"
-				data-notify-position="top-right"
-				style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
-				<button type="button" aria-hidden="true" class="close" data-notify="dismiss"
-					style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a
-						(click)="desabilitarAlerta()">×</a></button><span data-notify="icon" class="fa fa-bell"></span>
-				<span data-notify="title">Sistema Financeiro</span> <span data-notify="message">Receita Removida com
-					Sucesso!</span><a href="index.html" target="_blank" data-notify="url"
-					style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
+		<div *ngIf="isApresentarMensagemSucessoPagamentoParcelaRegistradaSucesso == true" style="margin-top: 150px;">
+			<div data-notify="container" 
+				 class="col-10 col-xs-11 col-sm-4 alert alert-success" 
+				 role="alert"
+				 data-notify-position="top-right"
+				 style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+				<button type="button" 
+						aria-hidden="true" 
+						class="close" 
+						data-notify="dismiss"
+						style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+						<a (click)="desabilitarAlerta()">×</a></button>
+						<span data-notify="icon" class="fa fa-bell"></span>
+						<span data-notify="title">Sistema Financeiro</span> 
+						<span data-notify="message">Pagamento de Parcelamento Registrado com Sucesso!</span>
+						<a href="index.html" target="_blank" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
 			</div>
 		</div>
 
@@ -175,6 +181,7 @@
 																						{{parcelamento_.situacaoPagamento}} </td>
 																					<td class="text-center">
 																						<button type="button" *ngIf=" parcelamento_.situacaoPagamento != 'Pago' " data-toggle="modal" data-target="#registrarPagamentoParcelamentoModal" (click)="recuperarParcelamentoSelecionado(parcelamento_)" class="btn btn-warning btn-border" style="margin: 4px;"> Registrar Pagamento </button>
+																						<button type="button" disabled *ngIf=" parcelamento_.situacaoPagamento == 'Pago' " data-toggle="modal" data-target="#registrarPagamentoParcelamentoModal" (click)="recuperarParcelamentoSelecionado(parcelamento_)" class="btn btn-success" style="margin: 4px;"> Parcela Paga </button>
 																					</td>
 																				</tr>
 																			</tbody>
