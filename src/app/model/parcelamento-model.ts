@@ -1,7 +1,11 @@
 export class ParcelamentoModel {
 	codigo: number;
 	numeroParcela: number;
-	valorParcela: number;
+	valorPrevistoParcela: number;
+	valorEfetivoParcela: number;
 	valorTotalParcelamento: number;
-	isPago: boolean;
+	dataVencimentoParcela: Date;
+	dataPagamentoParcela: Date;
+	situacaoPagamento: string;
+	receita: any;
 }

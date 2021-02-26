@@ -27,6 +27,7 @@ import { ParcelamentoModel } from 'src/app/model/parcelamento-model';
 export class ReceitaDetalharComponent implements OnInit {
 
   receitaModel: ReceitaModel = new ReceitaModel();
+  parcelamentoModel: ParcelamentoModel = new ParcelamentoModel();
 
   categoriaReceitaModel: CategoriaReceitaModel[];
   tipoReceitaModelList: TipoReceitaModel[];
@@ -97,6 +98,19 @@ export class ReceitaDetalharComponent implements OnInit {
     this.gerenciadorReceitaService.recuperarReceitaPorCodigo(codigo).subscribe( response => {
       this.receitaModel = response;
     });
+  }
+
+  registrarPagamentoParcela(parcelamentoModel: ParcelamentoModel) {
+    debugger;
+    this.gerenciadorParcelamentoService.registrarPagamentoParcela(this.parcelamentoModel).subscribe( response => {
+      this.isApresentarMensagemSucesso = true;
+    }, responseError => {
+      console.error(responseError);
+    });
+  }
+
+  recuperarParcelamentoSelecionado( parcelamentoModel: ParcelamentoModel ) {
+    this.parcelamentoModel = parcelamentoModel;
   }
 
   private recuperarCodigoReceita() {

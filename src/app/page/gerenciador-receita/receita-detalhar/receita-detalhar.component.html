@@ -4,11 +4,15 @@
 	<div class="col-md-12" style="margin-top: 100px;">
 
 		<div *ngIf="isApresentarMensagemSucessoRemocaoReceita == true" style="margin-top: 150px;">
-			<div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert" data-notify-position="top-right"
-				 style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
-				<button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a (click)="desabilitarAlerta()">×</a></button><span data-notify="icon" class="fa fa-bell"></span>
+			<div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert"
+				data-notify-position="top-right"
+				style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+				<button type="button" aria-hidden="true" class="close" data-notify="dismiss"
+					style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a
+						(click)="desabilitarAlerta()">×</a></button><span data-notify="icon" class="fa fa-bell"></span>
 				<span data-notify="title">Sistema Financeiro</span> <span data-notify="message">Receita Removida com
-					Sucesso!</span><a href="index.html" target="_blank" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
+					Sucesso!</span><a href="index.html" target="_blank" data-notify="url"
+					style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
 			</div>
 		</div>
 
@@ -138,6 +142,9 @@
 																				<tr>
 																					<td><strong>Número da
 																							Parcela</strong></td>
+																					<td class="text-left">
+																						<strong>Vencimento</strong>
+																					</td>
 																					<td class="text-center">
 																						<strong>Valor da
 																							Parcela</strong>
@@ -158,19 +165,17 @@
 																						style="width: 170px;">
 																						{{parcelamento_.numeroParcela}}
 																					</td>
+																					<td class="text-cemter">
+																						{{parcelamento_.dataVencimentoParcela}}
+																					</td>
 																					<td class="text-center">
-																						{{parcelamento_.valorParcela |
+																						{{parcelamento_.valorPrevistoParcela |
 																						currency : "BRL": true}} </td>
 																					<td class="text-center">
-																						{{parcelamento_.isPago == false
-																						? 'Aguardando Pagamento' :
-																						'Pago'}} </td>
-																					<td class="text-center"> <a
-																							[ngClass]="{'disabled': parcelamento_.isPago == true}"
-																							href=""
-																							class="btn btn-warning btn-border fw-bold"
-																							style="text-decoration: none;">Gegistrar
-																							Pagamento</a> </td>
+																						{{parcelamento_.situacaoPagamento}} </td>
+																					<td class="text-center">
+																						<button type="button" *ngIf=" parcelamento_.situacaoPagamento != 'Pago' " data-toggle="modal" data-target="#registrarPagamentoParcelamentoModal" (click)="recuperarParcelamentoSelecionado(parcelamento_)" class="btn btn-warning btn-border" style="margin: 4px;"> Registrar Pagamento </button>
+																					</td>
 																				</tr>
 																			</tbody>
 																		</table>
@@ -193,7 +198,7 @@
 	</div>
 </div>
 
-<div id="verificarOpcaoUsuarioModal" class="modal animated fadeIn" tabindex="-1" role="dialog" focus>
+<!-- <div id="verificarOpcaoUsuarioModal" class="modal animated fadeIn" tabindex="-1" role="dialog" focus>
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -206,8 +211,51 @@
 				Deseja realmente excluir essa Receita?
 			</div>
 			<div class="modal-footer">
-				<button type="button" (click)="removerReceita(receitaModel.codigo)" data-dismiss="modal" class="btn btn-primary">Sim</button>
+				<button type="button" (click)="removerReceita(receitaModel.codigo)" data-dismiss="modal"
+					class="btn btn-primary">Sim</button>
 				<button type="button" data-dismiss="modal" class="btn btn-danger btn-border">Não</button>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div id="registrarPagamentoParcelamentoModal" class="modal animated fadeIn" tabindex="-1" role="dialog" focus>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Registrar o Pagamento da Parcela</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4 col-lg-6">
+						<div class="form-group">
+							<label for="dataRecebimentoPagamento">Data do Pagamento</label>
+							<input id="dataRecebimentoPagamento" type="text" name="dataRecebimentoPagamento" [(ngModel)]="parcelamentoModel.dataPagamentoParcela" placeholder="DD/MM/AAAA" class="form-control form-control" />
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-6">
+						<div class="form-group">
+							<label for="valorPagamento">Valor da Parcela</label>
+							<input id="valorPagamento" type="text" name="valorPagamento" [(ngModel)]="parcelamentoModel.valorEfetivoParcela" placeholder="R$ {{receitaModel.valorPagamento}}" class="form-control" />
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-12">
+						<div class="form-group">
+							<label for="tipoSituacaoPagamento">Situação do Pagamento</label>
+							<select id="tipoSituacaoPagamento" name="tipoSituacaoPagamento" [(ngModel)]="parcelamentoModel.situacaoPagamento" class="form-control">
+								<option [disabled]="true">Selecione</option>
+								<option *ngFor="let tipo_situacao_pagamento_ of tipoSituacaoPagamentoList" [ngValue]="tipo_situacao_pagamento_"> {{tipo_situacao_pagamento_}} </option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" (click)="registrarPagamentoParcela(parcelamentoModel)" data-dismiss="modal" class="btn btn-primary col-md-10">Registrar Pagamento</button>
+				<button type="button" data-dismiss="modal" class="btn btn-secondary btn-border col-md-2">Cancelar</button>
 			</div>
 		</div>
 	</div>
