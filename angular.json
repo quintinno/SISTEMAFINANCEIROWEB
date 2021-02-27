@@ -148,5 +148,8 @@
       }
     }
   },
-  "defaultProject": "SISTEMAFINANCEIROWEB"
+  "defaultProject": "SISTEMAFINANCEIROWEB",
+  "cli": {
+    "analytics": "1d2814bc-21ae-4b8e-8089-cf8b8daee47d"
+  }
 }

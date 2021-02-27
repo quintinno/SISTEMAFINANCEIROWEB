@@ -105,6 +105,7 @@ export class ReceitaDetalharComponent implements OnInit {
     debugger;
     this.gerenciadorParcelamentoService.registrarPagamentoParcela(this.parcelamentoModel).subscribe( response => {
       this.isApresentarMensagemSucessoPagamentoParcelaRegistradaSucesso = true;
+      this.recuperarParcelamentoList();
     }, responseError => {
       console.error(responseError);
     });

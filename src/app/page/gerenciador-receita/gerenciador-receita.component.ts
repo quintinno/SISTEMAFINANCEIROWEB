@@ -12,6 +12,9 @@ export class GerenciadorReceitaComponent implements OnInit {
     
   receitaModelList : ReceitaModel[];
 
+  totalizadorReceitaRecebida: number = 0.0;
+  totalizadorReceitaPendente: number = 0.0;
+
   constructor(
     private router: Router,
     private gerenciadorReceitaService: GerenciadorReceitaService) { }
@@ -19,6 +22,8 @@ export class GerenciadorReceitaComponent implements OnInit {
   ngOnInit(): void {
     this.gerarGraficosMonitoramentoReceita();
     this.recuperarReceita();
+    this.recuperarTotalizadorReceitaRecebida();
+    this.recuperarTotalizadorReceitaPendente();
   }
 
   recuperarReceita() {
@@ -48,6 +53,20 @@ export class GerenciadorReceitaComponent implements OnInit {
       this.receitaModelList = response;
     });
   }
+
+  recuperarTotalizadorReceitaRecebida() {
+    this.gerenciadorReceitaService.recuperarTotalizadorReceitaRecebida().subscribe( response => {
+      this.totalizadorReceitaRecebida = response;
+    });
+  }
+
+  recuperarTotalizadorReceitaPendente() {
+    this.gerenciadorReceitaService.recuperarTotalizadorReceitaPendente().subscribe( response => {
+      this.totalizadorReceitaPendente = response;
+    });
+  }
+
+  private calcularValorTotalReceitasRecebidas() { }
 
   redirecionarPaginaAtualizarReceita(codigo: number) {
     this.router.navigate(["receita-atualizar", codigo]);

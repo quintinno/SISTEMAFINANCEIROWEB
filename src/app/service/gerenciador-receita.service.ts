@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 export class GerenciadorReceitaService {
 
   private URL_BASE_API_RECEITA = "http://localhost:9090/receita";
+  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA = "http://localhost:9090/receita/totalizador-receita-recebida";
+  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE = "http://localhost:9090/receita/totalizador-receita-pendente";
 
   constructor( private httpClient: HttpClient) { }
 
@@ -38,6 +40,14 @@ export class GerenciadorReceitaService {
 
   recuperarReceitaVariavelList() : Observable<ReceitaModel[]> {
     return this.httpClient.get<ReceitaModel[]>(`${this.URL_BASE_API_RECEITA}/variavel`);
+  }
+
+  recuperarTotalizadorReceitaRecebida() : Observable<number> {
+    return this.httpClient.get<number>(`${this.URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA}`);
+  }
+
+  recuperarTotalizadorReceitaPendente() : Observable<number> {
+    return this.httpClient.get<number>(`${this.URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE}`);
   }
 
 }
