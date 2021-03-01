@@ -109,6 +109,7 @@ export class ReceitaCadastrarComponent implements OnInit {
     this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe( response => {
       this.contaBancariaList = response;
       this.configurarNomeContaBancaria(this.contaBancariaList);
+      console.log(this.contaBancariaList);
     });
   }
 
@@ -129,10 +130,10 @@ export class ReceitaCadastrarComponent implements OnInit {
       if(contaBancariaList[index].tipoContaBancaria.descricao == "Conta Poupança") {
         tipoConta = "CSL";
       }
-      nomeContaBancariaConfigurada = contaBancariaList[index].contrato.pessoaContratante.nome
+      nomeContaBancariaConfigurada = contaBancariaList[index].contrato.pessoaContratado.nome
         .concat(" (", tipoConta, contaBancariaList[index].numeroAgencia)
         .concat(contaBancariaList[index].numeroConta, ")");
-        contaBancariaList[index].contrato.pessoaContratante.nome = nomeContaBancariaConfigurada;
+        contaBancariaList[index].contrato.pessoaContratado.nome = nomeContaBancariaConfigurada;
       }
   }
 

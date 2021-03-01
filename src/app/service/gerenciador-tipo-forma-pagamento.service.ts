@@ -8,7 +8,7 @@ import { TipoFormaPagamentoModel } from "../model/tipo-forma-pagamento-model";
 })
 export class GerenciadorTipoFormaPagamentoService {
 
-  private URL_BASE_API_TIPO_FORMA_PAGAMENTO = "http://localhost:9090/tipo-forma-pagamento";
+  private URL_BASE_API_TIPO_FORMA_PAGAMENTO = "http://localhost:9090/forma-pagamento";
 
   constructor( private httpClient: HttpClient ) { }
 
