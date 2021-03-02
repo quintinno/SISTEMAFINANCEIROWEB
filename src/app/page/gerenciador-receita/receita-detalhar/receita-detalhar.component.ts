@@ -66,11 +66,10 @@ export class ReceitaDetalharComponent implements OnInit {
     this.recuperarContaBancariaList();
     this.recuperarTipoPeriodoFinanceiroList();
     this.recuperarReceitaDetalhar();
-    this.recuperarParcelamentoList();
+    this.recuperarParcelamentoPorCodigoReceitaList();
   }
 
   atualizarReceita() {
-    debugger;
     this.gerenciadorReceitaService.cadastrarReceita(this.receitaModel).subscribe(response => {
       this.isApresentarMensagemSucesso = true;
       this.limparCampos();
@@ -83,7 +82,6 @@ export class ReceitaDetalharComponent implements OnInit {
     });
   }
 
-  // TODO -- Implementar Remocao de Receitas
   removerReceita( codigo: number ) {
     console.log("Remover Receita");
     this.receitaModel = undefined;
@@ -98,11 +96,12 @@ export class ReceitaDetalharComponent implements OnInit {
     let codigo = this.recuperarCodigoReceita();
     this.gerenciadorReceitaService.recuperarReceitaPorCodigo(codigo).subscribe( response => {
       this.receitaModel = response;
+      console.log(this.receitaModel);
+      
     });
   }
 
   registrarPagamentoParcela(parcelamentoModel: ParcelamentoModel) {
-    debugger;
     this.gerenciadorParcelamentoService.registrarPagamentoParcela(this.parcelamentoModel).subscribe( response => {
       this.isApresentarMensagemSucessoPagamentoParcelaRegistradaSucesso = true;
       this.recuperarParcelamentoList();
@@ -164,6 +163,13 @@ export class ReceitaDetalharComponent implements OnInit {
   recuperarParcelamentoList() {
     this.gerenciadorParcelamentoService.recuperarParcelamentoList().subscribe( response => {
       this.parcelamentoList = this.ordenarPacelamentoListPorNumeroParcelas(response);
+    });
+  }
+
+  recuperarParcelamentoPorCodigoReceitaList() {
+    this.gerenciadorParcelamentoService.recuperarParcelamentoPorCodigoReceitaList(this.recuperarCodigoReceita()).subscribe( response => {
+      this.parcelamentoList = this.ordenarPacelamentoListPorNumeroParcelas(response);
+      console.log(this.parcelamentoList);
     });
   }
 

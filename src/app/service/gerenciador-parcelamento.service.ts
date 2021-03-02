@@ -16,6 +16,10 @@ export class GerenciadorParcelamentoService {
     return this.httpClient.get<ParcelamentoModel[]>(`${this.URL_BASE_URL_PARCELAMENTO}`);
   }
 
+  public recuperarParcelamentoPorCodigoReceitaList( codigoReceita: number ) : Observable<ParcelamentoModel[]> {
+    return this.httpClient.get<ParcelamentoModel[]>(`${this.URL_BASE_URL_PARCELAMENTO}/receita/${codigoReceita}`);
+  }
+
   public registrarPagamentoParcela(parcelamentoModel: ParcelamentoModel) : Observable<Object> {
     return this.httpClient.put(`${this.URL_BASE_URL_PARCELAMENTO}`, parcelamentoModel);
   }

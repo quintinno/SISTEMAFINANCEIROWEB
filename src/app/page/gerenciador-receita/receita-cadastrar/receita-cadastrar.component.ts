@@ -59,7 +59,6 @@ export class ReceitaCadastrarComponent implements OnInit {
   }
 
   cadastrarReceita() {
-    debugger;
     this.gerenciadorReceitaService.cadastrarReceita(this.receitaModel).subscribe( response => {
       this.isApresentarMensagemSucesso = true;
       this.limparCampos();
