@@ -121,7 +121,7 @@
                                                     <th class="text-center">Origem Recurso</th>
                                                     <th>Categoria</th>
                                                     <th>Depósito</th>
-                                                    <th>Valor</th>
+                                                    <th>Valor Pago</th>
                                                     <th>Situação</th>
                                                     <th>Ações</th>
                                                 </tr>
@@ -130,10 +130,14 @@
                                                 <tr *ngFor="let receitaModel_ of receitaModelList">
                                                     <td class="fw-bold">{{receitaModel_.responsavelPagamento.nome}}</td>
                                                     <td> {{receitaModel_.categoriaReceita.descricao}} </td>
-                                                    <!-- <td>{{receitaModel_.contaBancariaDeposito.contrato.pessoaContratante.nome}}</td> -->
+                                                    <td>{{receitaModel_.contaBancariaDeposito.contrato.pessoaContratante.nome}}</td>
                                                     <td>
-                                                        <div class="col icone">
-                                                            <span class="ibb-santander fa-2x"></span>
+                                                        <div class="col icone fa-3x">
+                                                            <span [ngClass]="{
+                                                                'ibb-santander': receitaModel_.responsavelPagamento.nome == 'Santander',
+                                                                'ibb-caixa': receitaModel_.responsavelPagamento.nome == 'Banco Caixa Econômica Federal',
+                                                                'ibb-nubank': receitaModel_.responsavelPagamento.nome == 'Banco Nubank'}">
+                                                            </span>
                                                         </div>
                                                     </td>
                                                     <td class="fw-bold">{{receitaModel_.valorPagamento | currency :
