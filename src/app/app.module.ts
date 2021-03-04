@@ -29,6 +29,9 @@ import { HeaderComponent } from './page/template/header/header.component';
 import { ContaBancariaCadastrarComponent } from './page/gerenciador-conta-bancaria/conta-bancaria-cadastrar/conta-bancaria-cadastrar.component';
 import { ContaBancariaAlterarComponent } from './page/gerenciador-conta-bancaria/conta-bancaria-alterar/conta-bancaria-alterar.component';
 import { ReceitaDetalharComponent } from './page/gerenciador-receita/receita-detalhar/receita-detalhar.component';
+import { DespesaCadastrarComponent } from './page/gerenciador-despesa/despesa-cadastrar/despesa-cadastrar.component';
+import { DespesaAlterarComponent } from './page/gerenciador-despesa/despesa-alterar/despesa-alterar.component';
+import { DespesaDetalharComponent } from './page/gerenciador-despesa/despesa-detalhar/despesa-detalhar.component';
 
 
 registerLocaleData(localePt);
@@ -58,7 +61,10 @@ registerLocaleData(localePt);
     ContratoAtualizarComponent,
     ContaBancariaCadastrarComponent,
     ContaBancariaAlterarComponent,
-    ReceitaDetalharComponent
+    ReceitaDetalharComponent,
+    DespesaCadastrarComponent,
+    DespesaAlterarComponent,
+    DespesaDetalharComponent
   ],
   imports: [
     BrowserModule,

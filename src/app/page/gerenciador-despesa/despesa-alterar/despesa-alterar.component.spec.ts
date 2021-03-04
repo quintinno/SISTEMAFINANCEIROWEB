@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GerenciadorDespesaComponent } from './gerenciador-despesa.component';
+import { DespesaAlterarComponent } from './despesa-alterar.component';
 
-describe('GerenciadorDespesaComponent', () => {
-  let component: GerenciadorDespesaComponent;
-  let fixture: ComponentFixture<GerenciadorDespesaComponent>;
+describe('DespesaAlterarComponent', () => {
+  let component: DespesaAlterarComponent;
+  let fixture: ComponentFixture<DespesaAlterarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GerenciadorDespesaComponent ]
+      declarations: [ DespesaAlterarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GerenciadorDespesaComponent);
+    fixture = TestBed.createComponent(DespesaAlterarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

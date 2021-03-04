@@ -1,1 +1,169 @@
-<p>gerenciador-despesa works!</p>
+<app-header></app-header>
+
+<div class="main-panel animated fadeIn">
+    <div class="content">
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                    <div>
+                        <h1 class="text-white pb-2 fw-bold">Monitoramento de Despesas</h1>
+                    </div>
+                    <div class="ml-md-auto py-2 py-md-0">
+                        <a routerLink="/despesa-cadastrar" class="btn btn-info btn-border btn-round" style="margin: 4px;"> <span class="btn-label"> <i class="fa fa-plus"></i></span> Cadastrar Despesa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-inner mt--5">
+            <div class="row mt--2">
+
+                <div class="col-md-12">
+                    <div class="card full-height">
+                        <div class="card-body">
+                            <div class="card-title"></div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h2><b>Percentual Anual de Despesas</b></h2>
+                                    <p class="text-muted"></p>
+                                </div>
+                                <h4 class="fw-bold"></h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <h4><b>Despesas Pagas</b></h4>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                            <!-- <div class="text-center">
+                                                <h2 class="text-primary fw-bold"> {{ totalizadordespesaRecebida | currency : "BRL": true }} </h2>
+                                            </div> -->
+                                            <br />
+                                            <div class="progress progress-xl">
+                                                <div role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 48%" class="progress-bar progress-bar-striped progress-bar-animated bg-success-gradient"></div>
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <p class="text-muted mb-0">  </p>
+                                                <p class="text-muted mb-0">48%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                                <div class="text-rigth">
+                                                    <h4 class="fw-bold">Despesas Pendentes</h4>
+                                                    <br />
+                                                </div>
+                                            <!-- <div class="text-center">
+                                                <h2 class="text-secondary fw-bold"> {{ totalizadordespesaPendente | currency : "BRL": true }} </h2>
+                                            </div> -->
+                                            <br />
+                                            <div class="progress progress-xl">
+                                                <div role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 87%" class="progress-bar progress-bar-striped progress-bar-animated bg-danger-gradient"></div>
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-2">
+                                                <p class="text-muted mb-0"></p>
+                                                <p class="text-muted mb-0">87%</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row">
+                            <div class="card-title fw-bold">Despesas Cadastradas</div>
+                            <div class="card-tools">
+                                <ul class="nav nav-pills nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a id="filtrarTodos" (click)="recuperardespesa()"
+                                           class="nav-link btn-primary active" style="cursor: pointer;">Todos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="filtrarDespesasFixas" (click)="recuperarDespesasFixas()"
+                                           class="nav-link btn-secondary active" style="cursor: pointer;">Despesas
+                                            Fixas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="filtrarDespesasVariaveis" (click)="recuperarDespesasVariaveis()"
+                                           class="nav-link btn-warning active" style="cursor: pointer;">Despesas
+                                            Variáveis</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive table-hover table-sales">
+                                        <table class="table">
+                                            <thead> 
+                                                <tr>
+                                                    <th class="text-center">Origem Recurso</th>
+                                                    <th>Categoria</th>
+                                                    <th>Depósito</th>
+                                                    <th>Valor Recebido</th>
+                                                    <th>Situação</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let despesaModel_ of despesaModelList">
+                                                    <td class="fw-bold">{{despesaModel_.responsavelPagamento.nome}}</td>
+                                                    <td> {{despesaModel_.categoriadespesa.descricao}} </td>
+                                                    <td>
+                                                        <div class="col icone fa-3x">
+                                                            <span [ngClass]="{
+                                                                'ibb-santander': despesaModel_.responsavelPagamento.nome == 'Santander',
+                                                                'ibb-caixa': despesaModel_.responsavelPagamento.nome == 'Banco Caixa Econômica Federal',
+                                                                'ibb-nubank': despesaModel_.responsavelPagamento.nome == 'Banco Nubank'}">
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="fw-bold"> {{despesaModel_.valorPagamento | currency : "BRL": true }} de {{despesaModel_.parcelamento[0].valorTotalParcelamento | currency : "BRL": true }} </td>
+                                                    <td class="text-rigth fw-bold">
+                                                        <span
+                                                              [ngClass]="{
+                                                                    'badge text-success pl-3': despesaModel_.tipoSituacaoPagamento == 'Pago', 
+                                                                    'badge text-warning pl-3': despesaModel_.tipoSituacaoPagamento == 'Parcialmente Pago', 
+                                                                    'badge text-danger pl-3': despesaModel_.tipoSituacaoPagamento == 'Vencido'}">{{despesaModel_.tipoSituacaoPagamento}}
+                                                        </span>
+                                                    </td>
+                                                    <a (click)="redirecionarPaginaDetalhardespesa(despesaModel_.codigo)" class="btn btn-link fw-bold">
+                                                        <td>
+                                                            <i class="fas fa-th fa-2x"></i>
+                                                        </td>
+                                                    </a>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator-dashed"></div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <app-footer></app-footer>
+</div>
