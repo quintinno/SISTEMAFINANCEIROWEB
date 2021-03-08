@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PessoaModel } from 'src/app/model/pessoa-model';
 import { ProdutoServicoModel } from 'src/app/model/produto-servico-model';
+import { GerenciadorContratoService } from 'src/app/service/gerenciador-contrato.service';
 import { GerenciadorTipoFormaPagamentoService } from 'src/app/service/gerenciador-tipo-forma-pagamento.service';
 import { CategoriaDespesaModel } from "../../../model/categoria-despesa-model";
 import { DespesaModel } from "../../../model/despesa-model";
@@ -39,7 +40,8 @@ export class DespesaCadastrarComponent implements OnInit {
     private router: Router,
     private gerenciadorCategoriaDespesaService: GerenciadorCategoriaDespesaService,
     private gerenciadorPessoaService: GerenciadorPessoaService,
-    private gerenciadorTipoFormaPagamentoService: GerenciadorTipoFormaPagamentoService
+    private gerenciadorTipoFormaPagamentoService: GerenciadorTipoFormaPagamentoService,
+    private gerenciadorContratoService: GerenciadorContratoService
   ) { }
 
   ngOnInit(): void {
@@ -55,8 +57,26 @@ export class DespesaCadastrarComponent implements OnInit {
         valorUnitario: produtoServicoModelParameter.valorUnitario,
         quantidade: produtoServicoModelParameter.quantidade
     }
-    this.produtoServicoModelList.push(produtoServicoModelPersistir);
-    this.limparCamposProdutoServico();
+    if(this.validarProdutoServicoModel(produtoServicoModelPersistir)) {
+      this.produtoServicoModelList.push(produtoServicoModelPersistir);
+      this.limparCamposProdutoServico();
+    }
+  }
+
+  private validarProdutoServicoModel( produtoServicoModelParameter: any ) {
+    if( produtoServicoModelParameter.descricao == null ) {
+      console.log("O campo DESCRICAO é obrigatório!");
+      return false;
+    }
+    if( produtoServicoModelParameter.quantidade == null ) {
+      console.log("O campo QUANTIDADE é obrigatório!");
+      return false;
+    }
+    if( produtoServicoModelParameter.valorUnitario == null ) {
+      console.log("O campo VALOR UNITARIO é obrigatório!");
+      return false;
+    }
+    return true;
   }
 
   removerProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
@@ -104,13 +124,33 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
+  // TODO -- Recuperar Pessoa ou Estabelecimento de acordo com a Categoria de Despesa
   recuperarCodigoCategoriaDespesaModel( categoriaDespesaModelCodigoEvent ) {
     this.categoriaDespesaModelList.forEach( (categoriaDespesaModel_, index_) => {
       if(categoriaDespesaModelCodigoEvent == this.categoriaDespesaModelList[index_].codigo) {
         this.categoriaDespesaModel = this.categoriaDespesaModelList[index_];
       }
+      if(this.categoriaDespesaModel.sigla == "DFI") {
+        this.recuperarPessoaEstabelecimentoContrato();
+      } else {
+        this.recuperarPessoaEstabelecimento();
+      }
     });
     return this.categoriaDespesaModel;
+  }
+
+  recuperarPessoaEstabelecimentoContrato() {
+    this.gerenciadorContratoService.recuperarContratoList().subscribe( response => {
+      response.forEach( ( pessoaEstabelecimentoModel_ ) => {
+        this.pessoaEstabelecimentoList = [];
+        this.pessoaEstabelecimentoList.push(pessoaEstabelecimentoModel_.pessoaContratado);
+      });
+    });
+  }
+
+  // TODO -- Recuperar Forma de Pagamento Disponivel por usuario
+  recuperarFormaPagamentoDespesaConfiguradaUsuario( pessoaEstabelecimentoModelCodigoEvent ) {
+    console.log("RECUPERAR FORMA PAGAMENTO DISPONIVEL USUARIO");
   }
 
   recuperarPessoaFisicaList() {

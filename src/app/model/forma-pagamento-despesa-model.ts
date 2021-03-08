@@ -5,5 +5,4 @@ export class FormaPagamentoDespesaModel {
     pessoaPagamentoModel: any;
     numeroParcelamento: number;
     valorPagamento: number;
-
 }

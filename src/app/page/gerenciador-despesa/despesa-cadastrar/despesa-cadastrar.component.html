@@ -138,8 +138,8 @@
 
                     </div>
 
-                    <div hidden="isProdutoServicoMultiplo" class="card-action">
-                        <button [disabled]="despesaModel.categoriaDespesa == null" (click)="cadastrarProdutoServico(produtoServicoModel)" class="btn btn-secondary btn-xl btn-border col-md-12">
+                    <div class="card-action">
+                        <button [disabled]="produtoServicoModel.descricao == null" (click)="cadastrarProdutoServico(produtoServicoModel)" class="btn btn-secondary btn-xl btn-border col-md-12">
                             <b>Cadastrar Produto ou Serviço</b>
                         </button>
                     </div>
@@ -181,37 +181,27 @@
 
                     <div *ngIf="despesaModel.categoriaDespesa != null" class="row">
 
-                        <div class="col-md-4 col-lg-3">
+                        <div class="col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="responsavelPagamento">Responsável pelo Pagamento</label>
-                                <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
+                                <select class="form-control" name="responsavelPagamento" (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
                                     <option [disabled]="true">Selecione</option>
                                     <option *ngFor="let pessoa_fisica_ of pessoaFisicaModelList" [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-3">
+                        <div class="col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="responsavelPagamento">Forma de Pagamento</label>
-                                <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
+                                <label for="formaPagamento">Forma de Pagamento</label>
+                                <select class="form-control" name="formaPagamento" [(ngModel)]="formaPagamentoDespesaModel.formaPagamentoModel">
                                     <option [disabled]="true">Selecione</option>
                                     <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-3">
-                            <div class="form-group">
-                                <label for="responsavelPagamento">Forma de Pagamento (Detalhe)</label>
-                                <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
-                                    <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-lg-3">
+                        <div class="col-md-3 col-lg-4">
                             <div class="form-group">
                                 <label for="isFormaPagamentoMutiplo">Forma de Pagamento Múltiplo</label>
                                 <select id="isFormaPagamentoMutiplo" name="isFormaPagamentoMutiplo"
