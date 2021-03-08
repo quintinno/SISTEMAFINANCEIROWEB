@@ -26,10 +26,14 @@ export class DespesaCadastrarComponent implements OnInit {
   public pessoaEstabelecimentoList: PessoaModel[];
   public pessoaFisicaModelList: PessoaModel[];
   public tipoFormaPagamentoList: TipoFormaPagamentoModel[];
+  public produtoServicoModelList = new Array();
+  public formaPagamentoDespesaModelList: FormaPagamentoDespesaModel[];
+
+  public produtoServicoMultiploList = new Array();
 
   public isApresentarMensagemSucesso: boolean = false;
   public isApresentarMensagemErro: boolean = false;
-  public isProdutoServicoMultiplo: boolean;
+  public isProdutoServicoMultiplo: boolean = false;
 
   constructor( 
     private router: Router,
@@ -45,13 +49,40 @@ export class DespesaCadastrarComponent implements OnInit {
     this.recuperarTipoFormaPagamentoList();
   }
 
+  cadastrarProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
+    var produtoServicoModelPersistir = {
+        descricao: produtoServicoModelParameter.descricao,
+        valorUnitario: produtoServicoModelParameter.valorUnitario,
+        quantidade: produtoServicoModelParameter.quantidade
+    }
+    this.produtoServicoModelList.push(produtoServicoModelPersistir);
+    this.limparCamposProdutoServico();
+  }
+
+  removerProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
+    this.produtoServicoModelList.forEach( (produtoServicoModel_, index, produtoServicoModelList_) => {
+      if(produtoServicoModel_ === produtoServicoModelParameter) {
+        produtoServicoModelList_.splice(index, 1);
+        this.produtoServicoModelList = produtoServicoModelList_;
+      }
+    });
+  }
+
+  cadastrarFormaPagamentoDespesa( formaPagamentoDespesModel: FormaPagamentoDespesaModel ) {
+    this.formaPagamentoDespesaModelList.push(formaPagamentoDespesModel);
+  }
+
+  calcularValorProdutoServico() {
+    return this.produtoServicoModel.valorUnitario * this.produtoServicoModel.quantidade;
+  }
+
   cadastrarDespesa() {
     console.log("Cadastrar Despesas...", this.despesaModel);
   }
 
   alterarValorProdutoServicoMultiplo( isProdutoServicoMultiploParameter: boolean ) {
     this.isProdutoServicoMultiplo = isProdutoServicoMultiploParameter;
-    console.log(this.isProdutoServicoMultiplo);
+    console.log("Produto ou Servico Multiplo: ", this.isProdutoServicoMultiplo);
   }
 
   retornarCategoriaDespesaModel() {
@@ -62,6 +93,8 @@ export class DespesaCadastrarComponent implements OnInit {
   recuperarCategoriaDespesaList() {
     this.gerenciadorCategoriaDespesaService.recuperarCategoriaDespesaList().subscribe( response => {
       this.categoriaDespesaModelList = response;
+      this.despesaModel.categoriaDespesa = this.categoriaDespesaModelList[1].codigo;
+      this.categoriaDespesaModel = this.categoriaDespesaModelList[1];
     });
   }
 
@@ -71,9 +104,13 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  recuperarCategoriaDespesaModel( categoriaDespesaModel ) {
-    console.log(categoriaDespesaModel);
-    return categoriaDespesaModel;
+  recuperarCodigoCategoriaDespesaModel( categoriaDespesaModelCodigoEvent ) {
+    this.categoriaDespesaModelList.forEach( (categoriaDespesaModel_, index_) => {
+      if(categoriaDespesaModelCodigoEvent == this.categoriaDespesaModelList[index_].codigo) {
+        this.categoriaDespesaModel = this.categoriaDespesaModelList[index_];
+      }
+    });
+    return this.categoriaDespesaModel;
   }
 
   recuperarPessoaFisicaList() {
@@ -88,8 +125,22 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
+  recuperarProdutoServicoMultiploList() {
+    this.produtoServicoMultiploList = [
+      { codigo: 0, isValor: true, descricao: "Múltiplo" },
+      { codigo: 1, isValor: false, descricao: "Único" }
+    ]
+    return this.produtoServicoMultiploList;
+  }
+
   redirecionarPaginaMonitoramentoDespesa() {
     this.router.navigate(["/despesa-monitoramento"]);
+  }
+
+  limparCamposProdutoServico() {
+    this.produtoServicoModel.descricao = null;
+    this.produtoServicoModel.quantidade = null;
+    this.produtoServicoModel.valorUnitario = null;
   }
 
 }

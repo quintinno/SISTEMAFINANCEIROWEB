@@ -40,13 +40,12 @@
 
                     <div class="row">
 
-                        <!-- <div [ngClass]="{'col-md-6 col-lg-6' : despesaModel.categoriaDespesa == null, 'col-md-12 col-lg-12' : despesaModel.categoriaDespesa == null}"> -->
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="categoriaDespesa">Categoria de Despesa</label>
-                                <select class="form-control" autofocus name="categoriaDespesa" (ngModelChange)="recuperarCategoriaDespesaModel($event)" [(ngModel)]="despesaModel.categoriaDespesa">
+                                <select class="form-control" autofocus name="categoriaDespesa" (ngModelChange)="recuperarCodigoCategoriaDespesaModel($event)" [(ngModel)]="despesaModel.categoriaDespesa">
                                     <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let categoria_despesa_ of categoriaDespesaModelList" [ngValue]="categoria_despesa_"> {{categoria_despesa_.descricao}} </option>
+                                    <option *ngFor="let categoria_despesa_ of categoriaDespesaModelList" [value]="categoria_despesa_.codigo"> {{categoria_despesa_.descricao}} </option>
                                 </select>
                             </div>
                         </div>
@@ -69,7 +68,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="despesaModel.categoriaDespesa != null" class="col-md-2 col-lg-2">
+                        <div *ngIf="categoriaDespesaModel.sigla == 'DFI'" class="col-md-2 col-lg-2">
                             <div class="form-group">
                                 <label for="dataVencimento">Data do Vencimento</label>
                                 <input id="dataVencimento" type="text" name="dataVencimento"
@@ -78,7 +77,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="despesaModel.categoriaDespesa != null" class="col-md-2 col-lg-2">
+                       <div *ngIf="despesaModel.categoriaDespesa != null" [ngClass]="{'col-md-2 col-lg-2' : categoriaDespesaModel.sigla == 'DFI', 'col-md-4 col-lg-4' : categoriaDespesaModel.sigla == 'DVA'}">
                             <div class="form-group">
                                 <label for="dataPagamento">Data do Pagamento</label>
                                 <input id="dataPagamento" type="text" name="dataPagamento" [(ngModel)]="despesaModel.dataPagamento" placeholder="DD/MM/AAAA" class="form-control form-control" />
@@ -93,7 +92,7 @@
                             <div class="form-group">
                                 <label for="produtoServico">Produto ou Serviço</label>
                                 <input id="produtoServico" type="text" name="produtoServico"
-                                    [(ngModel)]="despesaModel.produtoServico" placeholder="Nome do Produto ou Serviço"
+                                    [(ngModel)]="produtoServicoModel.descricao" placeholder="Nome do Produto ou Serviço"
                                     class="form-control form-control" />
                             </div>
                         </div>
@@ -101,7 +100,7 @@
                         <div class="col-md-2 col-lg-2">
                             <div class="form-group">
                                 <label for="quantidade">Quantidade</label>
-                                <select id="quantidade" name="quantidade" class="form-control">
+                                <select id="quantidade" name="quantidade" [(ngModel)]="produtoServicoModel.quantidade" class="form-control">
                                     <option [disabled]="true">Selecione</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -129,27 +128,23 @@
                         <div class="col-md-2 col-lg-2">
                             <div class="form-group">
                                 <label for="isProdutoServicoMultiplo">Produto ou Serviço Múltiplo</label>
-                                <select id="isProdutoServicoMultiplo" name="isProdutoServicoMultiplo"
-                                    #isProdutoServicoMultiplo_
-                                    (change)="alterarValorProdutoServicoMultiplo(isProdutoServicoMultiplo_.value)"
-                                    class="form-control">
+                                <select id="isProdutoServicoMultiplo" name="isProdutoServicoMultiplo" #isProdutoServicoMultiplo_ (change)="alterarValorProdutoServicoMultiplo(isProdutoServicoMultiplo_.value)" class="form-control">
                                     <option [disabled]="true">Selecione</option>
-                                    <option value="false">Único</option>
-                                    <option value="true">Múltiplo</option>
+                                    <option id="unico" value="false" selected> Único </option>
+                                    <option id="multiplo" value="true"> Múltiplo </option>
                                 </select>
                             </div>
                         </div>
 
                     </div>
 
-                    <div *ngIf="despesaModel.categoriaDespesa != null" class="card-action">
-                        <button id="cadastrarProdutoServico" [disabled]="despesaModel.categoriaDespesa == null"
-                            class="btn btn-secondary btn-xl btn-border col-md-12" style="margin: 4px;"><b>Cadastrar
-                                Produto ou Serviço</b>
+                    <div hidden="isProdutoServicoMultiplo" class="card-action">
+                        <button [disabled]="despesaModel.categoriaDespesa == null" (click)="cadastrarProdutoServico(produtoServicoModel)" class="btn btn-secondary btn-xl btn-border col-md-12">
+                            <b>Cadastrar Produto ou Serviço</b>
                         </button>
                     </div>
 
-                    <div *ngIf="despesaModel.categoriaDespesa != null" class="row">
+                    <div *ngIf="produtoServicoModelList.length > 0" class="row">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -169,31 +164,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-left"> Pizza de Alho </td>
-                                    <td class="text-center"> R$ 25,00 </td>
-                                    <td class="text-center"> 1 </td>
-                                    <td class="text-center"> <b>R$ 25,00</b> </td>
+                                <tr *ngFor="let produto_servico_model_ of produtoServicoModelList">
+                                    <td class="text-left"> {{produto_servico_model_.descricao}} </td>
+                                    <td class="text-center"> {{produto_servico_model_.valorUnitario | currency : "BRL": true}} </td>
+                                    <td class="text-center"> {{produto_servico_model_.quantidade}} </td>
+                                    <td class="text-center"> {{ produto_servico_model_.quantidade * produto_servico_model_.valorUnitario | currency : "BRL": true}} </td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-warning btn-border"> Remover </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left"> Pizza de Mussarela </td>
-                                    <td class="text-center"> R$ 25,00 </td>
-                                    <td class="text-center"> 1 </td>
-                                    <td class="text-center"> <b>R$ 25,00</b> </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-warning btn-border"> Remover </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left"> Guaraná Antártica 2L </td>
-                                    <td class="text-center"> R$ 6,99 </td>
-                                    <td class="text-center"> 1 </td>
-                                    <td class="text-center"> <b>R$ 6,99</b> </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-warning btn-border"> Remover </button>
+                                        <button type="button" (click)="removerProdutoServico(produto_servico_model_)" class="btn btn-warning btn-border"> Remover </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -204,7 +181,7 @@
 
                     <div *ngIf="despesaModel.categoriaDespesa != null" class="row">
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-4 col-lg-3">
                             <div class="form-group">
                                 <label for="responsavelPagamento">Responsável pelo Pagamento</label>
                                 <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
@@ -214,7 +191,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-4 col-lg-3">
                             <div class="form-group">
                                 <label for="responsavelPagamento">Forma de Pagamento</label>
                                 <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
@@ -224,6 +201,76 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4 col-lg-3">
+                            <div class="form-group">
+                                <label for="responsavelPagamento">Forma de Pagamento (Detalhe)</label>
+                                <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-lg-3">
+                            <div class="form-group">
+                                <label for="isFormaPagamentoMutiplo">Forma de Pagamento Múltiplo</label>
+                                <select id="isFormaPagamentoMutiplo" name="isFormaPagamentoMutiplo"
+                                    #isProdutoServicoMultiplo_
+                                    (change)="alterarValorProdutoServicoMultiplo(isProdutoServicoMultiplo_.value)"
+                                    class="form-control">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option value="false">Único</option>
+                                    <option value="true">Múltiplo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="despesaModel.categoriaDespesa != null" class="card-action">
+                        <button id="cadastrarProdutoServico" [disabled]="despesaModel.categoriaDespesa == null" class="btn btn-secondary btn-xl btn-border col-md-12" style="margin: 4px;"><b>Cadastrar Forma de Pagamento</b></button>
+                    </div>
+
+                    <div *ngIf="despesaModel.categoriaDespesa != null" class="row">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td class="text-left" style="width: 270px;"><b>Responsável Pelo Pagamento</b></td>
+                                    <td class="text-center">
+                                        <strong>Forma de Pagamento</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>Detalhe Pagamento</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>Valor do Pagamento</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>Ações</strong>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-left"> José Quentinn </td>
+                                    <td class="text-center"> Cartão de Crédito </td>
+                                    <td class="text-center"> Cartão de Crédito (XXXX XXXX XXXX 9972) </td>
+                                    <td class="text-center"> <b>R$ 18.49</b> </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-warning btn-border"> Remover </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left"> Jamille Alves </td>
+                                    <td class="text-center"> Cartão de Crédito </td>
+                                    <td class="text-center"> Cartão de Crédito (XXXX XXXX XXXX 4524) </td>
+                                    <td class="text-center"> <b>R$ 18.49</b> </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-warning btn-border"> Remover </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
