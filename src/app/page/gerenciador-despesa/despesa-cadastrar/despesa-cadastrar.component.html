@@ -97,7 +97,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 col-lg-2">
+                        <div *ngIf="categoriaDespesaModel.sigla == 'DVA'" class="col-md-2 col-lg-2">
                             <div class="form-group">
                                 <label for="quantidade">Quantidade</label>
                                 <select id="quantidade" name="quantidade" [(ngModel)]="produtoServicoModel.quantidade" class="form-control">
@@ -116,7 +116,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 col-lg-2">
+                        <div [ngClass]="{'col-md-2 col-lg-2' : categoriaDespesaModel.sigla == 'DVA', 'col-md-4 col-lg-4' : categoriaDespesaModel.sigla == 'DFI'}">
                             <div class="form-group">
                                 <label for="valorUnitario">Valor</label>
                                 <input id="valorUnitario" type="text" name="valorUnitario"
