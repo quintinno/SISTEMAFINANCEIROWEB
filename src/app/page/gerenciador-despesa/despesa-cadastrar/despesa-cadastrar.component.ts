@@ -121,6 +121,7 @@ export class DespesaCadastrarComponent implements OnInit {
   recuperarPessoaEstabelecimento() {
     this.gerenciadorPessoaService.recuperarPessoaList().subscribe( response => {
       this.pessoaEstabelecimentoList = response;
+      console.log(this.pessoaEstabelecimentoList);
     });
   }
 
@@ -141,10 +142,11 @@ export class DespesaCadastrarComponent implements OnInit {
 
   recuperarPessoaEstabelecimentoContrato() {
     this.gerenciadorContratoService.recuperarContratoList().subscribe( response => {
+      this.pessoaEstabelecimentoList = [];
       response.forEach( ( pessoaEstabelecimentoModel_ ) => {
-        this.pessoaEstabelecimentoList = [];
         this.pessoaEstabelecimentoList.push(pessoaEstabelecimentoModel_.pessoaContratado);
       });
+      console.log(this.pessoaEstabelecimentoList);
     });
   }
 

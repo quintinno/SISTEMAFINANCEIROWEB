@@ -45,6 +45,7 @@ export class ContratoCadastrarComponent implements OnInit {
   }
 
   cadastrarContrato() {
+    debugger;
     this.gerenciadorContratoService.cadastrarContrato(this.contratoModel).subscribe( response => {
       this.isApresentarMensagemCadastroSucesso = true;
       this.limparCampos();

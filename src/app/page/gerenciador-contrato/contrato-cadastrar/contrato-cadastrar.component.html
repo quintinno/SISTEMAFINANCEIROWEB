@@ -35,8 +35,8 @@
                     <div class="row">
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="empresa-pagadora">Empresa</label>
-                                <select name="pessoaContratante" [(ngModel)]="contratoModel.pessoaContratante" class="form-control">
+                                <label for="pessoaContratado">Empresa</label>
+                                <select name="pessoaContratado" [(ngModel)]="contratoModel.pessoaContratado" class="form-control">
                                     <option>Selecionar</option>
                                     <option *ngFor="let pessoa_model_ of pessoaJuridicaList" [ngValue]="pessoa_model_"> {{pessoa_model_.nome}} </option>
                                     <option>Outro</option>
@@ -57,8 +57,8 @@
                         </div>
                         <div class="col-md-4 col-lg-3">
                             <div class="form-group">
-                                <label for="pessoa_contratante">Pessoa Vinculada</label>
-                                <select name="pessoa_contratante" [(ngModel)]="contratoModel.pessoaContratado" class="form-control">
+                                <label for="pessoaContratante">Pessoa Contratante</label>
+                                <select name="pessoaContratante" [(ngModel)]="contratoModel.pessoaContratante" class="form-control">
                                     <option>Selecionar</option>
                                     <option *ngFor="let pessoa_fisica_ of pessoaFisicaList" [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
                                     <option>Outro</option>
