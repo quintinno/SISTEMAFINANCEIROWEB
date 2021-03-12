@@ -1,8 +1,15 @@
+import { FormaPagamentoDespesaModel } from "./forma-pagamento-despesa-model";
+import { ProdutoServicoModel } from "./produto-servico-model";
+
 export class DespesaModel {
     codigo: number;
     categoriaDespesa: any;
     pessoaEstabelecimento: any;
-    produtoServico: any;
+
+    // TODO -- Verificar funcionamento como Array
+    produtoServicoList: ProdutoServicoModel[];
+    formaPagamentoDespesaList: FormaPagamentoDespesaModel[];
+
     canalPagamento: string;
     dataVencimento: string;
     dataPagamento: string;

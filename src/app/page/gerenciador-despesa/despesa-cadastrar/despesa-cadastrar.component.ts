@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PessoaModel } from 'src/app/model/pessoa-model';
 import { ProdutoServicoModel } from 'src/app/model/produto-servico-model';
+import { TipoPessoaModel } from 'src/app/model/tipo-pessoa-model';
 import { GerenciadorContratoService } from 'src/app/service/gerenciador-contrato.service';
 import { GerenciadorTipoFormaPagamentoService } from 'src/app/service/gerenciador-tipo-forma-pagamento.service';
+import { GerenciadorTipoPessoaService } from 'src/app/service/gerenciador-tipo-pessoa.service';
 import { CategoriaDespesaModel } from "../../../model/categoria-despesa-model";
 import { DespesaModel } from "../../../model/despesa-model";
 import { FormaPagamentoDespesaModel } from "../../../model/forma-pagamento-despesa-model";
 import { TipoFormaPagamentoModel } from "../../../model/tipo-forma-pagamento-model";
 import { GerenciadorCategoriaDespesaService } from "../../../service/gerenciador-categoria-despesa.service";
 import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
+import { GerenciadorDespesaService } from "../../../service/gerenciador-despesa.service";
 
 @Component({
   selector: 'app-despesa-cadastrar',
@@ -22,6 +25,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public produtoServicoModel: ProdutoServicoModel = new ProdutoServicoModel();
   public categoriaDespesaModel: CategoriaDespesaModel = new CategoriaDespesaModel();
   public formaPagamentoDespesaModel: FormaPagamentoDespesaModel = new FormaPagamentoDespesaModel();
+  public pessoaModel: PessoaModel = new PessoaModel();
 
   public categoriaDespesaModelList: CategoriaDespesaModel[];
   public pessoaEstabelecimentoList: PessoaModel[];
@@ -29,19 +33,23 @@ export class DespesaCadastrarComponent implements OnInit {
   public tipoFormaPagamentoList: TipoFormaPagamentoModel[];
   public produtoServicoModelList = new Array();
   public formaPagamentoDespesaModelList: FormaPagamentoDespesaModel[];
+  public tipoPessoaModelList: TipoPessoaModel[];
 
   public produtoServicoMultiploList = new Array();
 
   public isApresentarMensagemSucesso: boolean = false;
   public isApresentarMensagemErro: boolean = false;
   public isProdutoServicoMultiplo: boolean = false;
+  public isFormaPagamentoMutiplo: boolean = false;
 
   constructor( 
     private router: Router,
     private gerenciadorCategoriaDespesaService: GerenciadorCategoriaDespesaService,
     private gerenciadorPessoaService: GerenciadorPessoaService,
     private gerenciadorTipoFormaPagamentoService: GerenciadorTipoFormaPagamentoService,
-    private gerenciadorContratoService: GerenciadorContratoService
+    private gerenciadorContratoService: GerenciadorContratoService,
+    private gerenciadorTipoPessoaService: GerenciadorTipoPessoaService,
+    private gerenciadorDespesaService: GerenciadorDespesaService
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +57,7 @@ export class DespesaCadastrarComponent implements OnInit {
     this.recuperarPessoaEstabelecimento();
     this.recuperarPessoaFisicaList();
     this.recuperarTipoFormaPagamentoList();
+    this.recuperarTipoPessoa();
   }
 
   cadastrarProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
@@ -92,21 +101,62 @@ export class DespesaCadastrarComponent implements OnInit {
     this.formaPagamentoDespesaModelList.push(formaPagamentoDespesModel);
   }
 
+  cadastrarPessoaEstabelecimento( pessoaModel: PessoaModel ) {
+    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe( response => {
+      this.despesaModel.pessoaEstabelecimento = response;
+      this.recuperarPessoaEstabelecimentoCadastrada();
+    });
+  }
+
+  recuperarPessoaEstabelecimentoCadastrada() {
+    this.gerenciadorPessoaService.recuperarPessoaList().subscribe( response => {
+      this.pessoaEstabelecimentoList = response.reverse();
+    });
+  }
+
   calcularValorProdutoServico() {
     return this.produtoServicoModel.valorUnitario * this.produtoServicoModel.quantidade;
   }
 
   cadastrarDespesa() {
-    console.log("Cadastrar Despesas...", this.despesaModel);
+    var produtoServicoModel = {
+      codigo: null,
+      descricao: this.produtoServicoModel.descricao,
+      valorUnitario: this.produtoServicoModel.valorUnitario,
+      quantidade: this.produtoServicoModel.quantidade
+    }
+    var formaPagamentoModel = {
+      codigo: null,
+      despesaModel: this.despesaModel,
+      formaPagamentoModel: this.formaPagamentoDespesaModel,
+      pessoaPagamentoModel: this.formaPagamentoDespesaModel.pessoaPagamentoModel,
+      numeroParcelamento: this.formaPagamentoDespesaModel.numeroParcelamento,
+      valorPagamento: this.formaPagamentoDespesaModel.valorPagamento
+    }
+
+    this.despesaModel.produtoServicoList = [];
+    this.despesaModel.formaPagamentoDespesaList = [];
+    formaPagamentoModel.despesaModel = null;
+
+    if( this.categoriaDespesaModel.sigla == 'DVA' ) {
+        this.despesaModel.produtoServicoList.push(produtoServicoModel);
+        this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoModel);
+        this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
+        this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe( response => {
+        this.isApresentarMensagemSucesso = true;
+      });
+    }
   }
 
   alterarValorProdutoServicoMultiplo( isProdutoServicoMultiploParameter: boolean ) {
     this.isProdutoServicoMultiplo = isProdutoServicoMultiploParameter;
-    console.log("Produto ou Servico Multiplo: ", this.isProdutoServicoMultiplo);
+  }
+
+  alterarValorFormaPagamentoMultiplo( isFormaPagamentoMultiploParameter: boolean ) {
+    this.isFormaPagamentoMutiplo = isFormaPagamentoMultiploParameter;
   }
 
   retornarCategoriaDespesaModel() {
-    console.log(this.categoriaDespesaModel);
     return this.categoriaDespesaModel;
   }
 
@@ -121,7 +171,6 @@ export class DespesaCadastrarComponent implements OnInit {
   recuperarPessoaEstabelecimento() {
     this.gerenciadorPessoaService.recuperarPessoaList().subscribe( response => {
       this.pessoaEstabelecimentoList = response;
-      console.log(this.pessoaEstabelecimentoList);
     });
   }
 
@@ -146,7 +195,6 @@ export class DespesaCadastrarComponent implements OnInit {
       response.forEach( ( pessoaEstabelecimentoModel_ ) => {
         this.pessoaEstabelecimentoList.push(pessoaEstabelecimentoModel_.pessoaContratado);
       });
-      console.log(this.pessoaEstabelecimentoList);
     });
   }
 
@@ -173,6 +221,14 @@ export class DespesaCadastrarComponent implements OnInit {
       { codigo: 1, isValor: false, descricao: "Único" }
     ]
     return this.produtoServicoMultiploList;
+  }
+
+  recuperarTipoPessoa() {
+    this.gerenciadorTipoPessoaService.recuperarTipoPessoa().subscribe( response => {
+      this.tipoPessoaModelList = response;
+    }, responseError => {
+      console.error(responseError);
+    });
   }
 
   redirecionarPaginaMonitoramentoDespesa() {
