@@ -5,11 +5,8 @@ export class DespesaModel {
     codigo: number;
     categoriaDespesa: any;
     pessoaEstabelecimento: any;
-
-    // TODO -- Verificar funcionamento como Array
     produtoServicoList: ProdutoServicoModel[];
     formaPagamentoDespesaList: FormaPagamentoDespesaModel[];
-
     canalPagamento: string;
     dataVencimento: string;
     dataPagamento: string;

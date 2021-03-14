@@ -197,7 +197,7 @@
                                 <label for="responsavelPagamento">Responsável pelo Pagamento</label>
                                 <select class="form-control" name="responsavelPagamento"
                                     (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)"
-                                    [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamentoModel">
+                                    [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamento">
                                     <option [disabled]="true">Selecione</option>
                                     <option *ngFor="let pessoa_fisica_ of pessoaFisicaModelList"
                                         [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
@@ -209,7 +209,7 @@
                             <div class="form-group">
                                 <label for="formaPagamento">Forma de Pagamento</label>
                                 <select class="form-control" name="formaPagamento"
-                                    [(ngModel)]="formaPagamentoDespesaModel.formaPagamentoModel">
+                                    [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
                                     <option [disabled]="true">Selecione</option>
                                     <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList"
                                         [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
@@ -300,7 +300,7 @@
                 <div class="row">
                     <div class="col-md-4 col-lg-6">
                         <div class="form-group">
-                            <label for="nome">Nome Completo</label>
+                            <label for="nome">Pessoa ou Estabelecimento</label>
                             <input type="text" name="nome" [(ngModel)]="pessoaModel.nome" class="form-control form-control">
                         </div>
                     </div>
@@ -315,6 +315,19 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-4 col-lg-12">
+                        <div class="form-group">
+                            <label for="isAtivo">Instituição Financeira</label>
+                            <select name="isAtivo" [(ngModel)]="pessoaModel.isInstituicaoFinanceira"
+                                class="form-control">
+                                <option>Selecionar</option>
+                                <option [ngValue]="true" selected>Sim</option>
+                                <option [ngValue]="false">Não</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
                     <div class="col-md-4 col-lg-4">
                         <div class="form-group">
                             <label for="isPessoaFinanceira">Pessoa Financeira</label>
@@ -347,7 +360,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="modal-footer">
                 <button type="button" (click)="cadastrarPessoaEstabelecimento(pessoaModel)" data-dismiss="modal" class="btn btn-primary col-md-10">Cadastrar</button>

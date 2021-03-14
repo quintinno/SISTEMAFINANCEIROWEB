@@ -1,8 +1,8 @@
 export class FormaPagamentoDespesaModel {
     codigo: number;
     despesaModel: any;
-    formaPagamentoModel: any;
-    pessoaPagamentoModel: any;
+    formaPagamento: any;
+    pessoaPagamento: any;
     numeroParcelamento: number;
     valorPagamento: number;
 }
