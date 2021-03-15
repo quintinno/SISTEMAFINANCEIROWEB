@@ -13,6 +13,7 @@ import { TipoFormaPagamentoModel } from "../../../model/tipo-forma-pagamento-mod
 import { GerenciadorCategoriaDespesaService } from "../../../service/gerenciador-categoria-despesa.service";
 import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
 import { GerenciadorDespesaService } from "../../../service/gerenciador-despesa.service";
+import { GerenciadorProdutoServicoService } from "../../../service/gerenciador-produto-servico.service";
 
 @Component({
   selector: 'app-despesa-cadastrar',
@@ -32,15 +33,18 @@ export class DespesaCadastrarComponent implements OnInit {
   public pessoaFisicaModelList: PessoaModel[];
   public tipoFormaPagamentoList: TipoFormaPagamentoModel[];
   public produtoServicoModelList = new Array();
+  public produtoServicoMultiploList = new Array();
+  public produtoServicoModelAutocompletarList = new Array();
   public formaPagamentoDespesaModelList: FormaPagamentoDespesaModel[];
   public tipoPessoaModelList: TipoPessoaModel[];
-
-  public produtoServicoMultiploList = new Array();
 
   public isApresentarMensagemSucesso: boolean = false;
   public isApresentarMensagemErro: boolean = false;
   public isProdutoServicoMultiplo: boolean = false;
   public isFormaPagamentoMutiplo: boolean = false;
+
+  public pesquisarProdutoServicoPorDescricao = "descricao";
+  public pesquisarPessoaEstabelecimentoPorNome = "nome";
 
   constructor( 
     private router: Router,
@@ -49,7 +53,8 @@ export class DespesaCadastrarComponent implements OnInit {
     private gerenciadorTipoFormaPagamentoService: GerenciadorTipoFormaPagamentoService,
     private gerenciadorContratoService: GerenciadorContratoService,
     private gerenciadorTipoPessoaService: GerenciadorTipoPessoaService,
-    private gerenciadorDespesaService: GerenciadorDespesaService
+    private gerenciadorDespesaService: GerenciadorDespesaService,
+    private gerenciadorProdutoServicoService: GerenciadorProdutoServicoService
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +63,7 @@ export class DespesaCadastrarComponent implements OnInit {
     this.recuperarPessoaFisicaList();
     this.recuperarTipoFormaPagamentoList();
     this.recuperarTipoPessoa();
+    this.recuperarProdutoServicoCadastrado();
   }
 
   cadastrarProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
@@ -117,6 +123,14 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
+  recuperarProdutoServicoCadastrado() {
+    this.gerenciadorProdutoServicoService.recuperarProdutoServicoList().subscribe( response => {
+      this.produtoServicoModelAutocompletarList = response;
+    }, responseError => {
+      console.error(responseError);
+    });
+  }
+
   calcularValorProdutoServico() {
     return this.produtoServicoModel.valorUnitario * this.produtoServicoModel.quantidade;
   }
@@ -136,6 +150,19 @@ export class DespesaCadastrarComponent implements OnInit {
       numeroParcelamento: 1,
       valorPagamento: this.formaPagamentoDespesaModel.valorPagamento
     }
+    var pessoaModel = {
+      codigo: null,
+      nome: this.despesaModel.pessoaEstabelecimento,
+      tipoPessoa: null,
+      isAtivo: true,
+      isPessoaFinanceira: true,
+      isInstituicaoFinanceira: false
+    }
+    
+    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe( response => {
+      this.despesaModel.pessoaEstabelecimento = response;
+    });
+
     this.despesaModel.produtoServicoList = [];
     this.despesaModel.formaPagamentoDespesaList = [];
     formaPagamentoModel.despesaModel = null;
@@ -202,9 +229,8 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  // TODO -- Recuperar Forma de Pagamento Disponivel por usuario
   recuperarFormaPagamentoDespesaConfiguradaUsuario( pessoaEstabelecimentoModelCodigoEvent ) {
-    console.log("RECUPERAR FORMA PAGAMENTO DISPONIVEL USUARIO");
+    // TODO -- Recuperar Forma de Pagamento Disponivel por usuario
   }
 
   recuperarPessoaFisicaList() {
@@ -237,6 +263,13 @@ export class DespesaCadastrarComponent implements OnInit {
 
   redirecionarPaginaMonitoramentoDespesa() {
     this.router.navigate(["/despesa-monitoramento"]);
+  }
+
+  desabilitarMensagem() {
+    this.isApresentarMensagemSucesso = false;
+    this.isApresentarMensagemErro = false;
+    this.isProdutoServicoMultiplo = false;
+    this.isFormaPagamentoMutiplo = false;
   }
 
   limparCamposProdutoServico() {

@@ -32,7 +32,7 @@ import { ReceitaDetalharComponent } from './page/gerenciador-receita/receita-det
 import { DespesaCadastrarComponent } from './page/gerenciador-despesa/despesa-cadastrar/despesa-cadastrar.component';
 import { DespesaAlterarComponent } from './page/gerenciador-despesa/despesa-alterar/despesa-alterar.component';
 import { DespesaDetalharComponent } from './page/gerenciador-despesa/despesa-detalhar/despesa-detalhar.component';
-
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 registerLocaleData(localePt);
 
@@ -70,7 +70,8 @@ registerLocaleData(localePt);
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AutocompleteLibModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "pt-BR"}
