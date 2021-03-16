@@ -16,4 +16,8 @@ export class GerenciadorProdutoServicoService {
     return this.httpClient.get<ProdutoServicoModel[]>(`${this.URL_API_BASE_PRODUTO_SERVICO}`);
   }
 
+  cadastrar( produtoServicoModelParameter: ProdutoServicoModel ) : Observable<Object> {
+    return this.httpClient.post<ProdutoServicoModel>(`${this.URL_API_BASE_PRODUTO_SERVICO}`, produtoServicoModelParameter);
+  }
+
 }

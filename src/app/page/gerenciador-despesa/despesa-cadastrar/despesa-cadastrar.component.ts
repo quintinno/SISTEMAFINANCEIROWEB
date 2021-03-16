@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PessoaModel } from 'src/app/model/pessoa-model';
 import { ProdutoServicoModel } from 'src/app/model/produto-servico-model';
@@ -43,6 +43,13 @@ export class DespesaCadastrarComponent implements OnInit {
   public isProdutoServicoMultiplo: boolean = false;
   public isFormaPagamentoMutiplo: boolean = false;
 
+  // TODO -- Select
+  // public produtoServicoSelectList: NgModule[] = [];
+  public produtoServicoSelectList = new Array();
+  public produtoServicoList = [];
+  public produtoServicoCodigo: number;
+  public totalProdutoServico: number = 0;
+
   public pesquisarProdutoServicoPorDescricao = "descricao";
   public pesquisarPessoaEstabelecimentoPorNome = "nome";
 
@@ -66,6 +73,13 @@ export class DespesaCadastrarComponent implements OnInit {
     this.recuperarProdutoServicoCadastrado();
   }
 
+  // TODO
+  onChange = ($event: any) : void => {
+    console.log($event);
+  }
+
+  onAdd = ($event: any) : void => { }
+
   cadastrarProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
     var produtoServicoModelPersistir = {
         descricao: produtoServicoModelParameter.descricao,
@@ -73,9 +87,17 @@ export class DespesaCadastrarComponent implements OnInit {
         quantidade: produtoServicoModelParameter.quantidade
     }
     if(this.validarProdutoServicoModel(produtoServicoModelPersistir)) {
+      this.totalProdutoServico = (+this.totalProdutoServico) + ((+produtoServicoModelParameter.valorUnitario) * (produtoServicoModelParameter.quantidade));
+      console.log(this.totalProdutoServico);
       this.produtoServicoModelList.push(produtoServicoModelPersistir);
       this.limparCamposProdutoServico();
     }
+  }
+
+  cadastrarNovoProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
+    this.gerenciadorProdutoServicoService.cadastrar( produtoServicoModelParameter ).subscribe( response => {
+      console.log("Produto ou Serviço cadastrado com sucesso!");
+    });
   }
 
   private validarProdutoServicoModel( produtoServicoModelParameter: any ) {
@@ -98,6 +120,7 @@ export class DespesaCadastrarComponent implements OnInit {
     this.produtoServicoModelList.forEach( (produtoServicoModel_, index, produtoServicoModelList_) => {
       if(produtoServicoModel_ === produtoServicoModelParameter) {
         produtoServicoModelList_.splice(index, 1);
+        this.totalProdutoServico = (this.totalProdutoServico) - (produtoServicoModelParameter.valorUnitario * produtoServicoModelParameter.quantidade);
         this.produtoServicoModelList = produtoServicoModelList_;
       }
     });
@@ -109,6 +132,7 @@ export class DespesaCadastrarComponent implements OnInit {
 
   cadastrarPessoaEstabelecimento( pessoaModel: PessoaModel ) {
     pessoaModel.isAtivo = true;
+    pessoaModel.isInstituicaoFinanceira = false;
     this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe( response => {
       this.despesaModel.pessoaEstabelecimento = response;
       this.recuperarPessoaEstabelecimentoCadastrada();
@@ -126,6 +150,7 @@ export class DespesaCadastrarComponent implements OnInit {
   recuperarProdutoServicoCadastrado() {
     this.gerenciadorProdutoServicoService.recuperarProdutoServicoList().subscribe( response => {
       this.produtoServicoModelAutocompletarList = response;
+      this.produtoServicoSelectList = response;
     }, responseError => {
       console.error(responseError);
     });
@@ -173,6 +198,9 @@ export class DespesaCadastrarComponent implements OnInit {
         this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe( response => {
         this.isApresentarMensagemSucesso = true;
         this.limparCamposDespesa();
+        setTimeout(() => {
+          this.redirecionarPaginaDespesaCadastrar();
+        }, 2000);
       }, responseError => {
         console.error(responseError);
       });
@@ -263,6 +291,12 @@ export class DespesaCadastrarComponent implements OnInit {
 
   redirecionarPaginaMonitoramentoDespesa() {
     this.router.navigate(["/despesa-monitoramento"]);
+  }
+
+  redirecionarPaginaDespesaCadastrar() {
+    this.router.navigate(["/despesa-cadastrar"]).then( () => {
+      window.location.reload();
+    });
   }
 
   desabilitarMensagem() {
