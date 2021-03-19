@@ -34,7 +34,8 @@
 
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Cadastro de Despesa {{categoriaDespesaModel.sigla == 'DFI' ? 'Fixa': 'Variável'}}</div>
+                    <div class="card-title">Cadastro de Despesa {{categoriaDespesaModel.sigla == 'DFI' ? 'Fixa':
+                        'Variável'}}</div>
                 </div>
                 <div class="card-body">
 
@@ -43,15 +44,17 @@
                         <div class="col-md-3 col-lg-3">
                             <div class="form-group">
                                 <label for="categoriaDespesa">Categoria de Despesa</label>
-                                <select class="form-control" autofocus name="categoriaDespesa" (ngModelChange)="recuperarCodigoCategoriaDespesaModel($event)" [(ngModel)]="despesaModel.categoriaDespesa">
+                                <select class="form-control" autofocus name="categoriaDespesa"
+                                    (ngModelChange)="recuperarCodigoCategoriaDespesaModel($event)"
+                                    [(ngModel)]="despesaModel.categoriaDespesa">
                                     <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let categoria_despesa_ of categoriaDespesaModelList"
-                                        [value]="categoria_despesa_.codigo"> {{categoria_despesa_.descricao}} </option>
+                                    <option *ngFor="let categoria_despesa_ of categoriaDespesaModelList" [value]="categoria_despesa_.codigo"> {{categoria_despesa_.descricao}} </option>
                                 </select>
                             </div>
                         </div>
 
-                        <div *ngIf="despesaModel.categoriaDespesa != null" [ngClass]="{'col-md-3 col-lg-3' : despesaModel.pessoaEstabelecimento == 'Outro', 'col-md-4 col-lg-4': despesaModel.pessoaEstabelecimento != 'Outro'}">
+                        <div *ngIf="despesaModel.categoriaDespesa != null"
+                            [ngClass]="{'col-md-3 col-lg-3' : despesaModel.pessoaEstabelecimento == 'Outro', 'col-md-4 col-lg-4': despesaModel.pessoaEstabelecimento != 'Outro'}">
                             <!-- <div class="form-group">
                                 <label for="pessoaEstabelecimento">Pessoa ou Estabelecimento</label>
                                 <select id="pessoaEstabelecimento" name="pessoaEstabelecimento" [(ngModel)]="despesaModel.pessoaEstabelecimento" class="form-control">
@@ -62,15 +65,23 @@
                             </div> -->
                             <div class="form-group">
                                 <label for="pessoaEstabelecimento">Pessoa ou Estabelecimento</label>
-                                <ng-autocomplete [data]="pessoaEstabelecimentoList" [searchKeyword]="pesquisarPessoaEstabelecimentoPorNome" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" name="pessoaEstabelecimento" [(ngModel)]="despesaModel.pessoaEstabelecimento"></ng-autocomplete>
+                                <ng-autocomplete [data]="pessoaEstabelecimentoList"
+                                    [searchKeyword]="pesquisarPessoaEstabelecimentoPorNome"
+                                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                    name="pessoaEstabelecimento" [(ngModel)]="despesaModel.pessoaEstabelecimento">
+                                </ng-autocomplete>
                                 <ng-template #itemTemplate let-item><a [innerHTML]="item.nome"></a></ng-template>
-                                <ng-template #notFoundTemplate let-notFound><div [innerHTML]="notFound"></div></ng-template>
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
                             </div>
                         </div>
 
                         <div class="col-md-1 col-lg-1">
                             <div class="animated fadeIn" style="margin-top: 36px;">
-                                <button type="button" data-toggle="modal" data-target="#cadastrarPessoaEstabelecimentoModal" class="btn btn-round btn-primary btn-border">+</button>
+                                <button type="button" data-toggle="modal"
+                                    data-target="#cadastrarPessoaEstabelecimentoModal"
+                                    class="btn btn-round btn-primary btn-border">+</button>
                             </div>
                         </div>
 
@@ -123,39 +134,30 @@
                         <div class="ng-autocomplete col-md-5 col-lg-5">
                             <div class="form-group">
                                 <label for="produtoServico">Produto ou Serviço</label>
-                                <ng-select [items]="produtoServicoSelectList"
-                                           bindLabel="descricao"
-                                           bindValue="descricao"
-                                           placeholder="Selecione Produto ou Serviço"
-                                           name="descricao"
-                                           [(ngModel)]="produtoServicoModel.descricao"
-                                           (change)="onChange($event)">
+                                <ng-select [items]="produtoServicoSelectList" bindLabel="descricao"
+                                    bindValue="descricao" placeholder="Selecione Produto ou Serviço" name="descricao"
+                                    [(ngModel)]="produtoServicoModel.descricao" (change)="onChange($event)">
                                 </ng-select>
                             </div>
                         </div>
 
                         <div class="col-md-1 col-lg-1">
                             <div class="animated fadeIn" style="margin-top: 36px;">
-                                <button type="button" data-toggle="modal" data-target="#cadastrarProdutoServicoModal" class="btn btn-round btn-warning">&#43;</button>
+                                <button type="button" data-toggle="modal" data-target="#cadastrarProdutoServicoModal"
+                                    class="btn btn-round btn-warning">&#43;</button>
                             </div>
                         </div>
 
                         <div *ngIf="categoriaDespesaModel.sigla == 'DVA'" class="col-md-2 col-lg-2">
                             <div class="form-group">
                                 <label for="quantidade">Quantidade</label>
-                                <select id="quantidade" name="quantidade" [(ngModel)]="produtoServicoModel.quantidade"
-                                    class="form-control">
+                                <select id="quantidade" name="quantidade"
+                                    [(ngModel)]="produtoServicoOcorrenciaModel.quantidade" class="form-control">
                                     <option [disabled]="true">Selecione</option>
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
+                                    <option
+                                        *ngFor="let produto_servico_ocorrencia_ of produtoServicoOcorrenciaQuantidadeList"
+                                        [value]="produto_servico_ocorrencia_.codigo">
+                                        {{produto_servico_ocorrencia_.codigo}}</option>
                                 </select>
                             </div>
                         </div>
@@ -164,8 +166,7 @@
                             [ngClass]="{'col-md-2 col-lg-2' : categoriaDespesaModel.sigla == 'DVA', 'col-md-4 col-lg-4' : categoriaDespesaModel.sigla == 'DFI'}">
                             <div class="form-group">
                                 <label for="valorUnitario">Valor Unitário</label>
-                                <input id="valorUnitario" type="text" name="valorUnitario"
-                                    [(ngModel)]="produtoServicoModel.valorUnitario" placeholder="R$ 00,00"
+                                <input id="valorUnitario" type="text" name="valorUnitario" [(ngModel)]="produtoServicoOcorrenciaModel.valorUnitario" placeholder="R$ 00,00"
                                     class="form-control form-control" />
                             </div>
                         </div>
@@ -180,16 +181,11 @@
                                 </select>
                             </div> -->
                             <div class="animated fadeIn" style="margin-top: 36px;">
-                                <button type="button" (click)="cadastrarProdutoServico(produtoServicoModel)" class="btn btn-round btn-warning">></button>
+                                <button type="button" (click)="cadastrarProdutoServico(produtoServicoModel)"
+                                    class="btn btn-round btn-warning">></button>
                             </div>
                         </div>
 
-                    </div>
-
-                    <div *ngIf="isProdutoServicoMultiplo" class="card-action">
-                        <button [disabled]="produtoServicoModel.descricao == null" (click)="cadastrarProdutoServico(produtoServicoModel)" class="btn btn-secondary btn-xl btn-border col-md-12">
-                            <b>Cadastrar Produto ou Serviço</b>
-                        </button>
                     </div>
 
                     <div *ngIf="produtoServicoModelList.length > 0" class="row">
@@ -214,11 +210,9 @@
                             <tbody>
                                 <tr *ngFor="let produto_servico_model_ of produtoServicoModelList">
                                     <td class="text-left"> {{produto_servico_model_.descricao}} </td>
-                                    <td class="text-center"> {{produto_servico_model_.valorUnitario | currency : "BRL":
-                                        true}} </td>
+                                    <td class="text-center"> {{produto_servico_model_.valorUnitario | currency : "BRL": true}} </td>
                                     <td class="text-center"> {{produto_servico_model_.quantidade}} </td>
-                                    <td class="text-center"> {{ produto_servico_model_.quantidade *
-                                        produto_servico_model_.valorUnitario | currency : "BRL": true}} </td>
+                                    <td class="text-center"> {{ produto_servico_model_.quantidade * produto_servico_model_.valorUnitario | currency : "BRL": true}} </td>
                                     <td class="text-center">
                                         <button type="button" (click)="removerProdutoServico(produto_servico_model_)" class="btn btn-warning btn-border"> Remover </button>
                                     </td>
@@ -228,10 +222,50 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="text-center fw-bold"><h4>Total</h4></td>
-                                <td colspan="5" class="text-center fw-bold"><h3>{{totalProdutoServico | currency : "BRL": true}}</h3></td>
+                                <td class="text-center fw-bold">
+                                    <h4>Total</h4>
+                                </td>
+                                <td colspan="5" class="text-center fw-bold">
+                                    <h3>{{totalProdutoServico | currency : "BRL": true}}</h3>
+                                </td>
                             </tfoot>
                         </table>
+                    </div>
+
+                    <div *ngIf="isProdutoServicoMultiplo" class="card-action">
+                        <button [disabled]="produtoServicoModel.descricao == null"
+                            (click)="cadastrarProdutoServico(produtoServicoModel)"
+                            class="btn btn-secondary btn-xl btn-border col-md-12">
+                            <b>Cadastrar Produto ou Serviço</b>
+                        </button>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="valorTotalDespesa">Valor Total da Despesa</label>
+                                <input id="valorTotalDespesa" type="text" name="valorTotalDespesa"
+                                    placeholder="R$ 00,00" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="valorTotalDescontoDespesa">Valor do Desconto</label>
+                                <input id="valorTotalDescontoDespesa" type="text" name="valorTotalDescontoDespesa"
+                                    placeholder="R$ 00,00" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="valorFinalDespesa">Valor da Final da Despesa</label>
+                                <input id="valorFinalDespesa" type="text" name="valorFinalDespesa"
+                                    placeholder="R$ 00,00" class="form-control" />
+                            </div>
+                        </div>
+
                     </div>
 
                     <div *ngIf="despesaModel.categoriaDespesa != null" class="row">
@@ -261,7 +295,19 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-lg-4">
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="formaPagamento">Canal da Despesa</label>
+                                <select class="form-control" name="formaPagamento"
+                                    [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList"
+                                        [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-3 col-lg-4">
                             <div class="form-group">
                                 <label for="isFormaPagamentoMutiplo_">Forma de Pagamento Múltiplo</label>
                                 <select id="isFormaPagamentoMutiplo_" name="isFormaPagamentoMutiplo_" #isFormaPagamentoMutiplo_ (change)="alterarValorFormaPagamentoMultiplo(isFormaPagamentoMutiplo_.value)" class="form-control">
@@ -270,12 +316,13 @@
                                     <option value="true">Múltiplo</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
 
                     <div *ngIf="isFormaPagamentoMutiplo" class="card-action">
-                        <button [disabled]="despesaModel.categoriaDespesa == null" class="btn btn-secondary btn-xl btn-border col-md-12" style="margin: 4px;">
+                        <button [disabled]="despesaModel.categoriaDespesa == null"
+                            class="btn btn-secondary btn-xl btn-border col-md-12" style="margin: 4px;">
                             <b>Cadastrar Forma de Pagamento</b>
                         </button>
                     </div>
@@ -319,9 +366,12 @@
 
                 </div>
                 <div class="card-action">
-                    <button id="cadastrarDespesa" [disabled]="despesaModel.categoriaDespesa == null" class="btn btn-primary btn-lg col-md-6" style="margin: 4px;">Cadastrar Despesa</button>
-                    <button type="button" [disabled]="despesaModel.categoriaDespesa == null" class="btn btn-warning btn-lg col-md-3" style="margin: 4px;">Cadastrar Outra</button>
-                    <button type="button" (click)="redirecionarPaginaMonitoramentoDespesa()" class="btn btn-danger btn-border btn-lg col-md-2" style="margin: 4px;">Cancelar</button>
+                    <button id="cadastrarDespesa" [disabled]="despesaModel.categoriaDespesa == null"
+                        class="btn btn-primary btn-lg col-md-6" style="margin: 4px;">Cadastrar Despesa</button>
+                    <button type="button" [disabled]="despesaModel.categoriaDespesa == null"
+                        class="btn btn-warning btn-lg col-md-3" style="margin: 4px;">Cadastrar Outra</button>
+                    <button type="button" (click)="redirecionarPaginaMonitoramentoDespesa()"
+                        class="btn btn-danger btn-border btn-lg col-md-2" style="margin: 4px;">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -342,15 +392,18 @@
                     <div class="col-md-4 col-lg-6">
                         <div class="form-group">
                             <label for="nome">Pessoa ou Estabelecimento</label>
-                            <input type="text" name="nome" [(ngModel)]="pessoaModel.nome" class="form-control form-control">
+                            <input type="text" name="nome" [(ngModel)]="pessoaModel.nome"
+                                class="form-control form-control">
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-6">
                         <div class="form-group">
                             <label for="tipoPessoa">Tipo de Pessoa</label>
-                            <select name="tipoPessoa" [(ngModel)]="pessoaModel.tipoPessoa" class="form-control" placeholder="Selecione">
-                                <option>Selecionar</option>
-                                <option *ngFor="let tipo_pessoa_model_ of tipoPessoaModelList" [ngValue]="tipo_pessoa_model_">{{ tipo_pessoa_model_.descricao }}</option>
+                            <select name="tipoPessoa" [(ngModel)]="pessoaModel.tipoPessoa" class="form-control"
+                                placeholder="Selecione">
+                                <option [disabled]="true">Selecione</option>
+                                <option *ngFor="let tipo_pessoa_model_ of tipoPessoaModelList"
+                                    [ngValue]="tipo_pessoa_model_">{{ tipo_pessoa_model_.descricao }}</option>
                             </select>
                         </div>
                     </div>
@@ -370,8 +423,10 @@
                 </div> -->
             </div>
             <div class="modal-footer">
-                <button type="button" (click)="cadastrarPessoaEstabelecimento(pessoaModel)" data-dismiss="modal" class="btn btn-primary col-md-10">Cadastrar</button>
-                <button type="button" data-dismiss="modal" class="btn btn-secondary btn-border col-md-2">Cancelar</button>
+                <button type="button" (click)="cadastrarPessoaEstabelecimento(pessoaModel)" data-dismiss="modal"
+                    class="btn btn-primary col-md-10">Cadastrar</button>
+                <button type="button" data-dismiss="modal"
+                    class="btn btn-secondary btn-border col-md-2">Cancelar</button>
             </div>
         </div>
     </div>
@@ -391,14 +446,16 @@
                     <div class="col-md-12 col-lg-12">
                         <div class="form-group">
                             <label for="descricao">Descrição do Produto ou Serviço</label>
-                            <input type="text" name="descricao" [(ngModel)]="produtoServicoModel.descricao" class="form-control form-control">
+                            <input type="text" name="descricao" [(ngModel)]="produtoServicoModel.descricao"
+                                class="form-control form-control">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-primary col-md-10">Cadastrar</button>
-                <button type="button" data-dismiss="modal" class="btn btn-secondary btn-border col-md-2">Cancelar</button>
+                <button type="button" data-dismiss="modal"
+                    class="btn btn-secondary btn-border col-md-2">Cancelar</button>
             </div>
         </div>
     </div>

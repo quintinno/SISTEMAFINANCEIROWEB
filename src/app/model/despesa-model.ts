@@ -10,6 +10,7 @@ export class DespesaModel {
     canalPagamento: string;
     dataVencimento: string;
     dataPagamento: string;
+    dataCadastro: string;
     valorTotal: number;
     valorDesconto: number;
     valorPagamento: number;

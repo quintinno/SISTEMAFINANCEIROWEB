@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PessoaModel } from 'src/app/model/pessoa-model';
 import { ProdutoServicoModel } from 'src/app/model/produto-servico-model';
@@ -9,10 +9,11 @@ import { GerenciadorTipoPessoaService } from 'src/app/service/gerenciador-tipo-p
 import { CategoriaDespesaModel } from "../../../model/categoria-despesa-model";
 import { DespesaModel } from "../../../model/despesa-model";
 import { FormaPagamentoDespesaModel } from "../../../model/forma-pagamento-despesa-model";
+import { ProdutoServicoOcorrenciaModel } from "../../../model/produto-servico-ocorrencia-model";
 import { TipoFormaPagamentoModel } from "../../../model/tipo-forma-pagamento-model";
 import { GerenciadorCategoriaDespesaService } from "../../../service/gerenciador-categoria-despesa.service";
-import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
 import { GerenciadorDespesaService } from "../../../service/gerenciador-despesa.service";
+import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
 import { GerenciadorProdutoServicoService } from "../../../service/gerenciador-produto-servico.service";
 
 @Component({
@@ -27,6 +28,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public categoriaDespesaModel: CategoriaDespesaModel = new CategoriaDespesaModel();
   public formaPagamentoDespesaModel: FormaPagamentoDespesaModel = new FormaPagamentoDespesaModel();
   public pessoaModel: PessoaModel = new PessoaModel();
+  public produtoServicoOcorrenciaModel: ProdutoServicoOcorrenciaModel = new ProdutoServicoOcorrenciaModel();
 
   public categoriaDespesaModelList: CategoriaDespesaModel[];
   public pessoaEstabelecimentoList: PessoaModel[];
@@ -49,6 +51,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public produtoServicoList = [];
   public produtoServicoCodigo: number;
   public totalProdutoServico: number = 0;
+  public produtoServicoOcorrenciaQuantidadeList = new Array();
 
   public pesquisarProdutoServicoPorDescricao = "descricao";
   public pesquisarPessoaEstabelecimentoPorNome = "nome";
@@ -71,25 +74,48 @@ export class DespesaCadastrarComponent implements OnInit {
     this.recuperarTipoFormaPagamentoList();
     this.recuperarTipoPessoa();
     this.recuperarProdutoServicoCadastrado();
+
+    // TODO -- 
+    this.gerarProdutoServicoOcorrenciaQuantidade();
   }
 
-  // TODO
-  onChange = ($event: any) : void => {
-    console.log($event);
+  gerarProdutoServicoOcorrenciaQuantidade() {
+    var produtoServicoOcorrenciaQuantidade = { codigo: null, quantidade: null };
+    for( let index = 1 ; index <= 10 ; index++ ) {
+      produtoServicoOcorrenciaQuantidade = { codigo: null, quantidade: null };
+      produtoServicoOcorrenciaQuantidade.codigo = index;
+      produtoServicoOcorrenciaQuantidade.quantidade = index;
+      this.produtoServicoOcorrenciaQuantidadeList.push(produtoServicoOcorrenciaQuantidade);
+    }
+    this.produtoServicoOcorrenciaModel = this.produtoServicoOcorrenciaQuantidadeList[0];
+    this.produtoServicoOcorrenciaModel.quantidade = this.produtoServicoOcorrenciaQuantidadeList[0].quantidade;
   }
 
-  onAdd = ($event: any) : void => { }
+  gerarProdutoServicoOcorrenciaModel() {
+    var produtoServicoOcorrenciaPersistir = {
+      codigo: null,
+      quantidade: null,
+      valorUnitario: null,
+      produtoServico: null,
+    }
+    return produtoServicoOcorrenciaPersistir;
+  }
 
   cadastrarProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
+    debugger;
+    var produtoServicoOcorrenciaPersistir = {
+      codigo: null,
+      quantidade: this.produtoServicoOcorrenciaModel.quantidade,
+      valorUnitario: this.produtoServicoOcorrenciaModel.valorUnitario,
+      descricao: produtoServicoModelParameter.descricao
+    }
     var produtoServicoModelPersistir = {
         descricao: produtoServicoModelParameter.descricao,
-        valorUnitario: produtoServicoModelParameter.valorUnitario,
-        quantidade: produtoServicoModelParameter.quantidade
     }
     if(this.validarProdutoServicoModel(produtoServicoModelPersistir)) {
-      this.totalProdutoServico = (+this.totalProdutoServico) + ((+produtoServicoModelParameter.valorUnitario) * (produtoServicoModelParameter.quantidade));
+      this.totalProdutoServico = (+this.totalProdutoServico) + ((+this.produtoServicoOcorrenciaModel.valorUnitario) * (this.produtoServicoOcorrenciaModel.quantidade));
       console.log(this.totalProdutoServico);
-      this.produtoServicoModelList.push(produtoServicoModelPersistir);
+      this.produtoServicoModelList.push(produtoServicoOcorrenciaPersistir);
       this.limparCamposProdutoServico();
     }
   }
@@ -105,22 +131,22 @@ export class DespesaCadastrarComponent implements OnInit {
       console.log("O campo DESCRICAO é obrigatório!");
       return false;
     }
-    if( produtoServicoModelParameter.quantidade == null ) {
+    if( this.produtoServicoOcorrenciaModel.quantidade == null ) {
       console.log("O campo QUANTIDADE é obrigatório!");
       return false;
     }
-    if( produtoServicoModelParameter.valorUnitario == null ) {
+    if( this.produtoServicoOcorrenciaModel.valorUnitario == null ) {
       console.log("O campo VALOR UNITARIO é obrigatório!");
       return false;
     }
     return true;
   }
 
-  removerProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
+  removerProdutoServico( produtoServicoModelParameter: ProdutoServicoModel, produtoServicoOcorrenciaModelParameter: ProdutoServicoOcorrenciaModel ) {
     this.produtoServicoModelList.forEach( (produtoServicoModel_, index, produtoServicoModelList_) => {
       if(produtoServicoModel_ === produtoServicoModelParameter) {
         produtoServicoModelList_.splice(index, 1);
-        this.totalProdutoServico = (this.totalProdutoServico) - (produtoServicoModelParameter.valorUnitario * produtoServicoModelParameter.quantidade);
+        this.totalProdutoServico = (this.totalProdutoServico) - (produtoServicoOcorrenciaModelParameter.valorUnitario * produtoServicoOcorrenciaModelParameter.quantidade);
         this.produtoServicoModelList = produtoServicoModelList_;
       }
     });
@@ -157,23 +183,23 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   calcularValorProdutoServico() {
-    return this.produtoServicoModel.valorUnitario * this.produtoServicoModel.quantidade;
+    return this.produtoServicoOcorrenciaModel.valorUnitario * this.produtoServicoOcorrenciaModel.quantidade;
   }
 
   cadastrarDespesa() {
     var produtoServicoModel = {
       codigo: null,
       descricao: this.produtoServicoModel.descricao,
-      valorUnitario: this.produtoServicoModel.valorUnitario,
-      quantidade: this.produtoServicoModel.quantidade
+      valorUnitario: this.produtoServicoOcorrenciaModel.valorUnitario,
+      quantidade: this.produtoServicoOcorrenciaModel.quantidade
     }
-    var formaPagamentoModel = {
+    var formaPagamentoDespesaModel = {
       codigo: null,
       despesaModel: this.despesaModel,
       formaPagamento: this.formaPagamentoDespesaModel.formaPagamento,
       pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
       numeroParcelamento: 1,
-      valorPagamento: this.formaPagamentoDespesaModel.valorPagamento
+      valorPagamento: this.despesaModel.valorTotal
     }
     var pessoaModel = {
       codigo: null,
@@ -183,18 +209,27 @@ export class DespesaCadastrarComponent implements OnInit {
       isPessoaFinanceira: true,
       isInstituicaoFinanceira: false
     }
-    
     this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe( response => {
       this.despesaModel.pessoaEstabelecimento = response;
     });
-
     this.despesaModel.produtoServicoList = [];
     this.despesaModel.formaPagamentoDespesaList = [];
-    formaPagamentoModel.despesaModel = null;
+    formaPagamentoDespesaModel.despesaModel = null;
     if( this.categoriaDespesaModel.sigla == 'DVA' ) {
-        this.despesaModel.produtoServicoList.push(produtoServicoModel);
-        this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoModel);
+        if(this.produtoServicoModelList.length > 0) {
+          this.despesaModel.produtoServicoList = this.produtoServicoModelList;
+        } else {
+          this.despesaModel.produtoServicoList.push(produtoServicoModel);
+        }
+        this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
         this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
+        var diaAtual = new Date().getUTCDate();
+        var mesAtual = new Date().getUTCMonth() + 1;
+        var anoAtual = new Date().getFullYear();
+        var dataAtual = `${diaAtual}` + "/" + `${mesAtual}` + "/" + `${anoAtual}`;
+        this.despesaModel.dataCadastro = dataAtual;
+        this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
+        debugger;
         this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe( response => {
         this.isApresentarMensagemSucesso = true;
         this.limparCamposDespesa();
@@ -308,8 +343,8 @@ export class DespesaCadastrarComponent implements OnInit {
 
   limparCamposProdutoServico() {
     this.produtoServicoModel.descricao = null;
-    this.produtoServicoModel.quantidade = null;
-    this.produtoServicoModel.valorUnitario = null;
+    // this.produtoServicoOcorrenciaModel.quantidade = null;
+    this.produtoServicoOcorrenciaModel.valorUnitario = null;
   }
 
   limparCamposDespesa() {
@@ -323,8 +358,8 @@ export class DespesaCadastrarComponent implements OnInit {
     this.formaPagamentoDespesaModel.pessoaPagamento = null;
     this.formaPagamentoDespesaModel.valorPagamento = null;
     this.produtoServicoModel.descricao = null;
-    this.produtoServicoModel.quantidade = null;
-    this.produtoServicoModel.valorUnitario = null;
+    this.produtoServicoOcorrenciaModel.quantidade = null;
+    this.produtoServicoOcorrenciaModel.valorUnitario = null;
     this.despesaModel.dataVencimento = null;
     this.despesaModel.dataPagamento = null;
     this.despesaModel.valorTotal = null;
