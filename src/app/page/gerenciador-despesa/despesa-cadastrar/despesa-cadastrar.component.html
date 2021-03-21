@@ -55,14 +55,6 @@
 
                         <div *ngIf="despesaModel.categoriaDespesa != null"
                             [ngClass]="{'col-md-3 col-lg-3' : despesaModel.pessoaEstabelecimento == 'Outro', 'col-md-4 col-lg-4': despesaModel.pessoaEstabelecimento != 'Outro'}">
-                            <!-- <div class="form-group">
-                                <label for="pessoaEstabelecimento">Pessoa ou Estabelecimento</label>
-                                <select id="pessoaEstabelecimento" name="pessoaEstabelecimento" [(ngModel)]="despesaModel.pessoaEstabelecimento" class="form-control">
-                                    <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let pessoa_estabelecimento_ of pessoaEstabelecimentoList" [ngValue]="pessoa_estabelecimento_"> {{pessoa_estabelecimento_.nome}} </option>
-                                    <option>Outro</option>
-                                </select>
-                            </div> -->
                             <div class="form-group">
                                 <label for="pessoaEstabelecimento">Pessoa ou Estabelecimento</label>
                                 <ng-autocomplete [data]="pessoaEstabelecimentoList"
@@ -108,29 +100,6 @@
 
                     <div *ngIf="despesaModel.categoriaDespesa != null" class="row">
 
-                        <!-- <div class="col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label for="produtoServico">Produto ou Serviço</label>
-                                <input id="produtoServico"typ e="text" name="produtoServico"
-                                    [(ngModel)]="produtoServicoModel.descricao" placeholder="Nome do Produto ou Serviço"
-                                    class="form-control form-control" />
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="ng-autocomplete col-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label for="produtoServico">Produto ou Serviço (Autocomplete)</label>
-                                <ng-autocomplete [data]="produtoServicoModelAutocompletarList" [searchKeyword]="pesquisarProdutoServicoPorDescricao" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" name="produtoServico"
-                                [(ngModel)]="produtoServicoModel.descricao"></ng-autocomplete>
-                            </div>
-                            <ng-template #itemTemplate let-item>
-                                <a [innerHTML]="item.descricao"></a>
-                            </ng-template>
-                            <ng-template #notFoundTemplate let-notFound>
-                                <div [innerHTML]="notFound"></div>
-                            </ng-template>
-                        </div> -->
-
                         <div class="ng-autocomplete col-md-5 col-lg-5">
                             <div class="form-group">
                                 <label for="produtoServico">Produto ou Serviço</label>
@@ -172,14 +141,6 @@
                         </div>
 
                         <div class="col-md-2 col-lg-2">
-                            <!-- <div class="form-group">
-                                <label for="isProdutoServicoMultiplo_">Produto Múltiplo</label>
-                                <select id="isProdutoServicoMultiplo_" name="isProdutoServicoMultiplo_" #isProdutoServicoMultiplo_ (change)="alterarValorProdutoServicoMultiplo(isProdutoServicoMultiplo_.value)" class="form-control">
-                                    <option [disabled]="true">Selecione</option>
-                                    <option id="unico" value="false" selected> Único </option>
-                                    <option id="multiplo" value="true"> Múltiplo </option>
-                                </select>
-                            </div> -->
                             <div class="animated fadeIn" style="margin-top: 36px;">
                                 <button type="button" (click)="cadastrarProdutoServico(produtoServicoModel)"
                                     class="btn btn-round btn-warning">></button>
@@ -292,7 +253,7 @@
                         <div class="col-md-3 col-lg-2">
                             <div class="form-group">
                                 <label for="formaPagamento">Forma de Pagamento</label>
-                                <select class="form-control" name="formaPagamento" (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)" [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
+                                <select class="form-control" name="tipoFormaPagamento" (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)" [(ngModel)]="formaPagamentoDespesaModel.tipoFormaPagamento">
                                     <option [disabled]="true">Selecione</option>
                                     <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
                                 </select>
@@ -311,8 +272,8 @@
 
                         <div class="col-md-3 col-lg-2">
                             <div class="form-group">
-                                <label for="valorFinalPagamento">Valor do Pagamento</label>
-                                <input id="valorFinalPagamento" type="text" name="valorFinalPagamento" placeholder="R$ 00,00" class="form-control" />
+                                <label for="valorPagamento">Valor do Pagamento</label>
+                                <input id="valorPagamento" type="text" name="valorPagamento" [(ngModel)]="formaPagamentoDespesaModel.valorPagamento" placeholder="R$ 00,00" class="form-control" />
                             </div>
                         </div>
 
@@ -324,38 +285,24 @@
 
                     </div>
 
-                    <div *ngIf="isFormaPagamentoMutiplo" class="row">
+                    <div *ngIf="formaPagamentoDespesaModelList.length > 0" class="row">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <td class="text-left" style="width: 270px;"><b>Responsável Pelo Pagamento</b></td>
-                                    <td class="text-center">
-                                        <strong>Forma de Pagamento</strong>
-                                    </td>
-                                    <td class="text-center">
-                                        <strong>Valor do Pagamento</strong>
-                                    </td>
-                                    <td class="text-center">
-                                        <strong>Ações</strong>
-                                    </td>
+                                    <td class="text-center"><strong>Forma de Pagamento</strong></td>
+                                    <td class="text-center"><strong>Fonte do Pagamento</strong></td>
+                                    <td class="text-center"><strong>Valor do Pagamento</strong></td>
+                                    <td class="text-center"><strong>Ações</strong></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-left"> José Quentinn </td>
-                                    <td class="text-center"> Cartão de Crédito (XXXX XXXX XXXX 9972) </td>
-                                    <td class="text-center"> <b>R$ 18.49</b> </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-warning btn-border"> Remover </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left"> Jamille Alves </td>
-                                    <td class="text-center"> Cartão de Crédito (XXXX XXXX XXXX 4524) </td>
-                                    <td class="text-center"> <b>R$ 18.49</b> </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-warning btn-border"> Remover </button>
-                                    </td>
+                                <tr *ngFor="let forma_pagamento_despesa_ of formaPagamentoDespesaModelList">
+                                    <td> {{forma_pagamento_despesa_.pessoaPagamento.nome}} </td>
+                                    <td class="text-center"> {{forma_pagamento_despesa_.tipoFormaPagamento.descricao}} </td>
+                                    <td> {{forma_pagamento_despesa_.fontePagamento}} </td>
+                                    <td class="text-center"> {{forma_pagamento_despesa_.valorPagamento | currency : "BRL": true }} </td>
+                                    <td class="text-center"><button type="button" class="btn btn-warning btn-border"> Remover </button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -405,19 +352,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
-                    <div class="col-md-4 col-lg-12">
-                        <div class="form-group">
-                            <label for="isAtivo">Instituição Financeira</label>
-                            <select name="isAtivo" [(ngModel)]="pessoaModel.isInstituicaoFinanceira"
-                                class="form-control">
-                                <option>Selecionar</option>
-                                <option [ngValue]="true" selected>Sim</option>
-                                <option [ngValue]="false">Não</option>
-                            </select>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <div class="modal-footer">
                 <button type="button" (click)="cadastrarPessoaEstabelecimento(pessoaModel)" data-dismiss="modal"

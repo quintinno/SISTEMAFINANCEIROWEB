@@ -21,6 +21,7 @@ import { GerenciadorProdutoServicoService } from "../../../service/gerenciador-p
 import { GerenciadorTipoCanalPagamentoService } from "../../../service/gerenciador-tipo-canal-pagamento.service";
 import { GerenciadorCartaoBancarioService } from "../../../service/gerenciador-cartao-bancario.service";
 import { CartaoBancarioModel } from "../../../model/cartao-bancario-model";
+import { FormaPagamentoDespesaDTO } from "../../../model/forma-pagamento-despesa-dto";
 
 @Component({
   selector: 'app-despesa-cadastrar',
@@ -36,8 +37,9 @@ export class DespesaCadastrarComponent implements OnInit {
   public pessoaModel: PessoaModel = new PessoaModel();
   public produtoServicoOcorrenciaModel: ProdutoServicoOcorrenciaModel = new ProdutoServicoOcorrenciaModel();
   public tipoCanalPagamentoModel: TipoCanalPagamentoModel = new TipoCanalPagamentoModel();
-  public fontePagamentoDTO : FontePagamentoDTO = new FontePagamentoDTO();
+  public fontePagamentoDTO: FontePagamentoDTO = new FontePagamentoDTO();
   public cartaoBancarioModel: CartaoBancarioModel = new CartaoBancarioModel();
+  public formaPagamentoDespesaDTO: FormaPagamentoDespesaDTO = new FormaPagamentoDespesaDTO();
 
   public categoriaDespesaModelList: CategoriaDespesaModel[];
   public pessoaEstabelecimentoList: PessoaModel[];
@@ -46,7 +48,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public produtoServicoModelList = new Array();
   public produtoServicoMultiploList = new Array();
   public produtoServicoModelAutocompletarList = new Array();
-  public formaPagamentoDespesaModelList: FormaPagamentoDespesaModel[];
+  public formaPagamentoDespesaModelList = new Array();
   public tipoPessoaModelList: TipoPessoaModel[];
   public tipoCanalPagamentoList: TipoCanalPagamentoModel[];
   public fontePagamentoDTOList = new Array();
@@ -68,7 +70,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public pesquisarProdutoServicoPorDescricao = "descricao";
   public pesquisarPessoaEstabelecimentoPorNome = "nome";
 
-  constructor( 
+  constructor(
     private router: Router,
     private gerenciadorCategoriaDespesaService: GerenciadorCategoriaDespesaService,
     private gerenciadorPessoaService: GerenciadorPessoaService,
@@ -95,7 +97,7 @@ export class DespesaCadastrarComponent implements OnInit {
 
   gerarProdutoServicoOcorrenciaQuantidade() {
     var produtoServicoOcorrenciaQuantidade = { codigo: null, quantidade: null };
-    for( let index = 1 ; index <= 10 ; index++ ) {
+    for (let index = 1; index <= 10; index++) {
       produtoServicoOcorrenciaQuantidade = { codigo: null, quantidade: null };
       produtoServicoOcorrenciaQuantidade.codigo = index;
       produtoServicoOcorrenciaQuantidade.quantidade = index;
@@ -115,7 +117,7 @@ export class DespesaCadastrarComponent implements OnInit {
     return produtoServicoOcorrenciaPersistir;
   }
 
-  cadastrarProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
+  cadastrarProdutoServico(produtoServicoModelParameter: ProdutoServicoModel) {
     debugger;
     var produtoServicoOcorrenciaPersistir = {
       codigo: null,
@@ -124,40 +126,40 @@ export class DespesaCadastrarComponent implements OnInit {
       descricao: produtoServicoModelParameter.descricao
     }
     var produtoServicoModelPersistir = {
-        descricao: produtoServicoModelParameter.descricao,
+      descricao: produtoServicoModelParameter.descricao,
     }
-    if(this.validarProdutoServicoModel(produtoServicoModelPersistir)) {
+    if (this.validarProdutoServicoModel(produtoServicoModelPersistir)) {
       this.totalProdutoServico = (+this.totalProdutoServico) + ((+this.produtoServicoOcorrenciaModel.valorUnitario) * (this.produtoServicoOcorrenciaModel.quantidade));
       this.produtoServicoModelList.push(produtoServicoOcorrenciaPersistir);
       this.limparCamposProdutoServico();
     }
   }
 
-  cadastrarNovoProdutoServico( produtoServicoModelParameter: ProdutoServicoModel ) {
-    this.gerenciadorProdutoServicoService.cadastrar( produtoServicoModelParameter ).subscribe( response => {
+  cadastrarNovoProdutoServico(produtoServicoModelParameter: ProdutoServicoModel) {
+    this.gerenciadorProdutoServicoService.cadastrar(produtoServicoModelParameter).subscribe(response => {
       console.log("Produto ou Serviço cadastrado com sucesso!");
     });
   }
 
-  private validarProdutoServicoModel( produtoServicoModelParameter: any ) {
-    if( produtoServicoModelParameter.descricao == null ) {
+  private validarProdutoServicoModel(produtoServicoModelParameter: any) {
+    if (produtoServicoModelParameter.descricao == null) {
       console.log("O campo DESCRICAO é obrigatório!");
       return false;
     }
-    if( this.produtoServicoOcorrenciaModel.quantidade == null ) {
+    if (this.produtoServicoOcorrenciaModel.quantidade == null) {
       console.log("O campo QUANTIDADE é obrigatório!");
       return false;
     }
-    if( this.produtoServicoOcorrenciaModel.valorUnitario == null ) {
+    if (this.produtoServicoOcorrenciaModel.valorUnitario == null) {
       console.log("O campo VALOR UNITARIO é obrigatório!");
       return false;
     }
     return true;
   }
 
-  removerProdutoServico( produtoServicoModelParameter: ProdutoServicoModel, produtoServicoOcorrenciaModelParameter: ProdutoServicoOcorrenciaModel ) {
-    this.produtoServicoModelList.forEach( (produtoServicoModel_, index, produtoServicoModelList_) => {
-      if(produtoServicoModel_ === produtoServicoModelParameter) {
+  removerProdutoServico(produtoServicoModelParameter: ProdutoServicoModel, produtoServicoOcorrenciaModelParameter: ProdutoServicoOcorrenciaModel) {
+    this.produtoServicoModelList.forEach((produtoServicoModel_, index, produtoServicoModelList_) => {
+      if (produtoServicoModel_ === produtoServicoModelParameter) {
         produtoServicoModelList_.splice(index, 1);
         this.totalProdutoServico = (this.totalProdutoServico) - (produtoServicoOcorrenciaModelParameter.valorUnitario * produtoServicoOcorrenciaModelParameter.quantidade);
         this.produtoServicoModelList = produtoServicoModelList_;
@@ -165,16 +167,31 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  // TODO --
   cadastrarFormaPagamentoMultiplaDespesa() {
-    console.log("Cadastar Forma Pagamento...");
-    // this.formaPagamentoDespesaModelList.push();
+    var formaPagamentoDespesaModelCadastrar = {
+      codigo: null,
+      despesaModel: this.despesaModel,
+      tipoFormaPagamento: this.formaPagamentoDespesaModel.tipoFormaPagamento,
+      pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
+      numeroParcelamento: 1,
+      fontePagamento: this.fontePagamentoDTO.descricao,
+      valorPagamento: this.formaPagamentoDespesaModel.valorPagamento,
+    }
+    this.formaPagamentoDespesaDTO = formaPagamentoDespesaModelCadastrar;
+    this.formaPagamentoDespesaModelList.push(formaPagamentoDespesaModelCadastrar);
+    this.formaPagamentoDespesaModel.pessoaPagamento = null;
+    this.formaPagamentoDespesaModel.tipoFormaPagamento = null;
+    this.fontePagamentoDTO.descricao = null;
+    this.formaPagamentoDespesaModel.valorPagamento = null;
   }
 
-  cadastrarPessoaEstabelecimento( pessoaModel: PessoaModel ) {
+  // TODO -- Implementar remocao de dados da listagem de Forma de Pagamento
+  removerFormaPagamentoMultiplaDespesa() { }
+
+  cadastrarPessoaEstabelecimento(pessoaModel: PessoaModel) {
     pessoaModel.isAtivo = true;
     pessoaModel.isInstituicaoFinanceira = false;
-    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe( response => {
+    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe(response => {
       this.despesaModel.pessoaEstabelecimento = response;
       this.recuperarPessoaEstabelecimentoCadastrada();
     }, responseError => {
@@ -183,13 +200,13 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   recuperarPessoaEstabelecimentoCadastrada() {
-    this.gerenciadorPessoaService.recuperarPessoaList().subscribe( response => {
+    this.gerenciadorPessoaService.recuperarPessoaList().subscribe(response => {
       this.pessoaEstabelecimentoList = response.reverse();
     });
   }
 
   recuperarProdutoServicoCadastrado() {
-    this.gerenciadorProdutoServicoService.recuperarProdutoServicoList().subscribe( response => {
+    this.gerenciadorProdutoServicoService.recuperarProdutoServicoList().subscribe(response => {
       this.produtoServicoModelAutocompletarList = response;
       this.produtoServicoSelectList = response;
     }, responseError => {
@@ -224,28 +241,30 @@ export class DespesaCadastrarComponent implements OnInit {
       isPessoaFinanceira: true,
       isInstituicaoFinanceira: false
     }
-    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe( response => {
+    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe(response => {
       this.despesaModel.pessoaEstabelecimento = response;
     });
     this.despesaModel.produtoServicoList = [];
     this.despesaModel.formaPagamentoDespesaList = [];
     formaPagamentoDespesaModel.despesaModel = null;
-    if( this.categoriaDespesaModel.sigla == 'DVA' ) {
-        if(this.produtoServicoModelList.length > 0) {
-          this.despesaModel.produtoServicoList = this.produtoServicoModelList;
-        } else {
-          this.despesaModel.produtoServicoList.push(produtoServicoModel);
-        }
-        this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
-        this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
-        var diaAtual = new Date().getUTCDate();
-        var mesAtual = new Date().getUTCMonth() + 1;
-        var anoAtual = new Date().getFullYear();
-        var dataAtual = `${diaAtual}` + "/" + `${mesAtual}` + "/" + `${anoAtual}`;
-        this.despesaModel.dataCadastro = dataAtual;
-        this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
-        debugger;
-        this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe( response => {
+    formaPagamentoDespesaModel.valorPagamento = this.despesaModel.valorTotal;
+    if (this.categoriaDespesaModel.sigla == 'DVA') {
+      if (this.produtoServicoModelList.length > 0) {
+        this.despesaModel.produtoServicoList = this.produtoServicoModelList;
+      } else {
+        this.despesaModel.produtoServicoList.push(produtoServicoModel);
+      }
+      this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
+      this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
+      var diaAtual = new Date().getUTCDate();
+      var mesAtual = new Date().getUTCMonth() + 1;
+      var anoAtual = new Date().getFullYear();
+      var dataAtual = `${diaAtual}` + "/" + `${mesAtual}` + "/" + `${anoAtual}`;
+      this.despesaModel.dataCadastro = dataAtual;
+      this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
+      this.despesaModel.valorDesconto = (this.despesaModel.valorDesconto == null ? this.despesaModel.valorDesconto = 0 : this.despesaModel.valorDesconto);
+      this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
+      this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe(response => {
         this.isApresentarMensagemSucesso = true;
         this.limparCamposDespesa();
         setTimeout(() => {
@@ -257,11 +276,11 @@ export class DespesaCadastrarComponent implements OnInit {
     }
   }
 
-  alterarValorProdutoServicoMultiplo( isProdutoServicoMultiploParameter: boolean ) {
+  alterarValorProdutoServicoMultiplo(isProdutoServicoMultiploParameter: boolean) {
     this.isProdutoServicoMultiplo = isProdutoServicoMultiploParameter;
   }
 
-  alterarValorFormaPagamentoMultiplo( isFormaPagamentoMultiploParameter: boolean ) {
+  alterarValorFormaPagamentoMultiplo(isFormaPagamentoMultiploParameter: boolean) {
     this.isFormaPagamentoMutiplo = isFormaPagamentoMultiploParameter;
   }
 
@@ -270,7 +289,7 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   recuperarCategoriaDespesaList() {
-    this.gerenciadorCategoriaDespesaService.recuperarCategoriaDespesaList().subscribe( response => {
+    this.gerenciadorCategoriaDespesaService.recuperarCategoriaDespesaList().subscribe(response => {
       this.categoriaDespesaModelList = response;
       this.despesaModel.categoriaDespesa = this.categoriaDespesaModelList[1].codigo;
       this.categoriaDespesaModel = this.categoriaDespesaModelList[1];
@@ -278,18 +297,18 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   recuperarPessoaEstabelecimento() {
-    this.gerenciadorPessoaService.recuperarPessoaList().subscribe( response => {
+    this.gerenciadorPessoaService.recuperarPessoaList().subscribe(response => {
       this.pessoaEstabelecimentoList = response;
     });
   }
 
   // TODO -- Recuperar Pessoa ou Estabelecimento de acordo com a Categoria de Despesa
-  recuperarCodigoCategoriaDespesaModel( categoriaDespesaModelCodigoEvent ) {
-    this.categoriaDespesaModelList.forEach( (categoriaDespesaModel_, index_) => {
-      if(categoriaDespesaModelCodigoEvent == this.categoriaDespesaModelList[index_].codigo) {
+  recuperarCodigoCategoriaDespesaModel(categoriaDespesaModelCodigoEvent) {
+    this.categoriaDespesaModelList.forEach((categoriaDespesaModel_, index_) => {
+      if (categoriaDespesaModelCodigoEvent == this.categoriaDespesaModelList[index_].codigo) {
         this.categoriaDespesaModel = this.categoriaDespesaModelList[index_];
       }
-      if(this.categoriaDespesaModel.sigla == "DFI") {
+      if (this.categoriaDespesaModel.sigla == "DFI") {
         this.recuperarPessoaEstabelecimentoContrato();
       } else {
         this.recuperarPessoaEstabelecimento();
@@ -299,22 +318,22 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   recuperarPessoaEstabelecimentoContrato() {
-    this.gerenciadorContratoService.recuperarContratoList().subscribe( response => {
+    this.gerenciadorContratoService.recuperarContratoList().subscribe(response => {
       this.pessoaEstabelecimentoList = [];
-      response.forEach( ( pessoaEstabelecimentoModel_ ) => {
+      response.forEach((pessoaEstabelecimentoModel_) => {
         this.pessoaEstabelecimentoList.push(pessoaEstabelecimentoModel_.pessoaContratado);
       });
     });
   }
 
-  recuperarFormaPagamentoDespesaConfiguradaUsuario( formaPagamentoSelecionadoEvent ) {
-    if(formaPagamentoSelecionadoEvent.sigla == "DN") { 
+  recuperarFormaPagamentoDespesaConfiguradaUsuario(formaPagamentoSelecionadoEvent) {
+    if (formaPagamentoSelecionadoEvent.sigla == "DN") {
       this.recuperarFontePagamentoDinheiro();
     }
-    if(formaPagamentoSelecionadoEvent.sigla == "CC") { 
+    if (formaPagamentoSelecionadoEvent.sigla == "CC") {
       this.recuperarFontePagamentoCartaoCredito();
     }
-    if(formaPagamentoSelecionadoEvent.sigla == "CD") { 
+    if (formaPagamentoSelecionadoEvent.sigla == "CD") {
       this.recuperarFontePagamentoCartaoDebito();
     }
   }
@@ -323,9 +342,9 @@ export class DespesaCadastrarComponent implements OnInit {
     this.fontePagamentoDTOList = new Array();
     this.fontePagamentoDTO.codigo = null;
     this.fontePagamentoDTO.descricao = null;
-    this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe( response => {
-      response.forEach( ( contaBancariaResultado ) => {
-        if(contaBancariaResultado.tipoContaBancaria.descricao == "Conta Carteira (Conta Especial)") {
+    this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe(response => {
+      response.forEach((contaBancariaResultado) => {
+        if (contaBancariaResultado.tipoContaBancaria.descricao == "Conta Carteira (Conta Especial)") {
           this.fontePagamentoDTO.codigo = contaBancariaResultado.tipoContaBancaria.codigo;
           this.fontePagamentoDTO.descricao = contaBancariaResultado.tipoContaBancaria.descricao;
           this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
@@ -338,8 +357,8 @@ export class DespesaCadastrarComponent implements OnInit {
     this.fontePagamentoDTOList = new Array();
     this.fontePagamentoDTO.codigo = null;
     this.fontePagamentoDTO.descricao = null;
-    this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioCreditoList().subscribe( response => {
-      response.forEach( ( cartaoBancarioModel_ ) => {
+    this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioCreditoList().subscribe(response => {
+      response.forEach((cartaoBancarioModel_) => {
         this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigoCartaoBancario;
         this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.funcaoCartaoBancario + " (" + cartaoBancarioModel_.numeroCartaoBancario + ")";
         this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
@@ -352,8 +371,8 @@ export class DespesaCadastrarComponent implements OnInit {
     this.fontePagamentoDTOList = new Array();
     this.fontePagamentoDTO.codigo = null;
     this.fontePagamentoDTO.descricao = null;
-    this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioDebitoList().subscribe( response => {
-      response.forEach( ( cartaoBancarioModel_ ) => {
+    this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioDebitoList().subscribe(response => {
+      response.forEach((cartaoBancarioModel_) => {
         this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigoCartaoBancario;
         this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.funcaoCartaoBancario + " (" + cartaoBancarioModel_.numeroCartaoBancario + ")";
         this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
@@ -362,13 +381,13 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   recuperarPessoaFisicaList() {
-    this.gerenciadorPessoaService.recuperarPessoaFisicaList().subscribe( response => {
+    this.gerenciadorPessoaService.recuperarPessoaFisicaList().subscribe(response => {
       this.pessoaFisicaModelList = response;
     });
   }
 
   recuperarTipoFormaPagamentoList() {
-    this.gerenciadorTipoFormaPagamentoService.recuperarTipoFormaPagamentoList().subscribe( response => {
+    this.gerenciadorTipoFormaPagamentoService.recuperarTipoFormaPagamentoList().subscribe(response => {
       this.tipoFormaPagamentoList = response;
     });
   }
@@ -382,7 +401,7 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   recuperarTipoPessoa() {
-    this.gerenciadorTipoPessoaService.recuperarTipoPessoa().subscribe( response => {
+    this.gerenciadorTipoPessoaService.recuperarTipoPessoa().subscribe(response => {
       this.tipoPessoaModelList = response;
     }, responseError => {
       console.error(responseError);
@@ -390,7 +409,7 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   recuperarTipoCanalPagamento() {
-    this.gerenciadorTipoCanalPagamentoService.recuperarTipoCanalPagamentoList().subscribe( response => {
+    this.gerenciadorTipoCanalPagamentoService.recuperarTipoCanalPagamentoList().subscribe(response => {
       this.tipoCanalPagamentoList = response;
     });
   }
@@ -400,7 +419,7 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   redirecionarPaginaDespesaCadastrar() {
-    this.router.navigate(["/despesa-cadastrar"]).then( () => {
+    this.router.navigate(["/despesa-cadastrar"]).then(() => {
       window.location.reload();
     });
   }
