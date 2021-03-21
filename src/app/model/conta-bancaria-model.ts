@@ -4,7 +4,7 @@ export class ContaBancariaModel {
     dataEncerramento: string;
     numeroAgencia: string;
     numeroConta: string;
-    valorSaldoInicial: string;
+    valorSaldoAtual: string;
     contrato: any;
     tipoContaBancaria: any;
 }

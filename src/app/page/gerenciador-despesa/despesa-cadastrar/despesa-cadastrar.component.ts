@@ -2,19 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PessoaModel } from 'src/app/model/pessoa-model';
 import { ProdutoServicoModel } from 'src/app/model/produto-servico-model';
+import { TipoCanalPagamentoModel } from 'src/app/model/tipo-canal-pagamento-model';
 import { TipoPessoaModel } from 'src/app/model/tipo-pessoa-model';
 import { GerenciadorContratoService } from 'src/app/service/gerenciador-contrato.service';
 import { GerenciadorTipoFormaPagamentoService } from 'src/app/service/gerenciador-tipo-forma-pagamento.service';
 import { GerenciadorTipoPessoaService } from 'src/app/service/gerenciador-tipo-pessoa.service';
 import { CategoriaDespesaModel } from "../../../model/categoria-despesa-model";
 import { DespesaModel } from "../../../model/despesa-model";
+import { FontePagamentoDTO } from "../../../model/fonte-pagamento-dto";
 import { FormaPagamentoDespesaModel } from "../../../model/forma-pagamento-despesa-model";
 import { ProdutoServicoOcorrenciaModel } from "../../../model/produto-servico-ocorrencia-model";
 import { TipoFormaPagamentoModel } from "../../../model/tipo-forma-pagamento-model";
 import { GerenciadorCategoriaDespesaService } from "../../../service/gerenciador-categoria-despesa.service";
+import { GerenciadorContaBancariaService } from "../../../service/gerenciador-conta-bancaria.service";
 import { GerenciadorDespesaService } from "../../../service/gerenciador-despesa.service";
 import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
 import { GerenciadorProdutoServicoService } from "../../../service/gerenciador-produto-servico.service";
+import { GerenciadorTipoCanalPagamentoService } from "../../../service/gerenciador-tipo-canal-pagamento.service";
 
 @Component({
   selector: 'app-despesa-cadastrar',
@@ -29,6 +33,8 @@ export class DespesaCadastrarComponent implements OnInit {
   public formaPagamentoDespesaModel: FormaPagamentoDespesaModel = new FormaPagamentoDespesaModel();
   public pessoaModel: PessoaModel = new PessoaModel();
   public produtoServicoOcorrenciaModel: ProdutoServicoOcorrenciaModel = new ProdutoServicoOcorrenciaModel();
+  public tipoCanalPagamentoModel: TipoCanalPagamentoModel = new TipoCanalPagamentoModel();
+  public fontePagamentoDTO : FontePagamentoDTO = new FontePagamentoDTO();
 
   public categoriaDespesaModelList: CategoriaDespesaModel[];
   public pessoaEstabelecimentoList: PessoaModel[];
@@ -39,6 +45,8 @@ export class DespesaCadastrarComponent implements OnInit {
   public produtoServicoModelAutocompletarList = new Array();
   public formaPagamentoDespesaModelList: FormaPagamentoDespesaModel[];
   public tipoPessoaModelList: TipoPessoaModel[];
+  public tipoCanalPagamentoList: TipoCanalPagamentoModel[];
+  public fontePagamentoDTOList = new Array();
 
   public isApresentarMensagemSucesso: boolean = false;
   public isApresentarMensagemErro: boolean = false;
@@ -64,7 +72,9 @@ export class DespesaCadastrarComponent implements OnInit {
     private gerenciadorContratoService: GerenciadorContratoService,
     private gerenciadorTipoPessoaService: GerenciadorTipoPessoaService,
     private gerenciadorDespesaService: GerenciadorDespesaService,
-    private gerenciadorProdutoServicoService: GerenciadorProdutoServicoService
+    private gerenciadorProdutoServicoService: GerenciadorProdutoServicoService,
+    private gerenciadorTipoCanalPagamentoService: GerenciadorTipoCanalPagamentoService,
+    private gerenciadorContaBancariaService: GerenciadorContaBancariaService,
   ) { }
 
   ngOnInit(): void {
@@ -74,9 +84,8 @@ export class DespesaCadastrarComponent implements OnInit {
     this.recuperarTipoFormaPagamentoList();
     this.recuperarTipoPessoa();
     this.recuperarProdutoServicoCadastrado();
-
-    // TODO -- 
     this.gerarProdutoServicoOcorrenciaQuantidade();
+    this.recuperarTipoCanalPagamento();
   }
 
   gerarProdutoServicoOcorrenciaQuantidade() {
@@ -114,7 +123,6 @@ export class DespesaCadastrarComponent implements OnInit {
     }
     if(this.validarProdutoServicoModel(produtoServicoModelPersistir)) {
       this.totalProdutoServico = (+this.totalProdutoServico) + ((+this.produtoServicoOcorrenciaModel.valorUnitario) * (this.produtoServicoOcorrenciaModel.quantidade));
-      console.log(this.totalProdutoServico);
       this.produtoServicoModelList.push(produtoServicoOcorrenciaPersistir);
       this.limparCamposProdutoServico();
     }
@@ -292,9 +300,49 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  recuperarFormaPagamentoDespesaConfiguradaUsuario( pessoaEstabelecimentoModelCodigoEvent ) {
-    // TODO -- Recuperar Forma de Pagamento Disponivel por usuario
+  recuperarFormaPagamentoDespesaConfiguradaUsuario( formaPagamentoSelecionadoEvent ) {
+    if(formaPagamentoSelecionadoEvent.sigla == "DN") { 
+      this.recuperarFontePagamentoDinheiro();
+    }
+    if(formaPagamentoSelecionadoEvent.sigla == "CC") { 
+      this.recuperarFontePagamentoCartaoCredito();
+    }
+    if(formaPagamentoSelecionadoEvent.sigla == "CD") { 
+      this.recuperarFontePagamentoCartaoDebito();
+    }
   }
+
+  private recuperarFontePagamentoDinheiro() { 
+    this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe( response => {
+      response.forEach( ( contaBancariaResultado ) => {
+        if(contaBancariaResultado.tipoContaBancaria.descricao == "Conta Carteira (Conta Especial)") {
+          this.fontePagamentoDTO.codigo = contaBancariaResultado.tipoContaBancaria.codigo;
+          this.fontePagamentoDTO.descricao = contaBancariaResultado.tipoContaBancaria.descricao;
+          this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
+        }
+      });
+    });
+  }
+
+  private recuperarFontePagamentoCartaoCredito() {
+    this.fontePagamentoDTOList = new Array();
+    this.fontePagamentoDTO.codigo = null;
+    this.fontePagamentoDTO.descricao = null;
+    this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe( response => {
+      console.log(response);
+      response.forEach( ( contaBancariaResultado ) => {
+        if(contaBancariaResultado.tipoContaBancaria.descricao == "Conta Corrente") {
+          // this.gerenciador
+          // this.fontePagamentoDTO.codigo = contaBancariaResultado.tipoContaBancaria.codigo;
+          // this.fontePagamentoDTO.descricao = contaBancariaResultado.tipoContaBancaria.descricao;
+          // this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
+        }
+      });
+    });
+  }
+
+  // TODO -- Implementar
+  private recuperarFontePagamentoCartaoDebito() { }
 
   recuperarPessoaFisicaList() {
     this.gerenciadorPessoaService.recuperarPessoaFisicaList().subscribe( response => {
@@ -321,6 +369,12 @@ export class DespesaCadastrarComponent implements OnInit {
       this.tipoPessoaModelList = response;
     }, responseError => {
       console.error(responseError);
+    });
+  }
+
+  recuperarTipoCanalPagamento() {
+    this.gerenciadorTipoCanalPagamentoService.recuperarTipoCanalPagamentoList().subscribe( response => {
+      this.tipoCanalPagamentoList = response;
     });
   }
 

@@ -252,9 +252,8 @@
 
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="valorTotalDescontoDespesa">Valor do Desconto</label>
-                                <input id="valorTotalDescontoDespesa" type="text" name="valorTotalDescontoDespesa"
-                                    placeholder="R$ 00,00" class="form-control" />
+                                <label for="valorDescontoDespesa">Valor do Desconto</label>
+                                <input id="valorDescontoDespesa" type="text" name="valorDescontoDespesa" placeholder="R$ 00,00" class="form-control" />
                             </div>
                         </div>
 
@@ -270,42 +269,52 @@
 
                     <div *ngIf="despesaModel.categoriaDespesa != null" class="row">
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-3 col-lg-2">
                             <div class="form-group">
                                 <label for="responsavelPagamento">Responsável pelo Pagamento</label>
-                                <select class="form-control" name="responsavelPagamento"
-                                    (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)"
-                                    [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamento">
+                                <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamento">
                                     <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let pessoa_fisica_ of pessoaFisicaModelList"
-                                        [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
+                                    <option *ngFor="let pessoa_fisica_ of pessoaFisicaModelList" [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-3 col-lg-2">
                             <div class="form-group">
                                 <label for="formaPagamento">Forma de Pagamento</label>
-                                <select class="form-control" name="formaPagamento"
-                                    [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
+                                <select class="form-control" name="formaPagamento" (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)" [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
                                     <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList"
-                                        [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
+                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="formaPagamento">Canal da Despesa</label>
-                                <select class="form-control" name="formaPagamento"
-                                    [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
+                                <label for="fontePagamento">Fonte do Pagamento</label>
+                                <select class="form-control" name="fontePagamento" [(ngModel)]="fontePagamento">
                                     <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList"
-                                        [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
+                                    <option *ngFor="let fonte_pagamento_ of fontePagamentoDTOList" [ngValue]="fonte_pagamento_.codigo"> {{fonte_pagamento_.descricao}} </option>
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-md-3 col-lg-2">
+                            <div class="form-group">
+                                <label for="valorFinalPagamento">Valor do Pagamento</label>
+                                <input id="valorFinalPagamento" type="text" name="valorFinalPagamento" placeholder="R$ 00,00" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-2">
+                            <div class="form-group">
+                                <label for="tipoCanalPagamento">Canal Pagamento</label>
+                                <select class="form-control" name="formaPagamento" [(ngModel)]="tipoCanalPagamentoModel.descricao">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_canal_pagamento_ of tipoCanalPagamentoList" [value]="tipo_canal_pagamento_.codigo"> {{tipo_canal_pagamento_ == "TRANSACAO_FISICA" ? "Transação Física" : "Transação Online" }} </option>
+                                </select>
+                            </div>
+                        </div>                        
 
                         <!-- <div class="col-md-3 col-lg-4">
                             <div class="form-group">
