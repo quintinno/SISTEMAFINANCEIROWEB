@@ -340,8 +340,8 @@ export class DespesaCadastrarComponent implements OnInit {
     this.fontePagamentoDTO.descricao = null;
     this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioCreditoList().subscribe( response => {
       response.forEach( ( cartaoBancarioModel_ ) => {
-        this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigo;
-        this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.descricao + " (" + cartaoBancarioModel_.numero + ")";
+        this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigoCartaoBancario;
+        this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.funcaoCartaoBancario + " (" + cartaoBancarioModel_.numeroCartaoBancario + ")";
         this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
       });
     });
@@ -354,8 +354,8 @@ export class DespesaCadastrarComponent implements OnInit {
     this.fontePagamentoDTO.descricao = null;
     this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioDebitoList().subscribe( response => {
       response.forEach( ( cartaoBancarioModel_ ) => {
-        this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigo;
-        this.fontePagamentoDTO.descricao = "Cartão de " + cartaoBancarioModel_.descricao + " (" + cartaoBancarioModel_.numero + ")";
+        this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigoCartaoBancario;
+        this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.funcaoCartaoBancario + " (" + cartaoBancarioModel_.numeroCartaoBancario + ")";
         this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
       });
     });

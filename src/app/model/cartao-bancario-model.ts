@@ -1,6 +1,6 @@
 export class CartaoBancarioModel {
-    codigo: number;
-    numero: string;
-    descricao: string;
+    codigoCartaoBancario: number;
+    numeroCartaoBancario: string;
+    funcaoCartaoBancario: string;
     nomeInstiticaoFinanceira: string;
 }
