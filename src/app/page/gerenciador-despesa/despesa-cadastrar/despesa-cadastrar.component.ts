@@ -228,7 +228,7 @@ export class DespesaCadastrarComponent implements OnInit {
     var formaPagamentoDespesaModel = {
       codigo: null,
       despesaModel: this.despesaModel,
-      formaPagamento: this.formaPagamentoDespesaModel.formaPagamento,
+      tipoFormaPagamento: this.formaPagamentoDespesaModel.tipoFormaPagamento,
       pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
       numeroParcelamento: 1,
       valorPagamento: this.despesaModel.valorTotal
@@ -443,7 +443,7 @@ export class DespesaCadastrarComponent implements OnInit {
     this.despesaModel.produtoServicoList = [];
     this.despesaModel.formaPagamentoDespesaList = [];
     this.formaPagamentoDespesaModel.despesaModel = null;
-    this.formaPagamentoDespesaModel.formaPagamento = null;
+    this.formaPagamentoDespesaModel.tipoFormaPagamento = null;
     this.formaPagamentoDespesaModel.numeroParcelamento = null;
     this.formaPagamentoDespesaModel.pessoaPagamento = null;
     this.formaPagamentoDespesaModel.valorPagamento = null;
