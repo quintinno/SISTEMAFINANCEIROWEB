@@ -242,7 +242,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-4 col-lg-3">
                             <div class="form-group">
                                 <label for="valorTotalDespesa">Valor Total da Despesa</label>
                                 <input id="valorTotalDespesa" type="text" name="valorTotalDespesa"
@@ -250,20 +250,30 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-4 col-lg-3">
                             <div class="form-group">
                                 <label for="valorDescontoDespesa">Valor do Desconto</label>
                                 <input id="valorDescontoDespesa" type="text" name="valorDescontoDespesa" placeholder="R$ 00,00" class="form-control" />
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-4 col-lg-3">
                             <div class="form-group">
                                 <label for="valorFinalDespesa">Valor da Final da Despesa</label>
                                 <input id="valorFinalDespesa" type="text" name="valorFinalDespesa"
                                     placeholder="R$ 00,00" class="form-control" />
                             </div>
                         </div>
+
+                        <div class="col-md-4 col-lg-3">
+                            <div class="form-group">
+                                <label for="tipoCanalPagamento">Canal Pagamento</label>
+                                <select class="form-control" name="formaPagamento" [(ngModel)]="tipoCanalPagamentoModel.descricao">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option *ngFor="let tipo_canal_pagamento_ of tipoCanalPagamentoList" [value]="tipo_canal_pagamento_.codigo"> {{tipo_canal_pagamento_ == "TRANSACAO_FISICA" ? "Transação Física" : "Transação Online" }} </option>
+                                </select>
+                            </div>
+                        </div>    
 
                     </div>
 
@@ -289,7 +299,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-4 col-lg-5">
                             <div class="form-group">
                                 <label for="fontePagamento">Fonte do Pagamento</label>
                                 <select class="form-control" name="fontePagamento" [(ngModel)]="fontePagamento">
@@ -306,34 +316,12 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-2">
-                            <div class="form-group">
-                                <label for="tipoCanalPagamento">Canal Pagamento</label>
-                                <select class="form-control" name="formaPagamento" [(ngModel)]="tipoCanalPagamentoModel.descricao">
-                                    <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let tipo_canal_pagamento_ of tipoCanalPagamentoList" [value]="tipo_canal_pagamento_.codigo"> {{tipo_canal_pagamento_ == "TRANSACAO_FISICA" ? "Transação Física" : "Transação Online" }} </option>
-                                </select>
+                        <div class="col-md-2 col-lg-1">
+                            <div class="animated fadeIn" style="margin-top: 36px;">
+                                <button type="button" (click)="cadastrarFormaPagamentoMultiplaDespesa()" class="btn btn-round btn-secondary">></button>
                             </div>
-                        </div>                        
+                        </div>
 
-                        <!-- <div class="col-md-3 col-lg-4">
-                            <div class="form-group">
-                                <label for="isFormaPagamentoMutiplo_">Forma de Pagamento Múltiplo</label>
-                                <select id="isFormaPagamentoMutiplo_" name="isFormaPagamentoMutiplo_" #isFormaPagamentoMutiplo_ (change)="alterarValorFormaPagamentoMultiplo(isFormaPagamentoMutiplo_.value)" class="form-control">
-                                    <option [disabled]="true">Selecione</option>
-                                    <option value="false" selected>Único</option>
-                                    <option value="true">Múltiplo</option>
-                                </select>
-                            </div>
-                        </div> -->
-
-                    </div>
-
-                    <div *ngIf="isFormaPagamentoMutiplo" class="card-action">
-                        <button [disabled]="despesaModel.categoriaDespesa == null"
-                            class="btn btn-secondary btn-xl btn-border col-md-12" style="margin: 4px;">
-                            <b>Cadastrar Forma de Pagamento</b>
-                        </button>
                     </div>
 
                     <div *ngIf="isFormaPagamentoMutiplo" class="row">

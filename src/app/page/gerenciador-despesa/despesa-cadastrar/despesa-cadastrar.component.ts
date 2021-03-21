@@ -19,6 +19,8 @@ import { GerenciadorDespesaService } from "../../../service/gerenciador-despesa.
 import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
 import { GerenciadorProdutoServicoService } from "../../../service/gerenciador-produto-servico.service";
 import { GerenciadorTipoCanalPagamentoService } from "../../../service/gerenciador-tipo-canal-pagamento.service";
+import { GerenciadorCartaoBancarioService } from "../../../service/gerenciador-cartao-bancario.service";
+import { CartaoBancarioModel } from "../../../model/cartao-bancario-model";
 
 @Component({
   selector: 'app-despesa-cadastrar',
@@ -35,6 +37,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public produtoServicoOcorrenciaModel: ProdutoServicoOcorrenciaModel = new ProdutoServicoOcorrenciaModel();
   public tipoCanalPagamentoModel: TipoCanalPagamentoModel = new TipoCanalPagamentoModel();
   public fontePagamentoDTO : FontePagamentoDTO = new FontePagamentoDTO();
+  public cartaoBancarioModel: CartaoBancarioModel = new CartaoBancarioModel();
 
   public categoriaDespesaModelList: CategoriaDespesaModel[];
   public pessoaEstabelecimentoList: PessoaModel[];
@@ -47,6 +50,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public tipoPessoaModelList: TipoPessoaModel[];
   public tipoCanalPagamentoList: TipoCanalPagamentoModel[];
   public fontePagamentoDTOList = new Array();
+  public cartaoBancarioList = new Array();
 
   public isApresentarMensagemSucesso: boolean = false;
   public isApresentarMensagemErro: boolean = false;
@@ -75,6 +79,7 @@ export class DespesaCadastrarComponent implements OnInit {
     private gerenciadorProdutoServicoService: GerenciadorProdutoServicoService,
     private gerenciadorTipoCanalPagamentoService: GerenciadorTipoCanalPagamentoService,
     private gerenciadorContaBancariaService: GerenciadorContaBancariaService,
+    private gerenciadorCartaoBancarioService: GerenciadorCartaoBancarioService
   ) { }
 
   ngOnInit(): void {
@@ -160,8 +165,10 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  cadastrarFormaPagamentoDespesa( formaPagamentoDespesModel: FormaPagamentoDespesaModel ) {
-    this.formaPagamentoDespesaModelList.push(formaPagamentoDespesModel);
+  // TODO --
+  cadastrarFormaPagamentoMultiplaDespesa() {
+    console.log("Cadastar Forma Pagamento...");
+    // this.formaPagamentoDespesaModelList.push();
   }
 
   cadastrarPessoaEstabelecimento( pessoaModel: PessoaModel ) {
@@ -312,7 +319,10 @@ export class DespesaCadastrarComponent implements OnInit {
     }
   }
 
-  private recuperarFontePagamentoDinheiro() { 
+  private recuperarFontePagamentoDinheiro() {
+    this.fontePagamentoDTOList = new Array();
+    this.fontePagamentoDTO.codigo = null;
+    this.fontePagamentoDTO.descricao = null;
     this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe( response => {
       response.forEach( ( contaBancariaResultado ) => {
         if(contaBancariaResultado.tipoContaBancaria.descricao == "Conta Carteira (Conta Especial)") {
@@ -328,21 +338,28 @@ export class DespesaCadastrarComponent implements OnInit {
     this.fontePagamentoDTOList = new Array();
     this.fontePagamentoDTO.codigo = null;
     this.fontePagamentoDTO.descricao = null;
-    this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe( response => {
-      console.log(response);
-      response.forEach( ( contaBancariaResultado ) => {
-        if(contaBancariaResultado.tipoContaBancaria.descricao == "Conta Corrente") {
-          // this.gerenciador
-          // this.fontePagamentoDTO.codigo = contaBancariaResultado.tipoContaBancaria.codigo;
-          // this.fontePagamentoDTO.descricao = contaBancariaResultado.tipoContaBancaria.descricao;
-          // this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
-        }
+    this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioCreditoList().subscribe( response => {
+      response.forEach( ( cartaoBancarioModel_ ) => {
+        this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigo;
+        this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.descricao + " (" + cartaoBancarioModel_.numero + ")";
+        this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
       });
     });
   }
 
   // TODO -- Implementar
-  private recuperarFontePagamentoCartaoDebito() { }
+  private recuperarFontePagamentoCartaoDebito() {
+    this.fontePagamentoDTOList = new Array();
+    this.fontePagamentoDTO.codigo = null;
+    this.fontePagamentoDTO.descricao = null;
+    this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioDebitoList().subscribe( response => {
+      response.forEach( ( cartaoBancarioModel_ ) => {
+        this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigo;
+        this.fontePagamentoDTO.descricao = "Cartão de " + cartaoBancarioModel_.descricao + " (" + cartaoBancarioModel_.numero + ")";
+        this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
+      });
+    });
+  }
 
   recuperarPessoaFisicaList() {
     this.gerenciadorPessoaService.recuperarPessoaFisicaList().subscribe( response => {

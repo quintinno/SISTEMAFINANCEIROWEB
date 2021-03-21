@@ -65,7 +65,7 @@ export class ContaBancariaCadastrarComponent implements OnInit {
     this.contaBancariaModel.numeroAgencia = null;
     this.contaBancariaModel.numeroConta = null;
     this.contaBancariaModel.tipoContaBancaria = null;
-    this.contaBancariaModel.valorSaldoInicial = null;
+    this.contaBancariaModel.valorSaldoAtual = null;
   }
 
   desabilitarAlerta() {
