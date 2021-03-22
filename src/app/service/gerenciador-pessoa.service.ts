@@ -32,4 +32,8 @@ export class GerenciadorPessoaService {
     return this.httpClient.delete(`${this.URL_BASE_API}/${codigo}`);
   }
 
+  recuperarPessoaFinanceiraSistemaList() : Observable<PessoaModel[]> {
+    return this.httpClient.get<PessoaModel[]>(`${this.URL_BASE_API}/recuperar-pessoa-financeira-sistema`);
+  }
+
 }
