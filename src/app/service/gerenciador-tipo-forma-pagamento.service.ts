@@ -16,5 +16,9 @@ export class GerenciadorTipoFormaPagamentoService {
     return this.httpClient.get<TipoFormaPagamentoModel[]>(`${this.URL_BASE_API_TIPO_FORMA_PAGAMENTO}`);
   }
 
+  recuperarTipoFormaPagamentoAtivoList() : Observable<TipoFormaPagamentoModel[]> {
+    return this.httpClient.get<TipoFormaPagamentoModel[]>(`${this.URL_BASE_API_TIPO_FORMA_PAGAMENTO}/ativo`);
+  }
+
 
 }

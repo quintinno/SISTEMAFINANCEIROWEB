@@ -383,12 +383,11 @@ export class DespesaCadastrarComponent implements OnInit {
   recuperarPessoaFisicaList() {
     this.gerenciadorPessoaService.recuperarPessoaFinanceiraSistemaList().subscribe(response => {
       this.pessoaFisicaModelList = response;
-      console.table(this.pessoaFisicaModelList);
     });
   }
 
   recuperarTipoFormaPagamentoList() {
-    this.gerenciadorTipoFormaPagamentoService.recuperarTipoFormaPagamentoList().subscribe(response => {
+    this.gerenciadorTipoFormaPagamentoService.recuperarTipoFormaPagamentoAtivoList().subscribe(response => {
       this.tipoFormaPagamentoList = response;
     });
   }
