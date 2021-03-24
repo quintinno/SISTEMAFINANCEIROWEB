@@ -243,7 +243,7 @@
                         <div class="col-md-3 col-lg-2">
                             <div class="form-group">
                                 <label for="responsavelPagamento">Responsável pelo Pagamento</label>
-                                <select class="form-control" name="responsavelPagamento" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamento">
+                                <select class="form-control" name="responsavelPagamento" (ngModelChange)="recuperarFormaPagamentoVinculadoResponsavelPagamento($event)" [(ngModel)]="formaPagamentoDespesaModel.pessoaPagamento">
                                     <option [disabled]="true">Selecione</option>
                                     <option *ngFor="let pessoa_fisica_ of pessoaFisicaModelList" [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
                                 </select>

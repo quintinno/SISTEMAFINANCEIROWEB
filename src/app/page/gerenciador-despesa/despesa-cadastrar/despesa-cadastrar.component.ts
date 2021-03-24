@@ -414,6 +414,15 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
+  // TODO -- 
+  recuperarFormaPagamentoVinculadoResponsavelPagamento( pessoaPagamentoDespesaParameter: PessoaModel ) {
+    this.gerenciadorTipoFormaPagamentoService.recuperarFormaPagamentoPessoaVinculoContaBancariaList(pessoaPagamentoDespesaParameter.codigo).subscribe(response => {
+      this.tipoFormaPagamentoList = response;
+      console.log(this.tipoFormaPagamentoList);
+    });
+    console.log("Recuperar Forma Pagamento Vinculado Responsavel Pagamento ( " + pessoaPagamentoDespesaParameter.nome + ")");
+  }
+
   redirecionarPaginaMonitoramentoDespesa() {
     this.router.navigate(["/despesa-monitoramento"]);
   }

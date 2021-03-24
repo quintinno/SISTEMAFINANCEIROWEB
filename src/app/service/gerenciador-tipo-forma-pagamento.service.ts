@@ -1,5 +1,5 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http"
 import { Observable } from 'rxjs';
 import { TipoFormaPagamentoModel } from "../model/tipo-forma-pagamento-model";
 
@@ -20,5 +20,9 @@ export class GerenciadorTipoFormaPagamentoService {
     return this.httpClient.get<TipoFormaPagamentoModel[]>(`${this.URL_BASE_API_TIPO_FORMA_PAGAMENTO}/ativo`);
   }
 
+  // TODO --
+  recuperarFormaPagamentoPessoaVinculoContaBancariaList( codigoResponsavelPagamento: number ) : Observable<TipoFormaPagamentoModel[]> {
+    return this.httpClient.get<TipoFormaPagamentoModel[]>(`${this.URL_BASE_API_TIPO_FORMA_PAGAMENTO}/pessoa-vinculo-conta-bancaria/${codigoResponsavelPagamento}`);
+  }
 
 }
