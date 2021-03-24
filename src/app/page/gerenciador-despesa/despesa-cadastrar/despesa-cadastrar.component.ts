@@ -264,6 +264,7 @@ export class DespesaCadastrarComponent implements OnInit {
       this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
       this.despesaModel.valorDesconto = (this.despesaModel.valorDesconto == null ? this.despesaModel.valorDesconto = 0 : this.despesaModel.valorDesconto);
       this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
+      debugger;
       this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe(response => {
         this.isApresentarMensagemSucesso = true;
         this.limparCamposDespesa();
@@ -366,7 +367,6 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  // TODO -- Implementar
   private recuperarFontePagamentoCartaoDebito() {
     this.fontePagamentoDTOList = new Array();
     this.fontePagamentoDTO.codigo = null;
@@ -414,11 +414,9 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  // TODO -- 
   recuperarFormaPagamentoVinculadoResponsavelPagamento( pessoaPagamentoDespesaParameter: PessoaModel ) {
     this.gerenciadorTipoFormaPagamentoService.recuperarFormaPagamentoPessoaVinculoContaBancariaList(pessoaPagamentoDespesaParameter.codigo).subscribe(response => {
       this.tipoFormaPagamentoList = response;
-      console.log(this.tipoFormaPagamentoList);
     });
     console.log("Recuperar Forma Pagamento Vinculado Responsavel Pagamento ( " + pessoaPagamentoDespesaParameter.nome + ")");
   }
