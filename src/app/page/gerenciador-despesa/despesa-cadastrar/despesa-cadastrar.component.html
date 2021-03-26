@@ -135,7 +135,7 @@
                             [ngClass]="{'col-md-2 col-lg-2' : categoriaDespesaModel.sigla == 'DVA', 'col-md-4 col-lg-4' : categoriaDespesaModel.sigla == 'DFI'}">
                             <div class="form-group">
                                 <label for="valorUnitario">Valor Unitário</label>
-                                <input id="valorUnitario" type="text" name="valorUnitario" [(ngModel)]="produtoServicoOcorrenciaModel.valorUnitario" placeholder="R$ 00,00"
+                                <input id="valorUnitario" type="text" name="valorUnitario" (change)="atribuirValorTotalDespesa()" [(ngModel)]="produtoServicoOcorrenciaModel.valorUnitario" placeholder="R$ 00,00"
                                     class="form-control form-control" />
                             </div>
                         </div>
@@ -213,7 +213,7 @@
                         <div class="col-md-4 col-lg-3">
                             <div class="form-group">
                                 <label for="valorDesconto">Valor do Desconto</label>
-                                <input id="valorDesconto" type="text" name="valorDesconto" [(ngModel)]="despesaModel.valorDesconto" placeholder="R$ 00,00" class="form-control" />
+                                <input id="valorDesconto" type="text" name="valorDesconto" (change)="atribuirValorFinalDespesa()" [(ngModel)]="despesaModel.valorDesconto" placeholder="R$ 00,00" class="form-control" />
                             </div>
                         </div>
 

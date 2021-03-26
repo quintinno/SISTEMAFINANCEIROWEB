@@ -7,21 +7,21 @@ import { TipoPessoaModel } from 'src/app/model/tipo-pessoa-model';
 import { GerenciadorContratoService } from 'src/app/service/gerenciador-contrato.service';
 import { GerenciadorTipoFormaPagamentoService } from 'src/app/service/gerenciador-tipo-forma-pagamento.service';
 import { GerenciadorTipoPessoaService } from 'src/app/service/gerenciador-tipo-pessoa.service';
+import { CartaoBancarioModel } from "../../../model/cartao-bancario-model";
 import { CategoriaDespesaModel } from "../../../model/categoria-despesa-model";
 import { DespesaModel } from "../../../model/despesa-model";
 import { FontePagamentoDTO } from "../../../model/fonte-pagamento-dto";
+import { FormaPagamentoDespesaDTO } from "../../../model/forma-pagamento-despesa-dto";
 import { FormaPagamentoDespesaModel } from "../../../model/forma-pagamento-despesa-model";
 import { ProdutoServicoOcorrenciaModel } from "../../../model/produto-servico-ocorrencia-model";
 import { TipoFormaPagamentoModel } from "../../../model/tipo-forma-pagamento-model";
+import { GerenciadorCartaoBancarioService } from "../../../service/gerenciador-cartao-bancario.service";
 import { GerenciadorCategoriaDespesaService } from "../../../service/gerenciador-categoria-despesa.service";
 import { GerenciadorContaBancariaService } from "../../../service/gerenciador-conta-bancaria.service";
 import { GerenciadorDespesaService } from "../../../service/gerenciador-despesa.service";
 import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
 import { GerenciadorProdutoServicoService } from "../../../service/gerenciador-produto-servico.service";
 import { GerenciadorTipoCanalPagamentoService } from "../../../service/gerenciador-tipo-canal-pagamento.service";
-import { GerenciadorCartaoBancarioService } from "../../../service/gerenciador-cartao-bancario.service";
-import { CartaoBancarioModel } from "../../../model/cartao-bancario-model";
-import { FormaPagamentoDespesaDTO } from "../../../model/forma-pagamento-despesa-dto";
 
 @Component({
   selector: 'app-despesa-cadastrar',
@@ -59,8 +59,6 @@ export class DespesaCadastrarComponent implements OnInit {
   public isProdutoServicoMultiplo: boolean = false;
   public isFormaPagamentoMutiplo: boolean = false;
 
-  // TODO -- Select
-  // public produtoServicoSelectList: NgModule[] = [];
   public produtoServicoSelectList = new Array();
   public produtoServicoList = [];
   public produtoServicoCodigo: number;
@@ -218,63 +216,65 @@ export class DespesaCadastrarComponent implements OnInit {
     return this.produtoServicoOcorrenciaModel.valorUnitario * this.produtoServicoOcorrenciaModel.quantidade;
   }
 
+  // TODO -- REFATORAR CODIFICACAO DE CADASTRO
   cadastrarDespesa() {
-    var produtoServicoModel = {
-      codigo: null,
-      descricao: this.produtoServicoModel.descricao,
-      valorUnitario: this.produtoServicoOcorrenciaModel.valorUnitario,
-      quantidade: this.produtoServicoOcorrenciaModel.quantidade
-    }
-    var formaPagamentoDespesaModel = {
-      codigo: null,
-      despesaModel: this.despesaModel,
-      tipoFormaPagamento: this.formaPagamentoDespesaModel.tipoFormaPagamento,
-      pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
-      numeroParcelamento: 1,
-      valorPagamento: this.despesaModel.valorTotal
-    }
-    var pessoaModel = {
-      codigo: null,
-      nome: this.despesaModel.pessoaEstabelecimento,
-      tipoPessoa: null,
-      isAtivo: true,
-      isPessoaFinanceira: true,
-      isInstituicaoFinanceira: false
-    }
-    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe(response => {
-      this.despesaModel.pessoaEstabelecimento = response;
-    });
-    this.despesaModel.produtoServicoList = [];
-    this.despesaModel.formaPagamentoDespesaList = [];
-    formaPagamentoDespesaModel.despesaModel = null;
-    formaPagamentoDespesaModel.valorPagamento = this.despesaModel.valorTotal;
-    if (this.categoriaDespesaModel.sigla == 'DVA') {
-      if (this.produtoServicoModelList.length > 0) {
-        this.despesaModel.produtoServicoList = this.produtoServicoModelList;
-      } else {
-        this.despesaModel.produtoServicoList.push(produtoServicoModel);
-      }
-      this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
-      this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
-      var diaAtual = new Date().getUTCDate();
-      var mesAtual = new Date().getUTCMonth() + 1;
-      var anoAtual = new Date().getFullYear();
-      var dataAtual = `${diaAtual}` + "/" + `${mesAtual}` + "/" + `${anoAtual}`;
-      this.despesaModel.dataCadastro = dataAtual;
-      this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
-      this.despesaModel.valorDesconto = (this.despesaModel.valorDesconto == null ? this.despesaModel.valorDesconto = 0 : this.despesaModel.valorDesconto);
-      this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
-      debugger;
-      this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe(response => {
-        this.isApresentarMensagemSucesso = true;
-        this.limparCamposDespesa();
-        setTimeout(() => {
-          this.redirecionarPaginaDespesaCadastrar();
-        }, 2000);
-      }, responseError => {
-        console.error(responseError);
-      });
-    }
+    console.log("Cadastro de Despesa...");
+    // var produtoServicoModel = {
+    //   codigo: null,
+    //   descricao: this.produtoServicoModel.descricao,
+    //   valorUnitario: this.produtoServicoOcorrenciaModel.valorUnitario,
+    //   quantidade: this.produtoServicoOcorrenciaModel.quantidade
+    // }
+    // var formaPagamentoDespesaModel = {
+    //   codigo: null,
+    //   despesaModel: this.despesaModel,
+    //   tipoFormaPagamento: this.formaPagamentoDespesaModel.tipoFormaPagamento,
+    //   pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
+    //   numeroParcelamento: 1,
+    //   valorPagamento: this.despesaModel.valorTotal
+    // }
+    // var pessoaModel = {
+    //   codigo: null,
+    //   nome: this.despesaModel.pessoaEstabelecimento,
+    //   tipoPessoa: null,
+    //   isAtivo: true,
+    //   isPessoaFinanceira: true,
+    //   isInstituicaoFinanceira: false
+    // }
+    // this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe(response => {
+    //   this.despesaModel.pessoaEstabelecimento = response;
+    // });
+    // this.despesaModel.produtoServicoList = [];
+    // this.despesaModel.formaPagamentoDespesaList = [];
+    // formaPagamentoDespesaModel.despesaModel = null;
+    // formaPagamentoDespesaModel.valorPagamento = this.despesaModel.valorTotal;
+    // if (this.categoriaDespesaModel.sigla == 'DVA') {
+    //   if (this.produtoServicoModelList.length > 0) {
+    //     this.despesaModel.produtoServicoList = this.produtoServicoModelList;
+    //   } else {
+    //     this.despesaModel.produtoServicoList.push(produtoServicoModel);
+    //   }
+    //   this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
+    //   this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
+    //   var diaAtual = new Date().getUTCDate();
+    //   var mesAtual = new Date().getUTCMonth() + 1;
+    //   var anoAtual = new Date().getFullYear();
+    //   var dataAtual = `${diaAtual}` + "/" + `${mesAtual}` + "/" + `${anoAtual}`;
+    //   this.despesaModel.dataCadastro = dataAtual;
+    //   this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
+    //   this.despesaModel.valorDesconto = (this.despesaModel.valorDesconto == null ? this.despesaModel.valorDesconto = 0 : this.despesaModel.valorDesconto);
+    //   this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
+    //   debugger;
+    //   this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe(response => {
+    //     this.isApresentarMensagemSucesso = true;
+    //     this.limparCamposDespesa();
+    //     setTimeout(() => {
+    //       this.redirecionarPaginaDespesaCadastrar();
+    //     }, 2000);
+    //   }, responseError => {
+    //     console.error(responseError);
+    //   });
+    // }
   }
 
   alterarValorProdutoServicoMultiplo(isProdutoServicoMultiploParameter: boolean) {
@@ -303,7 +303,6 @@ export class DespesaCadastrarComponent implements OnInit {
     });
   }
 
-  // TODO -- Recuperar Pessoa ou Estabelecimento de acordo com a Categoria de Despesa
   recuperarCodigoCategoriaDespesaModel(categoriaDespesaModelCodigoEvent) {
     this.categoriaDespesaModelList.forEach((categoriaDespesaModel_, index_) => {
       if (categoriaDespesaModelCodigoEvent == this.categoriaDespesaModelList[index_].codigo) {
@@ -419,6 +418,20 @@ export class DespesaCadastrarComponent implements OnInit {
       this.tipoFormaPagamentoList = response;
     });
     console.log("Recuperar Forma Pagamento Vinculado Responsavel Pagamento ( " + pessoaPagamentoDespesaParameter.nome + ")");
+  }
+
+  atribuirValorTotalDespesa() {
+    this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.valorUnitario;
+    this.despesaModel.valorPagamento = this.despesaModel.valorTotal;
+  }
+
+  atribuirValorFinalDespesa() {
+    if(this.despesaModel.valorDesconto == null) {
+      this.despesaModel.valorDesconto = 0.0;
+      this.despesaModel.valorPagamento = this.produtoServicoOcorrenciaModel.valorUnitario;
+    } else {
+      this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
+    }
   }
 
   redirecionarPaginaMonitoramentoDespesa() {
