@@ -2,19 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CategoriaDespesaModel } from '../model/categoria-despesa-model';
+import { GerenciadorService } from "./gerenciador.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GerenciadorCategoriaDespesaService {
 
-  private URL_BASE_API_CATEGORIA_DESPESA = "http://localhost:9090/categoria-despesa";
+  private ENDPOINT_CATEGORIA_DESPESA = "/categoria-despesa";
 
-  constructor( private httpClient: HttpClient ) { }
+  constructor( private httpClient: HttpClient, private gerenciadorService: GerenciadorService ) { }
 
   recuperarCategoriaDespesaList() : Observable<CategoriaDespesaModel[]> {
-    return this.httpClient.get<CategoriaDespesaModel[]>(`${this.URL_BASE_API_CATEGORIA_DESPESA}`);
+    return this.httpClient.get<CategoriaDespesaModel[]>(this.gerenciadorService.recuperarUrlBaseAPI().concat(`${this.ENDPOINT_CATEGORIA_DESPESA}`));
   }
-
 
 }
