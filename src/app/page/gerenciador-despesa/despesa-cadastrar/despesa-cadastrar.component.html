@@ -261,7 +261,7 @@
                         <div class="col-md-4 col-lg-5">
                             <div class="form-group">
                                 <label for="fontePagamento">Fonte do Pagamento</label>
-                                <select class="form-control" name="fontePagamento" [(ngModel)]="fontePagamento">
+                                <select name="fontePagamento" [(ngModel)]="fontePagamento" [disabled]="true" class="form-control">
                                     <option [disabled]="true">Selecione</option>
                                     <option *ngFor="let fonte_pagamento_ of fontePagamentoDTOList" [ngValue]="fonte_pagamento_.codigoCartaoBancario"> {{fonte_pagamento_.descricao}} </option>
                                 </select>
