@@ -2,13 +2,14 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PessoaModel } from "../model/pessoa-model";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GerenciadorPessoaService {
 
-  private URL_BASE_API = "http://localhost:9090/pessoa";
+  private URL_BASE_API = environment.url_base_api_homologacao.concat("/pessoa");
 
   constructor( private httpClient: HttpClient ) { }
 

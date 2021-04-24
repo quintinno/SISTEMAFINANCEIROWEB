@@ -251,9 +251,9 @@
                         <div class="col-md-3 col-lg-2">
                             <div class="form-group">
                                 <label for="formaPagamento">Forma de Pagamento</label>
-                                <select class="form-control" name="tipoFormaPagamento" (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)" [(ngModel)]="formaPagamentoDespesaModel.tipoFormaPagamento">
+                                <select class="form-control" name="formaPagamento" (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)" [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
                                     <option [disabled]="true">Selecione</option>
-                                    <option *ngFor="let tipo_forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="tipo_forma_pagamento_"> {{tipo_forma_pagamento_.descricao}} </option>
+                                    <option *ngFor="let forma_pagamento_ of tipoFormaPagamentoList" [ngValue]="forma_pagamento_"> {{forma_pagamento_.descricao}} </option>
                                 </select>
                             </div>
                         </div>

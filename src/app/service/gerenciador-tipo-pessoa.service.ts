@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PessoaModel } from '../model/pessoa-model';
 import { TipoPessoaModel } from '../model/tipo-pessoa-model';
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GerenciadorTipoPessoaService {
 
-  public URL_BASE_API_TIPO_PESSOA = "http://localhost:9090/tipo-pessoa";
+  private URL_BASE_API = environment.url_base_api_homologacao.concat("/tipo-pessoa");
 
   public tipoPessoaModelList: TipoPessoaModel[];
 
@@ -19,11 +20,11 @@ export class GerenciadorTipoPessoaService {
   constructor( private router: Router, private httpClient: HttpClient ) { }
 
   recuperarTipoPessoa() {
-    return this.httpClient.get<TipoPessoaModel[]>(`${this.URL_BASE_API_TIPO_PESSOA}`);
+    return this.httpClient.get<TipoPessoaModel[]>(`${this.URL_BASE_API}`);
   }
 
   recuperarTipoPessoaPorCodigo(codigo: number) : Observable<TipoPessoaModel> {
-    return this.httpClient.get<TipoPessoaModel>(`${this.URL_BASE_API_TIPO_PESSOA}/${codigo}`);
+    return this.httpClient.get<TipoPessoaModel>(`${this.URL_BASE_API}/${codigo}`);
   }
 
 }

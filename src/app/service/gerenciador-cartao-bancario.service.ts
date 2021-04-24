@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from "../../environments/environment";
 import { CartaoBancarioModel } from "../model/cartao-bancario-model";
 
 @Injectable({
@@ -8,9 +9,8 @@ import { CartaoBancarioModel } from "../model/cartao-bancario-model";
 })
 export class GerenciadorCartaoBancarioService {
 
-  private URL_BASE_API_CARTAO_BANCARIO_CREDITO = "http://localhost:9090/cartao-bancario/recuperar-cartao-credito";
-
-  private URL_BASE_API_CARTAO_BANCARIO_DEBITO = "http://localhost:9090/cartao-bancario/recuperar-cartao-debito";
+  private URL_BASE_API_CARTAO_BANCARIO_CREDITO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-credito");
+  private URL_BASE_API_CARTAO_BANCARIO_DEBITO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-debito");
 
   constructor( private httpClient: HttpClient  ) { }
 

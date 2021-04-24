@@ -169,7 +169,7 @@ export class DespesaCadastrarComponent implements OnInit {
     var formaPagamentoDespesaModelCadastrar = {
       codigo: null,
       despesaModel: this.despesaModel,
-      tipoFormaPagamento: this.formaPagamentoDespesaModel.tipoFormaPagamento,
+      tipoFormaPagamento: this.formaPagamentoDespesaModel.formaPagamento,
       pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
       numeroParcelamento: 1,
       fontePagamento: this.fontePagamentoDTO.descricao,
@@ -178,7 +178,7 @@ export class DespesaCadastrarComponent implements OnInit {
     this.formaPagamentoDespesaDTO = formaPagamentoDespesaModelCadastrar;
     this.formaPagamentoDespesaModelList.push(formaPagamentoDespesaModelCadastrar);
     this.formaPagamentoDespesaModel.pessoaPagamento = null;
-    this.formaPagamentoDespesaModel.tipoFormaPagamento = null;
+    this.formaPagamentoDespesaModel.formaPagamento = null;
     this.fontePagamentoDTO.descricao = null;
     this.formaPagamentoDespesaModel.valorPagamento = null;
   }
@@ -219,62 +219,63 @@ export class DespesaCadastrarComponent implements OnInit {
   // TODO -- REFATORAR CODIFICACAO DE CADASTRO
   cadastrarDespesa() {
     console.log("Cadastro de Despesa...");
-    // var produtoServicoModel = {
-    //   codigo: null,
-    //   descricao: this.produtoServicoModel.descricao,
-    //   valorUnitario: this.produtoServicoOcorrenciaModel.valorUnitario,
-    //   quantidade: this.produtoServicoOcorrenciaModel.quantidade
-    // }
-    // var formaPagamentoDespesaModel = {
-    //   codigo: null,
-    //   despesaModel: this.despesaModel,
-    //   tipoFormaPagamento: this.formaPagamentoDespesaModel.tipoFormaPagamento,
-    //   pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
-    //   numeroParcelamento: 1,
-    //   valorPagamento: this.despesaModel.valorTotal
-    // }
-    // var pessoaModel = {
-    //   codigo: null,
-    //   nome: this.despesaModel.pessoaEstabelecimento,
-    //   tipoPessoa: null,
-    //   isAtivo: true,
-    //   isPessoaFinanceira: true,
-    //   isInstituicaoFinanceira: false
-    // }
-    // this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe(response => {
-    //   this.despesaModel.pessoaEstabelecimento = response;
-    // });
-    // this.despesaModel.produtoServicoList = [];
-    // this.despesaModel.formaPagamentoDespesaList = [];
-    // formaPagamentoDespesaModel.despesaModel = null;
-    // formaPagamentoDespesaModel.valorPagamento = this.despesaModel.valorTotal;
-    // if (this.categoriaDespesaModel.sigla == 'DVA') {
-    //   if (this.produtoServicoModelList.length > 0) {
-    //     this.despesaModel.produtoServicoList = this.produtoServicoModelList;
-    //   } else {
-    //     this.despesaModel.produtoServicoList.push(produtoServicoModel);
-    //   }
-    //   this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
-    //   this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
-    //   var diaAtual = new Date().getUTCDate();
-    //   var mesAtual = new Date().getUTCMonth() + 1;
-    //   var anoAtual = new Date().getFullYear();
-    //   var dataAtual = `${diaAtual}` + "/" + `${mesAtual}` + "/" + `${anoAtual}`;
-    //   this.despesaModel.dataCadastro = dataAtual;
-    //   this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
-    //   this.despesaModel.valorDesconto = (this.despesaModel.valorDesconto == null ? this.despesaModel.valorDesconto = 0 : this.despesaModel.valorDesconto);
-    //   this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
-    //   debugger;
-    //   this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe(response => {
-    //     this.isApresentarMensagemSucesso = true;
-    //     this.limparCamposDespesa();
-    //     setTimeout(() => {
-    //       this.redirecionarPaginaDespesaCadastrar();
-    //     }, 2000);
-    //   }, responseError => {
-    //     console.error(responseError);
-    //   });
-    // }
+    debugger;
+    var produtoServicoModel = {
+      codigo: null,
+      descricao: this.produtoServicoModel.descricao,
+      valorUnitario: this.produtoServicoOcorrenciaModel.valorUnitario,
+      quantidade: this.produtoServicoOcorrenciaModel.quantidade
+    }
+    var formaPagamentoDespesaModel = {
+      codigo: null,
+      despesaModel: this.despesaModel,
+      formaPagamento: this.formaPagamentoDespesaModel.formaPagamento,
+      pessoaPagamento: this.formaPagamentoDespesaModel.pessoaPagamento,
+      numeroParcelamento: 1,
+      valorPagamento: this.despesaModel.valorTotal
+    }
+    var pessoaModel = {
+      codigo: null,
+      nome: this.despesaModel.pessoaEstabelecimento,
+      tipoPessoa: null,
+      isAtivo: true,
+      isPessoaFinanceira: true,
+      isInstituicaoFinanceira: false
+    }
+    this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe(response => {
+      this.despesaModel.pessoaEstabelecimento = response;
+    });
+    this.despesaModel.produtoServicoList = [];
+    this.despesaModel.formaPagamentoDespesaList = [];
+    formaPagamentoDespesaModel.despesaModel = null;
+    formaPagamentoDespesaModel.valorPagamento = this.despesaModel.valorTotal;
+    if (this.categoriaDespesaModel.sigla == 'DVA') {
+      if (this.produtoServicoModelList.length > 0) {
+        this.despesaModel.produtoServicoList = this.produtoServicoModelList;
+      } else {
+        this.despesaModel.produtoServicoList.push(produtoServicoModel);
+      }
+      this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
+      this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
+      var diaAtual = new Date().getUTCDate();
+      var mesAtual = new Date().getUTCMonth() + 1;
+      var anoAtual = new Date().getFullYear();
+      var dataAtual = `${diaAtual}` + "/" + `${mesAtual}` + "/" + `${anoAtual}`;
+      this.despesaModel.dataCadastro = dataAtual;
+      this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
+      this.despesaModel.valorDesconto = (this.despesaModel.valorDesconto == null ? this.despesaModel.valorDesconto = 0 : this.despesaModel.valorDesconto);
+      this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
+      debugger;
+      this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe(response => {
+        this.isApresentarMensagemSucesso = true;
+        this.limparCamposDespesa();
+        setTimeout(() => {
+          this.redirecionarPaginaDespesaCadastrar();
+        }, 2000);
+      }, responseError => {
+        console.error(responseError);
+      });
+    }
   }
 
   alterarValorProdutoServicoMultiplo(isProdutoServicoMultiploParameter: boolean) {
@@ -463,7 +464,7 @@ export class DespesaCadastrarComponent implements OnInit {
     this.despesaModel.produtoServicoList = [];
     this.despesaModel.formaPagamentoDespesaList = [];
     this.formaPagamentoDespesaModel.despesaModel = null;
-    this.formaPagamentoDespesaModel.tipoFormaPagamento = null;
+    this.formaPagamentoDespesaModel.formaPagamento = null;
     this.formaPagamentoDespesaModel.numeroParcelamento = null;
     this.formaPagamentoDespesaModel.pessoaPagamento = null;
     this.formaPagamentoDespesaModel.valorPagamento = null;
