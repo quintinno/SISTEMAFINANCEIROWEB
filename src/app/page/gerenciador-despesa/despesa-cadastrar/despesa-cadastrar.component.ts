@@ -218,8 +218,6 @@ export class DespesaCadastrarComponent implements OnInit {
 
   // TODO -- REFATORAR CODIFICACAO DE CADASTRO
   cadastrarDespesa() {
-    console.log("Cadastro de Despesa...");
-    debugger;
     var produtoServicoModel = {
       codigo: null,
       descricao: this.produtoServicoModel.descricao,
@@ -454,12 +452,11 @@ export class DespesaCadastrarComponent implements OnInit {
 
   limparCamposProdutoServico() {
     this.produtoServicoModel.descricao = null;
-    // this.produtoServicoOcorrenciaModel.quantidade = null;
     this.produtoServicoOcorrenciaModel.valorUnitario = null;
   }
 
   limparCamposDespesa() {
-    this.despesaModel.canalPagamento = null;
+    this.despesaModel.tipoCanalPagamento = null;
     this.despesaModel.pessoaEstabelecimento = null;
     this.despesaModel.produtoServicoList = [];
     this.despesaModel.formaPagamentoDespesaList = [];

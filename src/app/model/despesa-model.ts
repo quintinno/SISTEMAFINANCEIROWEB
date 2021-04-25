@@ -1,5 +1,6 @@
 import { FormaPagamentoDespesaModel } from "./forma-pagamento-despesa-model";
 import { ProdutoServicoModel } from "./produto-servico-model";
+import { TipoCanalPagamentoModel } from "./tipo-canal-pagamento-model";
 
 export class DespesaModel {
     codigo: number;
@@ -7,7 +8,7 @@ export class DespesaModel {
     pessoaEstabelecimento: any;
     produtoServicoList: ProdutoServicoModel[];
     formaPagamentoDespesaList: FormaPagamentoDespesaModel[];
-    canalPagamento: string;
+    tipoCanalPagamento: TipoCanalPagamentoModel;
     dataVencimento: string;
     dataPagamento: string;
     dataCadastro: string;
