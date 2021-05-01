@@ -38,4 +38,10 @@ export class MonitoramentoFinanceiroComponent implements OnInit {
     });
   }
 
+  redirecionarPaginaCadastrarDespesa() {
+    this.router.navigate(["/despesa-cadastrar"]).then( () => {
+      window.location.reload();
+    });
+  }
+
 }

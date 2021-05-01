@@ -8,7 +8,7 @@ export class DespesaModel {
     pessoaEstabelecimento: any;
     produtoServicoList: ProdutoServicoModel[];
     formaPagamentoDespesaList: FormaPagamentoDespesaModel[];
-    tipoCanalPagamento: TipoCanalPagamentoModel;
+    tipoCanalPagamento: any;
     dataVencimento: string;
     dataPagamento: string;
     dataCadastro: string;

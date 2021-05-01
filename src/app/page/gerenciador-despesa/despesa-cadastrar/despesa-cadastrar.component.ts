@@ -91,6 +91,7 @@ export class DespesaCadastrarComponent implements OnInit {
     this.recuperarProdutoServicoCadastrado();
     this.gerarProdutoServicoOcorrenciaQuantidade();
     this.recuperarTipoCanalPagamento();
+    this.recuperarFontePagamentoDinheiro();
   }
 
   gerarProdutoServicoOcorrenciaQuantidade() {
@@ -263,12 +264,12 @@ export class DespesaCadastrarComponent implements OnInit {
       this.despesaModel.valorTotal = this.produtoServicoOcorrenciaModel.quantidade * this.produtoServicoOcorrenciaModel.valorUnitario;
       this.despesaModel.valorDesconto = (this.despesaModel.valorDesconto == null ? this.despesaModel.valorDesconto = 0 : this.despesaModel.valorDesconto);
       this.despesaModel.valorPagamento = this.despesaModel.valorTotal - this.despesaModel.valorDesconto;
-      debugger;
+      this.despesaModel.tipoCanalPagamento = this.tipoCanalPagamentoModel.valor;
       this.gerenciadorDespesaService.cadastrarDespesa(this.despesaModel).subscribe(response => {
         this.isApresentarMensagemSucesso = true;
         this.limparCamposDespesa();
         setTimeout(() => {
-          this.redirecionarPaginaDespesaCadastrar();
+          this.redirecionarPaginaMonitoramentoDespesa();
         }, 2000);
       }, responseError => {
         console.error(responseError);
@@ -381,12 +382,14 @@ export class DespesaCadastrarComponent implements OnInit {
   recuperarPessoaFisicaList() {
     this.gerenciadorPessoaService.recuperarPessoaFinanceiraSistemaList().subscribe(response => {
       this.pessoaFisicaModelList = response;
+      this.formaPagamentoDespesaModel.pessoaPagamento = response[0];
     });
   }
 
   recuperarTipoFormaPagamentoList() {
     this.gerenciadorTipoFormaPagamentoService.recuperarTipoFormaPagamentoAtivoList().subscribe(response => {
       this.tipoFormaPagamentoList = response;
+      this.formaPagamentoDespesaModel.formaPagamento = response[0];
     });
   }
 
@@ -409,6 +412,8 @@ export class DespesaCadastrarComponent implements OnInit {
   recuperarTipoCanalPagamento() {
     this.gerenciadorTipoCanalPagamentoService.recuperarTipoCanalPagamentoList().subscribe(response => {
       this.tipoCanalPagamentoList = response;
+      this.despesaModel.tipoCanalPagamento = response[0];
+      this.tipoCanalPagamentoModel = response[0];
     });
   }
 
