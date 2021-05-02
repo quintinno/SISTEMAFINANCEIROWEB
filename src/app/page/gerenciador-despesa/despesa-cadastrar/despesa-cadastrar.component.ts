@@ -117,7 +117,6 @@ export class DespesaCadastrarComponent implements OnInit {
   }
 
   cadastrarProdutoServico(produtoServicoModelParameter: ProdutoServicoModel) {
-    debugger;
     var produtoServicoOcorrenciaPersistir = {
       codigo: null,
       quantidade: this.produtoServicoOcorrenciaModel.quantidade,
@@ -130,6 +129,8 @@ export class DespesaCadastrarComponent implements OnInit {
     if (this.validarProdutoServicoModel(produtoServicoModelPersistir)) {
       this.totalProdutoServico = (+this.totalProdutoServico) + ((+this.produtoServicoOcorrenciaModel.valorUnitario) * (this.produtoServicoOcorrenciaModel.quantidade));
       this.produtoServicoModelList.push(produtoServicoOcorrenciaPersistir);
+      this.despesaModel.valorTotal = this.totalProdutoServico;
+      this.despesaModel.valorPagamento = this.totalProdutoServico;
       this.limparCamposProdutoServico();
     }
   }
@@ -160,8 +161,10 @@ export class DespesaCadastrarComponent implements OnInit {
     this.produtoServicoModelList.forEach((produtoServicoModel_, index, produtoServicoModelList_) => {
       if (produtoServicoModel_ === produtoServicoModelParameter) {
         produtoServicoModelList_.splice(index, 1);
-        this.totalProdutoServico = (this.totalProdutoServico) - (produtoServicoOcorrenciaModelParameter.valorUnitario * produtoServicoOcorrenciaModelParameter.quantidade);
+        this.totalProdutoServico -= (produtoServicoModel_.valorUnitario * produtoServicoModel_.quantidade);
         this.produtoServicoModelList = produtoServicoModelList_;
+        this.despesaModel.valorTotal = this.totalProdutoServico;
+        this.despesaModel.valorPagamento = this.totalProdutoServico;
       }
     });
   }
