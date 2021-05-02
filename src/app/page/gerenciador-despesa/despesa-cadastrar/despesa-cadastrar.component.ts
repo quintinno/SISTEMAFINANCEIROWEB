@@ -180,12 +180,14 @@ export class DespesaCadastrarComponent implements OnInit {
       fontePagamento: this.fontePagamentoDTO.descricao,
       valorPagamento: this.formaPagamentoDespesaModel.valorPagamento,
     }
-    this.formaPagamentoDespesaModelList.push(formaPagamentoDespesaModelCadastrar);
-    this.recuperarPessoaFisicaList();
-    this.recuperarTipoFormaPagamentoList();
-    this.recuperarFontePagamentoDinheiro();
-    this.formaPagamentoDespesaModel.valorPagamento = null;
-    this.calcularValorFormaPagamentoMultipla(formaPagamentoDespesaModelCadastrar.valorPagamento);
+    if(formaPagamentoDespesaModelCadastrar.valorPagamento != null) {
+      this.formaPagamentoDespesaModelList.push(formaPagamentoDespesaModelCadastrar);
+      this.recuperarPessoaFisicaList();
+      this.recuperarTipoFormaPagamentoList();
+      this.recuperarFontePagamentoDinheiro();
+      this.formaPagamentoDespesaModel.valorPagamento = null;
+      this.calcularValorFormaPagamentoMultipla(formaPagamentoDespesaModelCadastrar.valorPagamento);
+    }
   }
 
   calcularValorFormaPagamentoMultipla( valorParameter: number ) {
