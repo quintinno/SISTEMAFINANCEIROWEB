@@ -11,6 +11,7 @@ export class GerenciadorCartaoBancarioService {
 
   private URL_BASE_API_CARTAO_BANCARIO_CREDITO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-credito");
   private URL_BASE_API_CARTAO_BANCARIO_DEBITO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-debito");
+  private URL_BASE_API_CARTAO_ALIEMENTACAO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-alimentacao");
 
   constructor( private httpClient: HttpClient  ) { }
 
@@ -20,6 +21,10 @@ export class GerenciadorCartaoBancarioService {
 
   recuperarCartaoBancarioDebitoList() : Observable<CartaoBancarioModel[]> {
     return this.httpClient.get<CartaoBancarioModel[]>(`${this.URL_BASE_API_CARTAO_BANCARIO_DEBITO}`);
+  }
+
+  recuperarCartaoAlimentacaoList() : Observable<CartaoBancarioModel[]> {
+    return this.httpClient.get<CartaoBancarioModel[]>(`${this.URL_BASE_API_CARTAO_ALIEMENTACAO}`);
   }
 
 }

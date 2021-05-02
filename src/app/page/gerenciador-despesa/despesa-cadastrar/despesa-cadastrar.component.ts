@@ -63,6 +63,7 @@ export class DespesaCadastrarComponent implements OnInit {
   public produtoServicoList = [];
   public produtoServicoCodigo: number;
   public totalProdutoServico: number = 0;
+  public valorTotalPagamentoMultiplo: number = 0;
   public produtoServicoOcorrenciaQuantidadeList = new Array();
 
   public pesquisarProdutoServicoPorDescricao = "descricao";
@@ -179,12 +180,17 @@ export class DespesaCadastrarComponent implements OnInit {
       fontePagamento: this.fontePagamentoDTO.descricao,
       valorPagamento: this.formaPagamentoDespesaModel.valorPagamento,
     }
-    this.formaPagamentoDespesaDTO = formaPagamentoDespesaModelCadastrar;
     this.formaPagamentoDespesaModelList.push(formaPagamentoDespesaModelCadastrar);
-    this.formaPagamentoDespesaModel.pessoaPagamento = null;
-    this.formaPagamentoDespesaModel.formaPagamento = null;
-    this.fontePagamentoDTO.descricao = null;
+    this.recuperarPessoaFisicaList();
+    this.recuperarTipoFormaPagamentoList();
+    this.recuperarFontePagamentoDinheiro();
     this.formaPagamentoDespesaModel.valorPagamento = null;
+    this.calcularValorFormaPagamentoMultipla(formaPagamentoDespesaModelCadastrar.valorPagamento);
+  }
+
+  calcularValorFormaPagamentoMultipla( valorParameter: number ) {
+    this.valorTotalPagamentoMultiplo = (+this.valorTotalPagamentoMultiplo) + (+valorParameter);
+    return this.valorTotalPagamentoMultiplo;
   }
 
   // TODO -- Implementar remocao de dados da listagem de Forma de Pagamento
@@ -257,7 +263,11 @@ export class DespesaCadastrarComponent implements OnInit {
       } else {
         this.despesaModel.produtoServicoList.push(produtoServicoModel);
       }
-      this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
+      if(this.formaPagamentoDespesaModelList.length == 0) {
+        this.despesaModel.formaPagamentoDespesaList.push(formaPagamentoDespesaModel);
+      } else {
+        this.despesaModel.formaPagamentoDespesaList = this.formaPagamentoDespesaModelList; 
+      }
       this.despesaModel.categoriaDespesa = this.categoriaDespesaModel;
       var diaAtual = new Date().getUTCDate();
       var mesAtual = new Date().getUTCMonth() + 1;
@@ -339,6 +349,9 @@ export class DespesaCadastrarComponent implements OnInit {
     if (formaPagamentoSelecionadoEvent.sigla == "CD") {
       this.recuperarFontePagamentoCartaoDebito();
     }
+    if(formaPagamentoSelecionadoEvent.sigla == "VA") {
+      this.recuperarFontePagamentoCartaoAlimentacao();
+    }
   }
 
   private recuperarFontePagamentoDinheiro() {
@@ -374,6 +387,19 @@ export class DespesaCadastrarComponent implements OnInit {
     this.fontePagamentoDTO.codigo = null;
     this.fontePagamentoDTO.descricao = null;
     this.gerenciadorCartaoBancarioService.recuperarCartaoBancarioDebitoList().subscribe(response => {
+      response.forEach((cartaoBancarioModel_) => {
+        this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigoCartaoBancario;
+        this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.funcaoCartaoBancario + " (" + cartaoBancarioModel_.numeroCartaoBancario + ")";
+        this.fontePagamentoDTOList.push(this.fontePagamentoDTO);
+      });
+    });
+  }
+
+  private recuperarFontePagamentoCartaoAlimentacao() {
+    this.fontePagamentoDTOList = new Array();
+    this.fontePagamentoDTO.codigo = null;
+    this.fontePagamentoDTO.descricao = null;
+    this.gerenciadorCartaoBancarioService.recuperarCartaoAlimentacaoList().subscribe(response => {
       response.forEach((cartaoBancarioModel_) => {
         this.fontePagamentoDTO.codigo = cartaoBancarioModel_.codigoCartaoBancario;
         this.fontePagamentoDTO.descricao = cartaoBancarioModel_.nomeInstiticaoFinanceira + " - Cartão de " + cartaoBancarioModel_.funcaoCartaoBancario + " (" + cartaoBancarioModel_.numeroCartaoBancario + ")";

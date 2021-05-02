@@ -21,7 +21,6 @@ export class GerenciadorTipoFormaPagamentoService {
     return this.httpClient.get<TipoFormaPagamentoModel[]>(`${this.URL_BASE_API}/ativo`);
   }
 
-  // TODO --
   recuperarFormaPagamentoPessoaVinculoContaBancariaList( codigoResponsavelPagamento: number ) : Observable<TipoFormaPagamentoModel[]> {
     return this.httpClient.get<TipoFormaPagamentoModel[]>(`${this.URL_BASE_API}/pessoa-vinculo-conta-bancaria/${codigoResponsavelPagamento}`);
   }
