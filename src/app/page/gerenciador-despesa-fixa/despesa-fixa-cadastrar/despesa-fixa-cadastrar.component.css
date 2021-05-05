@@ -1,3 +1,12 @@
+.form-control {
+    font-size: 14px;
+    border-color: #1572E8;
+    padding: .6rem 1rem;
+    height: inherit !important;
+    font-weight: bold;
+    color: #1572E8;
+}
+
 .modal-content {
     border-radius: 0.4rem !important;
     border: 0 !important;

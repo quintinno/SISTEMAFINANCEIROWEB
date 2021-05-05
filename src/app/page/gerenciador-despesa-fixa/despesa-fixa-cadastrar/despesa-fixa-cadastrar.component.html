@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<!-- <form (ngSubmit)="cadastrarDespesa()"> -->
+    <div class="main-panel">
+        <div class="col-md-12" style="margin-top: 100px;">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Cadastro de Despesa Fixa</div>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-3 col-lg-4">
+                            <div class="form-group">
+                                <label for="contrato">Contrato</label>
+                                <select class="form-control" autofocus name="contrato">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option>Brava Fibra Internet (Brasília)</option>
+                                    <option>Sinagoga Keter Torah (Brasília)</option>
+                                    <option>Tim Telefonia (Brasil)</option>
+                                    <option>Banco Nubank (Brasil)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-4">
+                            <div class="form-group">
+                                <label for="contrato"></label>
+                                <select class="form-control" autofocus name="contrato">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option>Brava Fibra Internet (Brasília)</option>
+                                    <option>Sinagoga Keter Torah (Brasília)</option>
+                                    <option>Tim Telefonia (Brasil)</option>
+                                    <option>Banco Nubank (Brasil)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-action">
+                    <button id="cadastrarDespesa"
+                        class="btn btn-primary btn-lg col-md-6" style="margin: 4px;">Cadastrar Despesa</button>
+                    <button type="button" 
+                        class="btn btn-warning btn-lg col-md-3" style="margin: 4px;">Cadastrar Outra</button>
+                    <button type="button" 
+                        class="btn btn-danger btn-border btn-lg col-md-2" style="margin: 4px;">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </form> -->

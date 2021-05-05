@@ -9,7 +9,7 @@
                         <h1 class="text-white pb-2 fw-bold">Monitoramento de Despesas</h1>
                     </div>
                     <div class="ml-md-auto py-2 py-md-0">
-                        <a routerLink="/despesa-cadastrar" class="btn btn-info btn-border btn-round" style="margin: 4px;"> <span class="btn-label"> <i class="fa fa-plus"></i></span> Cadastrar Despesa</a>
+                        <button type="button" data-toggle="modal" data-target="#categoriaDespesaModal" class="btn btn-info btn-border btn-round"> <span class="btn-label"> <i class="fa fa-plus"></i></span> Nova Despesa</button>
                     </div>
                 </div>
             </div>
@@ -166,4 +166,39 @@
         </div> -->
     </div>
     <app-footer></app-footer>
+</div>
+
+<div id="categoriaDespesaModal" class="modal animated fadeIn" tabindex="-1" role="dialog" focus >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cadastrar Despesa</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5 col-md-12">
+                        <div class="card-body">
+                            <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-pills-icons justify-content-center">
+                                <li class="nav-item col-md-3">
+                                    <a class="nav-link active" id="pills-profile-tab-icon" data-toggle="pill" (click)="redirecionarPaginaCadastrarDespesaFixa()" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
+                                        <i class="icon-arrow-down-circle"></i>
+                                        <p class="text-center fw-bold">Despesa Fixa</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item col-md-3">
+                                    <a class="nav-link active" id="pills-profile-tab-icon" data-toggle="pill" (click)="redirecionarPaginaCadastrarDespesaVariavel()" role="tab" aria-controls="pills-profile-icon" aria-selected="false">
+                                        <i class="icon-arrow-down-circle"></i>
+                                        <p class="text-center fw-bold">Despesa Variável</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

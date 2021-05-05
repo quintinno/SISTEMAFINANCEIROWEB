@@ -6,6 +6,7 @@ import { GerenciadorContaBancariaComponent } from './page/gerenciador-conta-banc
 import { ContratoAtualizarComponent } from './page/gerenciador-contrato/contrato-atualizar/contrato-atualizar.component';
 import { ContratoCadastrarComponent } from './page/gerenciador-contrato/contrato-cadastrar/contrato-cadastrar.component';
 import { GerenciadorContratoComponent } from './page/gerenciador-contrato/gerenciador-contrato.component';
+import { DespesaFixaCadastrarComponent } from './page/gerenciador-despesa-fixa/despesa-fixa-cadastrar/despesa-fixa-cadastrar.component';
 import { DespesaCadastrarComponent } from './page/gerenciador-despesa/despesa-cadastrar/despesa-cadastrar.component';
 import { GerenciadorDespesaComponent } from './page/gerenciador-despesa/gerenciador-despesa.component';
 import { GerenciadorEmprestimoComponent } from './page/gerenciador-emprestimo/gerenciador-emprestimo.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: "receita-detalhar/:codigo", component:  ReceitaDetalharComponent },
   { path: "despesa-monitoramento", component: GerenciadorDespesaComponent },
   { path: "despesa-cadastrar", component: DespesaCadastrarComponent },
+  { path: "despesa-fixa-cadastrar", component: DespesaFixaCadastrarComponent },
   { path: "", redirectTo: "login", pathMatch: "full" }
 ];
 

@@ -34,6 +34,8 @@ import { LoginComponent } from './page/login/login.component';
 import { MonitoramentoFinanceiroComponent } from './page/monitoramento-financeiro/monitoramento-financeiro.component';
 import { FooterComponent } from './page/template/footer/footer.component';
 import { HeaderComponent } from './page/template/header/header.component';
+import { GerenciadorDespesaFixaComponent } from './page/gerenciador-despesa-fixa/gerenciador-despesa-fixa.component';
+import { DespesaFixaCadastrarComponent } from './page/gerenciador-despesa-fixa/despesa-fixa-cadastrar/despesa-fixa-cadastrar.component';
 
 registerLocaleData(localePt);
 
@@ -65,7 +67,9 @@ registerLocaleData(localePt);
     ReceitaDetalharComponent,
     DespesaCadastrarComponent,
     DespesaAlterarComponent,
-    DespesaDetalharComponent
+    DespesaDetalharComponent,
+    GerenciadorDespesaFixaComponent,
+    DespesaFixaCadastrarComponent
   ],
   imports: [
     BrowserModule,

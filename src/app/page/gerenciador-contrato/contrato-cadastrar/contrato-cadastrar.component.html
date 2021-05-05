@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="pessoaContratado">Empresa</label>
+                                <label for="pessoaContratado">Favorecido</label>
                                 <select name="pessoaContratado" [(ngModel)]="contratoModel.pessoaContratado" class="form-control">
                                     <option>Selecionar</option>
                                     <option *ngFor="let pessoa_model_ of pessoaJuridicaList" [ngValue]="pessoa_model_"> {{pessoa_model_.nome}} </option>
@@ -68,30 +68,32 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 col-lg-4">
+                        <div class="col-md-8 col-lg-3">
                             <div class="form-group">
                                 <label for="dataInicioVigencia">Inicío da Vigência</label>
                                 <input type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" placeholder="DD/MM/AAAA" class="form-control form-control" />
                                 <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
-                        <div class="col-md-8 col-lg-4">
+                        <div class="col-md-8 col-lg-3">
                             <div class="form-group">
                                 <label for="dataFimVigencia">Encerramento da Vigência</label>
                                 <input type="text" name="dataFimVigencia" [(ngModel)]="contratoModel.dataFimVigencia" placeholder="DD/MM/AAAA" class="form-control form-control" />
                                 <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-8 col-lg-3">
                             <div class="form-group">
-                                <label for="isATivo">Situação</label>
-                                <select name="isATivo" [(ngModel)]="contratoModel.isATivo" class="form-control">
-                                    <option>Selecionar</option>
-                                    <option value="true">Ativo</option>
-                                    <option value="false">Inativo</option>
-                                    <option>Outro</option>
-                                </select>
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
+                                <label for="diaVencimentoFatura">Dia do Vencimento da Fatura</label>
+                                <input type="text" name="diaVencimentoFatura" placeholder="DIA" maxlength="2" class="form-control form-control" />
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-lg-3">
+                            <div class="form-group">
+                                <label for="valorMensalPagamento">Valor Mensal do Pagamento</label>
+                                <input type="text" name="valorMensalPagamento" placeholder="R$ 00,00" class="form-control form-control" />
+                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
                     </div>

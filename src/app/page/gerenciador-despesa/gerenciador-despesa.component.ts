@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gerenciador-despesa',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GerenciadorDespesaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  redirecionarPaginaCadastrarDespesaFixa() {
+    this.router.navigate(["/despesa-fixa-cadastrar"]).then( () => {
+      window.location.reload();
+    });
+  }
+
+  redirecionarPaginaCadastrarDespesaVariavel() {
+    this.router.navigate(["/despesa-cadastrar"]).then( () => {
+      window.location.reload();
+    });
   }
 
 }
