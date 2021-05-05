@@ -68,31 +68,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 col-lg-3">
+                        <div class="col-md-8 col-lg-4">
                             <div class="form-group">
                                 <label for="dataInicioVigencia">Inicío da Vigência</label>
                                 <input type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" placeholder="DD/MM/AAAA" class="form-control form-control" />
                                 <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
-                        <div class="col-md-8 col-lg-3">
-                            <div class="form-group">
-                                <label for="dataFimVigencia">Encerramento da Vigência</label>
-                                <input type="text" name="dataFimVigencia" [(ngModel)]="contratoModel.dataFimVigencia" placeholder="DD/MM/AAAA" class="form-control form-control" />
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
-                            </div>
-                        </div>
-                        <div class="col-md-8 col-lg-3">
+                        <div class="col-md-8 col-lg-4">
                             <div class="form-group">
                                 <label for="diaVencimentoFatura">Dia do Vencimento da Fatura</label>
-                                <input type="text" name="diaVencimentoFatura" placeholder="DIA" maxlength="2" class="form-control form-control" />
+                                <input type="text" name="diaVencimentoFatura" [(ngModel)]="contratoModel.diaVencimentoFatura" placeholder="DIA" maxlength="2" class="form-control form-control" />
                                 <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
-                        <div class="col-md-8 col-lg-3">
+                        <div class="col-md-8 col-lg-4">
                             <div class="form-group">
                                 <label for="valorMensalPagamento">Valor Mensal do Pagamento</label>
-                                <input type="text" name="valorMensalPagamento" placeholder="R$ 00,00" class="form-control form-control" />
+                                <input type="text" name="valorMensalPagamento" [(ngModel)]="contratoModel.valorMensalPagamento" placeholder="R$ 00,00" class="form-control form-control" />
                                 <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>

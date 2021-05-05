@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ContratoModel } from 'src/app/model/contrato-model';
 import { PessoaModel } from 'src/app/model/pessoa-model';
+import { TipoPeriodoFinanceiroModel } from 'src/app/model/tipo-periodo-financeiro-model';
 import { GerenciadorPessoaService } from 'src/app/service/gerenciador-pessoa.service';
+import { TipoContratoModel } from "../../../model/tipo-contrato-model";
 import { GerenciadorContratoService } from "../../../service/gerenciador-contrato.service";
 import { GerenciadorTipoContratoService } from "../../../service/gerenciador-tipo-contrato.service";
-import { TipoContratoModel } from "../../../model/tipo-contrato-model";
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-contrato-cadastrar',
@@ -45,7 +45,8 @@ export class ContratoCadastrarComponent implements OnInit {
   }
 
   cadastrarContrato() {
-    this.gerenciadorContratoService.cadastrarContrato(this.contratoModel).subscribe( response => {
+    debugger;
+    this.gerenciadorContratoService.cadastrarContrato(this.configurarContratoModel()).subscribe( response => {
       this.isApresentarMensagemCadastroSucesso = true;
       this.limparCampos();
       setTimeout(() => {
@@ -55,6 +56,14 @@ export class ContratoCadastrarComponent implements OnInit {
       this.isApresentarMensagemErro = true;
       console.error(responseError);
     });
+  }
+
+  configurarContratoModel() {
+    var contratoModelCadastrar = Object.assign({}, this.contratoModel);
+      contratoModelCadastrar.dataFimVigencia = null;
+      contratoModelCadastrar.numeroMesesVigenciaContrato = 12;
+      contratoModelCadastrar.isATivo = true;
+    return contratoModelCadastrar;
   }
 
   recuperarPessoaJuridicaModelList() {

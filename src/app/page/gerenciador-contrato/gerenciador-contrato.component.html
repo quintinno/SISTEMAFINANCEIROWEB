@@ -89,7 +89,6 @@
                                                         <th>Contratante</th>
                                                         <th>Contratado</th>
                                                         <th>Inicío</th>
-                                                        <th>Encerramento</th>
                                                         <th>Situação</th>
                                                         <th class="text-center">Ações</th>
                                                     </tr>
@@ -99,7 +98,6 @@
                                                         <td> {{ contrato_.pessoaContratante.nome }} </td>
                                                         <td> {{ contrato_.pessoaContratado.nome }} </td>
                                                         <td> {{ contrato_.dataInicioVigencia == null ? 'Não Informado' : contrato_.dataInicioVigencia }} </td>
-                                                        <td> {{ contrato_.dataFimVigencia == null ? 'Não Informado' : contrato_.dataFimVigencia }} </td>
                                                         <td> {{ contrato_.isATivo == true ? 'Ativo' : 'Inativo' }} </td>
                                                         <td>
                                                             <div>
