@@ -112,8 +112,9 @@
 
                         <div class="col-md-1 col-lg-1">
                             <div class="animated fadeIn" style="margin-top: 36px;">
-                                <button type="button" data-toggle="modal" data-target="#cadastrarProdutoServicoModal"
-                                    class="btn btn-round btn-warning">&#43;</button>
+                                <button type="button" data-toggle="modal" data-target="#cadastrarProdutoServicoModal" class="btn btn-round btn-primary">
+                                    <i class="fa fa-cart-plus"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -141,9 +142,10 @@
                         </div>
 
                         <div class="col-md-2 col-lg-2">
-                            <div class="animated fadeIn" style="margin-top: 36px;">
-                                <button type="button" (click)="cadastrarProdutoServico(produtoServicoModel)"
-                                    class="btn btn-round btn-warning">></button>
+                            <div class="animated fadeIn" style="margin-top: 36px;  margin-left: 60px;">
+                                <button type="button" (click)="cadastrarProdutoServico(produtoServicoModel)" class="btn btn-round btn-primary">
+                                    <i class="fa fa-plus"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -248,7 +250,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3 col-lg-3">
+                        <div class="col-md-3 col-lg-2">
                             <div class="form-group">
                                 <label for="formaPagamento">Forma de Pagamento</label>
                                 <select class="form-control" name="formaPagamento" (ngModelChange)="recuperarFormaPagamentoDespesaConfiguradaUsuario($event)" [(ngModel)]="formaPagamentoDespesaModel.formaPagamento">
@@ -258,7 +260,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-5">
+                        <div class="col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="fontePagamento">Fonte do Pagamento</label>
                                 <select name="fontePagamento" [(ngModel)]="fontePagamento" [disabled]="false" class="form-control">
@@ -275,14 +277,20 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="row text-center">
-                        <div class="col-md-12 col-lg-12">
-                            <div class="animated fadeIn">
-                                <button type="button" (click)="cadastrarFormaPagamentoMultiplaDespesa()" class="btn btn-full btn-primary btn-border btn-round">Cadastrar Forma de Pagamento</button>
-                            </div>
+                        <div class="col-md-3 col-lg-2">
+                                <div class="animated fadeIn" style="margin-top: 36px; margin-left: 60px;">
+                                    <button type="button" (click)="cadastrarFormaPagamentoMultiplaDespesa()" class="btn btn-primary btn-round">
+                                        <i class="fa fa-credit-card"></i>
+                                    </button>
+                                </div>
+                            <!-- <div class="form-group">
+                                <div class="animated fadeIn">
+                                    <label></label>
+                                    <button type="button" (click)="cadastrarFormaPagamentoMultiplaDespesa()" class="btn btn-primary btn-round">+</button>
+                                </div>
+                            </div>   -->
                         </div>
+
                     </div>
 
                     <div *ngIf="formaPagamentoDespesaModelList.length > 0" class="row">
@@ -299,7 +307,7 @@
                             <tbody>
                                 <tr *ngFor="let forma_pagamento_despesa_ of formaPagamentoDespesaModelList">
                                     <td> {{forma_pagamento_despesa_.pessoaPagamento.nome}} </td>
-                                    <td class="text-center"> {{forma_pagamento_despesa_.tipoFormaPagamento.descricao}} </td>
+                                    <td class="text-left"> {{forma_pagamento_despesa_.tipoFormaPagamento.descricao}} </td>
                                     <td> {{forma_pagamento_despesa_.fontePagamento}} </td>
                                     <td class="text-center"> {{forma_pagamento_despesa_.valorPagamento | currency : "BRL": true }} </td>
                                     <td class="text-center"><button type="button" class="btn btn-warning btn-border"> Remover </button></td>
@@ -394,9 +402,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-primary col-md-10">Cadastrar</button>
-                <button type="button" data-dismiss="modal"
-                    class="btn btn-secondary btn-border col-md-2">Cancelar</button>
+                <button type="button" (click)="cadastroProdutoServico()" data-dismiss="modal" class="btn btn-primary col-md-10">Cadastrar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary btn-border col-md-2">Cancelar</button>
             </div>
         </div>
     </div>

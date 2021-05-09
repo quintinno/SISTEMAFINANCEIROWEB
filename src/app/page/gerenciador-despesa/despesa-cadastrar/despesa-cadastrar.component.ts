@@ -292,6 +292,14 @@ export class DespesaCadastrarComponent implements OnInit {
     }
   }
 
+  // TODO
+  cadastroProdutoServico() {
+    this.gerenciadorProdutoServicoService.cadastrar(this.produtoServicoModel).subscribe( response => {
+      console.log("Produto Cadastrado com Sucesso!");
+      this.recuperarProdutoServicoCadastrado();
+    });
+  }
+
   alterarValorProdutoServicoMultiplo(isProdutoServicoMultiploParameter: boolean) {
     this.isProdutoServicoMultiplo = isProdutoServicoMultiploParameter;
   }
@@ -489,6 +497,7 @@ export class DespesaCadastrarComponent implements OnInit {
   limparCamposProdutoServico() {
     this.produtoServicoModel.descricao = null;
     this.produtoServicoOcorrenciaModel.valorUnitario = null;
+    this.produtoServicoOcorrenciaModel.quantidade = 1;
   }
 
   limparCamposDespesa() {
