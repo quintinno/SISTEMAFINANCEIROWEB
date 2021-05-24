@@ -20,6 +20,11 @@ import { ReceitaListarComponent } from './page/gerenciador-receita/receita-lista
 import { LoginComponent } from './page/login/login.component';
 import { MonitoramentoFinanceiroComponent } from './page/monitoramento-financeiro/monitoramento-financeiro.component';
 
+// Composicao Salarial
+import { GerenciadorComposicaoSalarialComponent } from './page/gerenciador-composicao-salarial/gerenciador-composicao-salarial.component';
+import { ComposicaoSalarialCadastrarComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-cadastrar/composicao-salarial-cadastrar.component';
+import { ComposicaoSalarialDetalharComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-detalhar/composicao-salarial-detalhar.component';
+
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "monitoramento-financeiro", component: MonitoramentoFinanceiroComponent },
@@ -40,6 +45,11 @@ const routes: Routes = [
   { path: "despesa-monitoramento", component: GerenciadorDespesaComponent },
   { path: "despesa-cadastrar", component: DespesaCadastrarComponent },
   { path: "despesa-fixa-cadastrar", component: DespesaFixaCadastrarComponent },
+
+  // Composicao Salarial
+  { path: "gerenciador-composicao-salarial", component: GerenciadorComposicaoSalarialComponent },
+  { path: "composicao-salarial-cadastrar", component: ComposicaoSalarialCadastrarComponent },
+  { path: "composicao-salarial-detalhar", component: ComposicaoSalarialDetalharComponent },
   { path: "", redirectTo: "login", pathMatch: "full" }
 ];
 

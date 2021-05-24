@@ -36,6 +36,10 @@ import { FooterComponent } from './page/template/footer/footer.component';
 import { HeaderComponent } from './page/template/header/header.component';
 import { GerenciadorDespesaFixaComponent } from './page/gerenciador-despesa-fixa/gerenciador-despesa-fixa.component';
 import { DespesaFixaCadastrarComponent } from './page/gerenciador-despesa-fixa/despesa-fixa-cadastrar/despesa-fixa-cadastrar.component';
+import { GerenciadorComposicaoSalarialComponent } from './page/gerenciador-composicao-salarial/gerenciador-composicao-salarial.component';
+import { ComposicaoSalarialCadastrarComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-cadastrar/composicao-salarial-cadastrar.component';
+import { ComposicaoSalarialAlterarComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-alterar/composicao-salarial-alterar.component';
+import { ComposicaoSalarialDetalharComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-detalhar/composicao-salarial-detalhar.component';
 
 registerLocaleData(localePt);
 
@@ -69,7 +73,11 @@ registerLocaleData(localePt);
     DespesaAlterarComponent,
     DespesaDetalharComponent,
     GerenciadorDespesaFixaComponent,
-    DespesaFixaCadastrarComponent
+    DespesaFixaCadastrarComponent,
+    GerenciadorComposicaoSalarialComponent,
+    ComposicaoSalarialCadastrarComponent,
+    ComposicaoSalarialAlterarComponent,
+    ComposicaoSalarialDetalharComponent
   ],
   imports: [
     BrowserModule,
