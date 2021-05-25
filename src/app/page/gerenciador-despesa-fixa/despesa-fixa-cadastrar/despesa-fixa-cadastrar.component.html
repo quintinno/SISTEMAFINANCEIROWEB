@@ -25,14 +25,14 @@
                         <div class="col-md-4 col-lg-3">
                             <div class="form-group">
                                 <label for="dataInicioVigencia">Data de Vencimento</label>
-                                <input id="dataInicioVigencia" type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" placeholder="DD/MM/AAAA" class="form-control" disabled />
+                                <input id="dataInicioVigencia" type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" disabled placeholder="DD/MM/AAAA" class="form-control" />
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-3">
-                            <div class="form-group">
+                        <div class="col-md-4 col-lg-3 form-group">
+                            <div [ngClass]="{'has-error has-feedback' : isCampoDataPagamentoValido == true}">
                                 <label for="data-pagamento">Data de Pagamento</label>
-                                <input id="data-pagamento" type="text" name="data-pagamento" placeholder="DD/MM/AAAA" class="form-control" />
+                                <input id="data-pagamento" type="text" name="data-pagamento" [(ngModel)]="despesaModel.dataPagamento" placeholder="DD/MM/AAAA" class="form-control" />
                             </div>
                         </div>
 
@@ -42,8 +42,8 @@
 
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="valor-pagamento">Valor</label>
-                                <input id="valor-pagamento" type="text" name="valor-pagamento" placeholder="R$ 00,00" class="form-control" />
+                                <label for="valor-mensal-pagamento">Valor</label>
+                                <input id="valor-mensal-pagamento" type="text" name="valor-mensal-pagamento" [(ngModel)]="contratoModel.valorMensalPagamento" placeholder="R$ 00,00" class="form-control" />
                             </div>
                         </div>
 
@@ -61,7 +61,7 @@
                         <div class="col-md-3 col-lg-4">
                             <div class="form-group">
                                 <label for="situacao-pagamento">Situação</label>
-                                <select id="situacao-pagamento" class="form-control" autofocus name="situacao-pagamento">
+                                <select id="situacao-pagamento" class="form-control" name="situacao-pagamento">
                                     <option [disabled]="true">Selecione</option>
                                     <option>Pendente</option>
                                     <option>Pago</option>
@@ -77,8 +77,7 @@
                         Despesa</button>
                     <button type="button" class="btn btn-warning btn-lg col-md-3" style="margin: 4px;">Cadastrar
                         Outra</button>
-                    <button type="button" class="btn btn-danger btn-border btn-lg col-md-2"
-                        style="margin: 4px;">Cancelar</button>
+                    <button type="button" (click)="redirecionarPaginaMonitoramentoDespesa()" style="margin: 4px;" class="btn btn-danger btn-border btn-lg col-md-2">Cancelar</button>
                 </div>
             </div>
         </div>
