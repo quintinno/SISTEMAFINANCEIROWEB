@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<!-- <form (ngSubmit)="cadastrarDespesa()"> -->
+<!-- <form (click)="cadastrar()"> -->
     <div class="main-panel">
         <div class="col-md-12" style="margin-top: 100px;">
 
@@ -11,40 +11,74 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-md-3 col-lg-4">
+
+                        <div class="col-md-3 col-lg-6">
                             <div class="form-group">
                                 <label for="contrato">Contrato</label>
-                                <select class="form-control" autofocus name="contrato">
+                                <select id="contrato" name="contrato" [(ngModel)]="contratoCodigo" (ngModelChange)="recuperarVencimento()" autofocus class="form-control">
                                     <option [disabled]="true">Selecione</option>
-                                    <option>Brava Fibra Internet (Brasília)</option>
-                                    <option>Sinagoga Keter Torah (Brasília)</option>
-                                    <option>Tim Telefonia (Brasil)</option>
-                                    <option>Banco Nubank (Brasil)</option>
+                                    <option *ngFor="let contrato_ of contratoList" [value]="contrato_.codigo"> {{contrato_.identificador}} </option>
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-md-4 col-lg-3">
+                            <div class="form-group">
+                                <label for="dataInicioVigencia">Data de Vencimento</label>
+                                <input id="dataInicioVigencia" type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" placeholder="DD/MM/AAAA" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-3">
+                            <div class="form-group">
+                                <label for="data-pagamento">Data de Pagamento</label>
+                                <input id="data-pagamento" type="text" name="data-pagamento" placeholder="DD/MM/AAAA" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="valor-pagamento">Valor</label>
+                                <input id="valor-pagamento" type="text" name="valor-pagamento" placeholder="R$ 00,00" class="form-control" />
+                            </div>
+                        </div>
+
                         <div class="col-md-3 col-lg-4">
                             <div class="form-group">
-                                <label for="contrato"></label>
-                                <select class="form-control" autofocus name="contrato">
+                                <label for="fonte-pagamento">Fonte de Pagamento</label>
+                                <select id="fonte-pagamento" autofocus name="fonte-pagamento" class="form-control">
                                     <option [disabled]="true">Selecione</option>
-                                    <option>Brava Fibra Internet (Brasília)</option>
-                                    <option>Sinagoga Keter Torah (Brasília)</option>
-                                    <option>Tim Telefonia (Brasil)</option>
-                                    <option>Banco Nubank (Brasil)</option>
+                                    <option>Banco Nubank (Conta Corrente)</option>
+                                    <option>Banco Nubank (Cartão de Crédito)</option>
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-md-3 col-lg-4">
+                            <div class="form-group">
+                                <label for="situacao-pagamento">Situação</label>
+                                <select id="situacao-pagamento" class="form-control" autofocus name="situacao-pagamento">
+                                    <option [disabled]="true">Selecione</option>
+                                    <option>Pendente</option>
+                                    <option>Pago</option>
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
                 <div class="card-action">
-                    <button id="cadastrarDespesa"
-                        class="btn btn-primary btn-lg col-md-6" style="margin: 4px;">Cadastrar Despesa</button>
-                    <button type="button" 
-                        class="btn btn-warning btn-lg col-md-3" style="margin: 4px;">Cadastrar Outra</button>
-                    <button type="button" 
-                        class="btn btn-danger btn-border btn-lg col-md-2" style="margin: 4px;">Cancelar</button>
+                    <button id="cadastrarDespesa" class="btn btn-primary btn-lg col-md-6" style="margin: 4px;">Cadastrar
+                        Despesa</button>
+                    <button type="button" class="btn btn-warning btn-lg col-md-3" style="margin: 4px;">Cadastrar
+                        Outra</button>
+                    <button type="button" class="btn btn-danger btn-border btn-lg col-md-2"
+                        style="margin: 4px;">Cancelar</button>
                 </div>
             </div>
         </div>
