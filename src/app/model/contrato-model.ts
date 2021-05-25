@@ -1,5 +1,6 @@
 export class ContratoModel {
     codigo: number;
+    identificador: string;
     dataInicioVigencia: Date;
     dataFimVigencia: Date;
     diaVencimentoFatura: number;
