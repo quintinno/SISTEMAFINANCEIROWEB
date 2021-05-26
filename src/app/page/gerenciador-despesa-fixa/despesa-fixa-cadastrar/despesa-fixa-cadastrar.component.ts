@@ -63,7 +63,8 @@ export class DespesaFixaCadastrarComponent implements OnInit {
 	 	
           Banco do Brasil - Conta Corrente (0826717460)
           Banco do Brasil - Conta Salário (0826717460)
-          Banco do Brasil - Conta Poupança (0826717460)
+          Banco do Brasil - Conta Poupança Ouro (0826717460)
+          Banco do Brasil - Conta Poupança Poupex (0826717460)
           Banco do Brasil - Cartão de Crédito (4854-6441-3151-0095)
           Banco do Brasil - Cartão de Débito (4854-6441-3151-0095)
 
@@ -84,8 +85,8 @@ export class DespesaFixaCadastrarComponent implements OnInit {
   public recuperarFontePagamento() {
     this.gerenciadorContaBancariaService.recuperarContaBancariaList().subscribe((response) => {
       response.forEach((retorno) => {
-        // console.log(retorno);
-        console.log(retorno.pessoaInstituicaoFinanceira.nome + " (" + retorno.tipoContaBancaria.descricao + ")");
+        console.log(retorno);
+        // console.log(retorno.pessoaInstituicaoFinanceira.nome + " (" + retorno.tipoContaBancaria.descricao + ")");
       })
       this.contaBancariaList.push(response);
     });

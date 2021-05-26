@@ -12,7 +12,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-3 col-lg-6">
+                        <div class="col-md-3 col-lg-4">
                             <div class="form-group">
                                 <label for="contrato">Contrato</label>
                                 <select id="contrato" name="contrato" [(ngModel)]="contratoCodigo" (ngModelChange)="recuperarVencimento()" autofocus class="form-control">
@@ -22,52 +22,23 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-3">
+                        <div class="col-md-4 col-lg-4">
                             <div class="form-group">
-                                <label for="dataInicioVigencia">Data de Vencimento</label>
-                                <input id="dataInicioVigencia" type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" disabled placeholder="DD/MM/AAAA" class="form-control" />
+                                <label for="dataInicioVigencia">Dia de Vencimento</label>
+                                <input id="dataInicioVigencia" type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" placeholder="DD/MM/AAAA" class="form-control" />
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-lg-3 form-group">
-                            <div [ngClass]="{'has-error has-feedback' : isCampoDataPagamentoValido == true}">
-                                <label for="data-pagamento">Data de Pagamento</label>
-                                <input id="data-pagamento" type="text" name="data-pagamento" [(ngModel)]="despesaModel.dataPagamento" placeholder="DD/MM/AAAA" class="form-control" />
+                        <div class="col-md-4 col-lg-4">
+                            <div class="form-group">
+                                <label for="valor-mensal-pagamento">Valor Mensal</label>
+                                <input id="valor-mensal-pagamento" type="text" name="valor-mensal-pagamento" [(ngModel)]="contratoModel.valorMensalPagamento" placeholder="R$ 00,00" class="form-control" />
                             </div>
                         </div>
 
                     </div>
 
                     <div class="row">
-
-                        <div class="col-md-4 col-lg-4">
-                            <div class="form-group">
-                                <label for="valor-mensal-pagamento">Valor</label>
-                                <input id="valor-mensal-pagamento" type="text" name="valor-mensal-pagamento" [(ngModel)]="contratoModel.valorMensalPagamento" placeholder="R$ 00,00" class="form-control" />
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-lg-4">
-                            <div class="form-group">
-                                <label for="fonte-pagamento">Fonte de Pagamento</label>
-                                <select id="fonte-pagamento" autofocus name="fonte-pagamento" class="form-control">
-                                    <option [disabled]="true">Selecione</option>
-                                    <option>Banco Nubank (Conta Corrente)</option>
-                                    <option>Banco Nubank (Cartão de Crédito)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-lg-4">
-                            <div class="form-group">
-                                <label for="situacao-pagamento">Situação</label>
-                                <select id="situacao-pagamento" class="form-control" name="situacao-pagamento">
-                                    <option [disabled]="true">Selecione</option>
-                                    <option>Pendente</option>
-                                    <option>Pago</option>
-                                </select>
-                            </div>
-                        </div>
 
                     </div>
 
