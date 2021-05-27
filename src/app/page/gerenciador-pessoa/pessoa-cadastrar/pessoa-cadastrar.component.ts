@@ -59,12 +59,8 @@ export class PessoaCadastrarComponent implements OnInit {
     });
   }
 
+  // TODO -- Recuperar dados do endpoint
   private validarPessoaCadastrada(pessoaModel: PessoaModel) {
-    for( let index = 0 ; index < this.pessoaModelList.length ; index++ ) {
-      if(pessoaModel.nome == this.pessoaModelList[index].nome) {
-        return false;
-      }
-    }
     return true;
   }
 
