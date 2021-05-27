@@ -5,6 +5,17 @@
     <div class="main-panel">
         <div class="col-md-12" style="margin-top: 90px;">
 
+            <div *ngIf="isApresentarMensagemPessoaVinculadaContrato == true">
+                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-danger" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+                        <a (click)="desabilitarAlerta()">×</a>
+                    </button>
+                    <span data-notify="icon" class="fa fa-bell"></span>
+                    <span data-notify="title">Sistema Financeiro</span>
+                    <span data-notify="message">Já existe um contrato vinculado a essa pessoa!</span>
+                </div>
+            </div>
+
             <div *ngIf="isApresentarMensagemCadastroSucesso == true">
                 <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
                     <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
@@ -36,12 +47,11 @@
                         <div class="col-md-4 col-lg-4">
                             <div class="form-group">
                                 <label for="pessoaContratado">Favorecido</label>
-                                <select name="pessoaContratado" [(ngModel)]="contratoModel.pessoaContratado" class="form-control">
+                                <select name="pessoaContratado" [(ngModel)]="contratoModel.pessoaContratado" (ngModelChange)="isExistePessoaContratadaVinculadaContrato()" class="form-control">
                                     <option>Selecionar</option>
                                     <option *ngFor="let pessoa_model_ of pessoaJuridicaList" [ngValue]="pessoa_model_"> {{pessoa_model_.nome}} </option>
                                     <option>Outro</option>
                                 </select>
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
                             </div>
                         </div>
                         <div class="col-md-5 col-lg-5">
@@ -52,7 +62,6 @@
                                     <option *ngFor="let tipo_contrato_model_ of tipoContratoList" [ngValue]="tipo_contrato_model_"> {{tipo_contrato_model_.descricao}} </option>
                                     <option>Outro</option>
                                 </select>
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
                             </div>
                         </div>
                         <div class="col-md-4 col-lg-3">
@@ -63,7 +72,6 @@
                                     <option *ngFor="let pessoa_fisica_ of pessoaFisicaList" [ngValue]="pessoa_fisica_"> {{pessoa_fisica_.nome}} </option>
                                     <option>Outro</option>
                                 </select>
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Campo Obrigatório</small> -->
                             </div>
                         </div>
                     </div>
@@ -72,21 +80,18 @@
                             <div class="form-group">
                                 <label for="dataInicioVigencia">Inicío da Vigência</label>
                                 <input type="text" name="dataInicioVigencia" [(ngModel)]="contratoModel.dataInicioVigencia" placeholder="DD/MM/AAAA" class="form-control form-control" />
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
                         <div class="col-md-8 col-lg-4">
                             <div class="form-group">
                                 <label for="diaVencimentoFatura">Dia do Vencimento da Fatura</label>
                                 <input type="text" name="diaVencimentoFatura" [(ngModel)]="contratoModel.diaVencimentoFatura" placeholder="DIA" maxlength="2" class="form-control form-control" />
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
                         <div class="col-md-8 col-lg-4">
                             <div class="form-group">
                                 <label for="valorMensalPagamento">Valor Mensal do Pagamento</label>
                                 <input type="text" name="valorMensalPagamento" [(ngModel)]="contratoModel.valorMensalPagamento" placeholder="R$ 00,00" class="form-control form-control" />
-                                <!-- <small id="emailHelp2" class="form-text text-danger fw-bold">Compo Obrigatório</small> -->
                             </div>
                         </div>
                     </div>

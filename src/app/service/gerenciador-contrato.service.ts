@@ -24,4 +24,8 @@ export class GerenciadorContratoService {
     return this.httpClient.get<ContratoModel>(`${this.URL_BASE_API_CONTRATO}/${codigo}`);
   }
 
+  isExistePessoaContratadaVinculadaContrato( codigo: number ) : Observable<Boolean> {
+    return this.httpClient.get<Boolean>(`${this.URL_BASE_API_CONTRATO}/verificar-vinculo-pessoa-contratada/${codigo}`);
+  }
+
 }

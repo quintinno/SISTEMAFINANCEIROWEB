@@ -23,6 +23,7 @@ export class ContratoCadastrarComponent implements OnInit {
 
   isApresentarMensagemCadastroSucesso: boolean = false;
   isApresentarMensagemErro: boolean = false;
+  isApresentarMensagemPessoaVinculadaContrato: Boolean = false;
 
   constructor( 
     private gerenciadorContratoService: GerenciadorContratoService, 
@@ -84,9 +85,20 @@ export class ContratoCadastrarComponent implements OnInit {
     });
   }
 
+  // TODO --
+  public isExistePessoaContratadaVinculadaContrato() {
+    this.gerenciadorContratoService.isExistePessoaContratadaVinculadaContrato(this.contratoModel.pessoaContratado.codigo).subscribe( response => {
+      this.isApresentarMensagemPessoaVinculadaContrato = response;
+      setTimeout(() => {
+        this.desabilitarAlerta();
+      }, 6000);
+    });
+  }
+
   desabilitarAlerta() {
     this.isApresentarMensagemCadastroSucesso = false;
     this.isApresentarMensagemErro = false;
+    this.isApresentarMensagemPessoaVinculadaContrato = false;
   }
 
   redirecionarPaginaMonitoramentoContrato() {
