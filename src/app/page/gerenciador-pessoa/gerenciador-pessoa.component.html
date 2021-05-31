@@ -69,14 +69,9 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Pessoas Cadastradas</div>
+                                <div class="card-title">Pessoas</div>
                                 <div class="card-tools">
-                                    <a routerLink="/pessoa-cadastrar" class="btn btn-info btn-border btn-round btn-sm mr-2">
-                                        <span class="btn-label">
-                                            <i class="fa fa-pencil"></i>
-                                        </span>
-                                       GERENCIAR
-                                    </a>
+                                        <input type="text" placeholder="Pesquisar Pessoas" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -91,6 +86,7 @@
                                                         <th>Nome</th>
                                                         <th>Tipo</th>
                                                         <th>Situação</th>
+                                                        <th>Ação</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -98,6 +94,11 @@
                                                         <td class="fw-bold">{{pessoaModel_.nome}}</td>
                                                         <td class="fw-bold">{{pessoaModel_.tipoPessoa.descricao}}</td>
                                                         <td class="fw-bold">{{pessoaModel_.isAtivo == true ? 'ATIVO' : 'INATIVO'}}</td>
+                                                        <td>
+                                                            <a routerLink="/pessoa-alterar">
+                                                                <i class="fas fa-th fa-2x"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -38,9 +38,13 @@ export class PessoaCadastrarComponent implements OnInit {
 
   cadastrarDadosPessoa() {
     if (this.validarPessoaCadastrada(this.pessoaModel)) {
-      this.gerenciadorPessoaService.cadastrar(this.pessoaModel).subscribe(response => {
+      this.gerenciadorPessoaService.cadastrar(this.tratarDadosPessoaCadastro(this.pessoaModel)).subscribe(response => {
         this.desabilitarAlertaCadastrarDadosPessoa();
         this.isApresentarMensagemCadastroSucesso = true;
+        this.limparCamposTelaCadastroPessoas();
+        setTimeout( () => {
+          this.desabilitarAlertaCadastrarDadosPessoa();
+        }, 5000);
         this.limparCamposTelaCadastroPessoas();
         this.recuperarPessoaList();
       }, responseError => {
@@ -49,6 +53,12 @@ export class PessoaCadastrarComponent implements OnInit {
     } else {
       this.isApresentarMensagemErroCadastroDadosDuplicados = true;
     }
+  }
+
+  private tratarDadosPessoaCadastro(pessoaModel: PessoaModel) {
+    pessoaModel.isAtivo = true;
+    pessoaModel.isPessoaFinanceira = true;
+    return pessoaModel;
   }
 
   recuperarPessoaList() {
@@ -99,7 +109,7 @@ export class PessoaCadastrarComponent implements OnInit {
     this.pessoaModel.nome = null;
     this.pessoaModel.tipoPessoa = null;
     this.pessoaModel.isPessoaFinanceira = null;
-    this.pessoaModel.isAtivo = null;
+    this.pessoaModel.isInstituicaoFinanceira = null;
   }
 
   desabilitarAlertaCadastrarDadosPessoa() {

@@ -90,33 +90,20 @@
                             <form (ngSubmit)="cadastrarDadosPessoa()">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-4 col-lg-6">
+                                        <div class="col-md-4 col-lg-4">
                                             <div class="form-group">
                                                 <label for="nome">Nome Completo</label>
                                                 <input type="text" name="nome" [(ngModel)]="pessoaModel.nome"
                                                     class="form-control form-control" id="defaultInput">
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-lg-6">
+                                        <div class="col-md-4 col-lg-4">
                                             <div class="form-group">
                                                 <label for="tipoPessoa">Tipo de Pessoa</label>
                                                 <select name="tipoPessoa" [(ngModel)]="pessoaModel.tipoPessoa"
                                                     class="form-control" placeholder="Selecione">
                                                     <option>Selecionar</option>
                                                     <option *ngFor="let tipo_pessoa_model_ of tipoPessoaModelList" [ngValue]="tipo_pessoa_model_">{{ tipo_pessoa_model_.descricao }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-4">
-                                            <div class="form-group">
-                                                <label for="isPessoaFinanceira">Pessoa Financeira</label>
-                                                <select name="isPessoaFinanceira"
-                                                    [(ngModel)]="pessoaModel.isPessoaFinanceira" class="form-control">
-                                                    <option>Selecionar</option>
-                                                    <option [ngValue]="true" selected>Sim</option>
-                                                    <option [ngValue]="false">Não</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -131,66 +118,12 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 col-lg-4">
-                                            <div class="form-group">
-                                                <label for="isAtivo">Situação</label>
-                                                <select name="isAtivo" [(ngModel)]="pessoaModel.isAtivo"
-                                                    class="form-control">
-                                                    <option>Selecionar</option>
-                                                    <option [ngValue]="true" selected>Ativo</option>
-                                                    <option [ngValue]="false">Inativo</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-action">
                                     <button class="btn btn-secondary btn-round btn-lg col-md-12">Cadastrar Dados da Pessoa</button>
                                 </div>
                             </form>
-
-                            <div>
-                                <div class="card-body">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="table-responsive table-hover table-sales">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Nome</th>
-                                                                <th>Tipo de Pessoa</th>
-                                                                <th>Permite Transação Financeira</th>
-                                                                <th>Situação</th>
-                                                                <th>Ações</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr *ngFor="let pessoa_model_ of pessoaModelList">
-                                                                <td class="text-uppercase"> {{pessoa_model_.nome}} </td>
-                                                                <td class="text-uppercase"> Pessoa Física </td>
-                                                                <td class="text-uppercase"> Sim </td>
-                                                                <td class="text-uppercase"> Ativa </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <a (click)="atualizarPessoa(pessoa_model_.codigo)"
-                                                                            class="btn"> <i class="fas fa-edit"></i>
-                                                                        </a>
-                                                                        <a (click)="removerPessoa(pessoa_model_.codigo)"
-                                                                            class="btn"> <i class="fas fa-trash"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="separator-dashed"></div>
-                                </div>
-                            </div>
 
                         </div>
 
