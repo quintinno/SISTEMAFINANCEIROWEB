@@ -40,6 +40,9 @@ import { GerenciadorComposicaoSalarialComponent } from './page/gerenciador-compo
 import { ComposicaoSalarialCadastrarComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-cadastrar/composicao-salarial-cadastrar.component';
 import { ComposicaoSalarialAlterarComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-alterar/composicao-salarial-alterar.component';
 import { ComposicaoSalarialDetalharComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-detalhar/composicao-salarial-detalhar.component';
+import { Ng2SearchPipeModule } from "ng2-search-filter";
+import { Ng2OrderModule } from "ng2-order-pipe";
+import { NgxPaginationModule } from "ngx-pagination";
 
 registerLocaleData(localePt);
 
@@ -85,7 +88,10 @@ registerLocaleData(localePt);
     HttpClientModule,
     FormsModule,
     AutocompleteLibModule,
-    NgSelectModule
+    NgSelectModule,
+    Ng2SearchPipeModule,
+    Ng2OrderModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "pt-BR"}

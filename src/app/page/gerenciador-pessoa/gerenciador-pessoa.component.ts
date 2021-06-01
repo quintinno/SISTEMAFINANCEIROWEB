@@ -13,6 +13,10 @@ export class GerenciadorPessoaComponent implements OnInit {
 
   public pessoaModelList: PessoaModel[];
 
+  public chavePesquisa: String = "codigo";
+  public isOrdenacaoReversa: Boolean = false;
+  public quantidadeResultadoPagina: number = 1;
+
   constructor( private gerenciadorPessoaService: GerenciadorPessoaService ) { }
 
   ngOnInit(): void {
@@ -23,6 +27,23 @@ export class GerenciadorPessoaComponent implements OnInit {
     this.gerenciadorPessoaService.recuperarPessoaList().subscribe( response => {
       this.pessoaModelList = response;
     });
+  }
+
+  pesquisar() {
+    debugger;
+    if(this.pessoaModel.nome == "") {
+      this.ngOnInit();
+    } else {
+        this.pessoaModelList = this.pessoaModelList.filter( response => {
+          return response.nome.toLocaleLowerCase().match(this.pessoaModel.nome.toLocaleLowerCase());
+        })
+    }
+  }
+
+  ordenarPorCampoSelecao( chavePesquisa ) {
+    console.log(chavePesquisa);
+    this.chavePesquisa = chavePesquisa;
+    this.isOrdenacaoReversa = !this.isOrdenacaoReversa;
   }
 
 }

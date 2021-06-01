@@ -71,7 +71,7 @@
                             <div class="card-head-row">
                                 <div class="card-title">Pessoas</div>
                                 <div class="card-tools">
-                                        <input type="text" placeholder="Pesquisar Pessoas" class="form-control" />
+                                    <input type="text" name="pessoaModel.nome" [(ngModel)]="pessoaModel.nome" (ngModelChange)="pesquisar()" placeholder="Pesquisar Pessoas" class="form-control" style="width: 400px;"/>
                                 </div>
                             </div>
                         </div>
@@ -83,17 +83,15 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Nome</th>
-                                                        <th>Tipo</th>
-                                                        <th>Situação</th>
+                                                        <th (click)="ordenarPorCampoSelecao('nome')">Nome <i class="fa fa-sort"></i></th>
+                                                        <th (click)="ordenarPorCampoSelecao('tipoPessoa')">Tipo de Pessoa <i class="fa fa-sort"></i></th>
                                                         <th>Ação</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngFor="let pessoaModel_ of pessoaModelList">
+                                                    <tr *ngFor="let pessoaModel_ of pessoaModelList | orderBy: chavePesquisa: isOrdenacaoReversa | paginate: {itemsPerPage: 10, currentPage: quantidadeResultadoPagina}">
                                                         <td class="fw-bold">{{pessoaModel_.nome}}</td>
                                                         <td class="fw-bold">{{pessoaModel_.tipoPessoa.descricao}}</td>
-                                                        <td class="fw-bold">{{pessoaModel_.isAtivo == true ? 'ATIVO' : 'INATIVO'}}</td>
                                                         <td>
                                                             <a routerLink="/pessoa-alterar">
                                                                 <i class="fas fa-th fa-2x"></i>
@@ -101,6 +99,10 @@
                                                         </td>
                                                     </tr>
                                                 </tbody>
+                                                <tfoot>
+                                                    <br /><br />
+                                                    <pagination-controls (pageChange)="quantidadeResultadoPagina = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
