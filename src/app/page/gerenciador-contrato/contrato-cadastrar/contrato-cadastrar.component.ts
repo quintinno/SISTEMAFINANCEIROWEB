@@ -105,6 +105,10 @@ export class ContratoCadastrarComponent implements OnInit {
     this.router.navigate(["/contrato-monitoramento"]);
   }
 
+  redirecionarPaginaAnterior() {
+    return window.history.back();
+  }
+
   limparCampos() {
     this.contratoModel.codigo = null;
     this.contratoModel.dataInicioVigencia = null;

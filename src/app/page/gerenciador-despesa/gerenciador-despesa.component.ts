@@ -13,7 +13,7 @@ export class GerenciadorDespesaComponent implements OnInit {
   ngOnInit(): void { }
 
   redirecionarPaginaCadastrarDespesaFixa() {
-    this.router.navigate(["/despesa-fixa-cadastrar"]).then( () => {
+    this.router.navigate(["/contrato-cadastrar"]).then( () => {
       window.location.reload();
     });
   }

@@ -26,6 +26,10 @@ export class PessoaCadastrarComponent implements OnInit {
 
   public isApresentarMensagemErroCadastroDadosDuplicados: boolean = false;
 
+  public isCampoNomePessoaInvalido: boolean = false;
+  public isCampoTipoPessoaInvalido: boolean = false;
+  public isCampoInstituicaoFinanceiraInvalido: boolean = false;
+
   constructor( 
       private router: Router, 
       private gerenciadorPessoaService: GerenciadorPessoaService, 
@@ -38,18 +42,20 @@ export class PessoaCadastrarComponent implements OnInit {
 
   cadastrarDadosPessoa() {
     if (this.validarPessoaCadastrada(this.pessoaModel)) {
-      this.gerenciadorPessoaService.cadastrar(this.tratarDadosPessoaCadastro(this.pessoaModel)).subscribe(response => {
-        this.desabilitarAlertaCadastrarDadosPessoa();
-        this.isApresentarMensagemCadastroSucesso = true;
-        this.limparCamposTelaCadastroPessoas();
-        setTimeout( () => {
+      if(this.validarCamposCadastroDadosPessoa(this.pessoaModel)) {
+        this.gerenciadorPessoaService.cadastrar(this.tratarDadosPessoaCadastro(this.pessoaModel)).subscribe(response => {
           this.desabilitarAlertaCadastrarDadosPessoa();
-        }, 5000);
-        this.limparCamposTelaCadastroPessoas();
-        this.recuperarPessoaList();
-      }, responseError => {
-        console.error(responseError);
-      });
+          this.isApresentarMensagemCadastroSucesso = true;
+          this.limparCamposTelaCadastroPessoas();
+          setTimeout( () => {
+            this.desabilitarAlertaCadastrarDadosPessoa();
+          }, 5000);
+          this.limparCamposTelaCadastroPessoas();
+          this.recuperarPessoaList();
+        }, responseError => {
+          console.error(responseError);
+        });
+      }
     } else {
       this.isApresentarMensagemErroCadastroDadosDuplicados = true;
     }
@@ -72,6 +78,17 @@ export class PessoaCadastrarComponent implements OnInit {
   // TODO -- Recuperar dados do endpoint
   private validarPessoaCadastrada(pessoaModel: PessoaModel) {
     return true;
+  }
+
+  public validarCamposCadastroDadosPessoa(pessoaModel: PessoaModel) {
+    pessoaModel.nome == null || pessoaModel.nome == undefined ? this.isCampoNomePessoaInvalido = true : this.isCampoNomePessoaInvalido = false;
+    pessoaModel.tipoPessoa == null || pessoaModel.nome == undefined ? this.isCampoTipoPessoaInvalido = true : this.isCampoTipoPessoaInvalido = false;
+    pessoaModel.isInstituicaoFinanceira == null || pessoaModel.nome == undefined ? this.isCampoInstituicaoFinanceiraInvalido = true : this.isCampoInstituicaoFinanceiraInvalido = false;
+    if(this.isCampoNomePessoaInvalido == false && this.isCampoTipoPessoaInvalido == false && this.isCampoInstituicaoFinanceiraInvalido == false) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   recuperarTipoPessoa() {
