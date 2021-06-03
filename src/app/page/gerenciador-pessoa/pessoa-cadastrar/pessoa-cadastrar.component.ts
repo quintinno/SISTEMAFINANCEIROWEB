@@ -27,8 +27,15 @@ export class PessoaCadastrarComponent implements OnInit {
   public isApresentarMensagemErroCadastroDadosDuplicados: boolean = false;
 
   public isCampoNomePessoaInvalido: boolean = false;
-  public isCampoTipoPessoaInvalido: boolean = false;
-  public isCampoInstituicaoFinanceiraInvalido: boolean = false;
+  public isCampoDesabilitadoCadastro: boolean = false;
+
+  public isHabilitarAbaDocumento: boolean = true;
+  public isHabilitarAbaEndereco: boolean = false;
+  public isHabilitarAbaTelefone: boolean = false;
+  public isHabilitarAbaEmail: boolean = false;
+  public isHabilitarAbaRedeSocial: boolean = false;
+
+  public isDesabilitarBotaoCadastroPessoa: boolean = false;
 
   constructor( 
       private router: Router, 
@@ -38,6 +45,7 @@ export class PessoaCadastrarComponent implements OnInit {
   ngOnInit(): void {
     this.recuperarTipoPessoa();
     this.recuperarPessoaList();
+    this.definirIsntituicaoFinanceiraInicialFormulario();
   }
 
   cadastrarDadosPessoa() {
@@ -46,11 +54,18 @@ export class PessoaCadastrarComponent implements OnInit {
         this.gerenciadorPessoaService.cadastrar(this.tratarDadosPessoaCadastro(this.pessoaModel)).subscribe(response => {
           this.desabilitarAlertaCadastrarDadosPessoa();
           this.isApresentarMensagemCadastroSucesso = true;
-          this.limparCamposTelaCadastroPessoas();
+          this.isCampoDesabilitadoCadastro = true;
+          debugger;
+          if(this.pessoaModel.tipoPessoa.sigla == "PF") {
+            this.isHabilitarAbaDocumento = true;
+          }
+          this.isDesabilitarBotaoCadastroPessoa == true;
+          this.isHabilitarAbaEndereco = true;
+          this.isHabilitarAbaEmail = true;
+          this.isHabilitarAbaRedeSocial = true;
           setTimeout( () => {
             this.desabilitarAlertaCadastrarDadosPessoa();
           }, 5000);
-          this.limparCamposTelaCadastroPessoas();
           this.recuperarPessoaList();
         }, responseError => {
           console.error(responseError);
@@ -81,10 +96,12 @@ export class PessoaCadastrarComponent implements OnInit {
   }
 
   public validarCamposCadastroDadosPessoa(pessoaModel: PessoaModel) {
-    pessoaModel.nome == null || pessoaModel.nome == undefined ? this.isCampoNomePessoaInvalido = true : this.isCampoNomePessoaInvalido = false;
-    pessoaModel.tipoPessoa == null || pessoaModel.nome == undefined ? this.isCampoTipoPessoaInvalido = true : this.isCampoTipoPessoaInvalido = false;
-    pessoaModel.isInstituicaoFinanceira == null || pessoaModel.nome == undefined ? this.isCampoInstituicaoFinanceiraInvalido = true : this.isCampoInstituicaoFinanceiraInvalido = false;
-    if(this.isCampoNomePessoaInvalido == false && this.isCampoTipoPessoaInvalido == false && this.isCampoInstituicaoFinanceiraInvalido == false) {
+    if(pessoaModel.nome == null || pessoaModel.nome == undefined || pessoaModel.nome == "") {
+      this.isCampoNomePessoaInvalido = true;
+    } else {
+      this.isCampoNomePessoaInvalido = false;
+    }
+    if(this.isCampoNomePessoaInvalido == false) {
       return true;
     } else {
       return false;
@@ -94,6 +111,7 @@ export class PessoaCadastrarComponent implements OnInit {
   recuperarTipoPessoa() {
     this.gerenciadorTipoPessoaService.recuperarTipoPessoa().subscribe( response => {
       this.tipoPessoaModelList = response;
+      this.pessoaModel.tipoPessoa = response[1];
     }, responseError => {
       console.error(responseError);
     });
@@ -107,6 +125,10 @@ export class PessoaCadastrarComponent implements OnInit {
       }
     }
     return this.tipoPessoaModel;
+  }
+
+  definirIsntituicaoFinanceiraInicialFormulario() {
+    this.pessoaModel.isInstituicaoFinanceira = false;
   }
 
   atualizarPessoa( codigo: number ) {
@@ -127,6 +149,8 @@ export class PessoaCadastrarComponent implements OnInit {
     this.pessoaModel.tipoPessoa = null;
     this.pessoaModel.isPessoaFinanceira = null;
     this.pessoaModel.isInstituicaoFinanceira = null;
+    this.recuperarTipoPessoa();
+    this.definirIsntituicaoFinanceiraInicialFormulario();
   }
 
   desabilitarAlertaCadastrarDadosPessoa() {
