@@ -250,7 +250,8 @@ export class DespesaCadastrarComponent implements OnInit {
       tipoPessoa: null,
       isAtivo: true,
       isPessoaFinanceira: true,
-      isInstituicaoFinanceira: false
+      isInstituicaoFinanceira: false,
+      nomePessoaJuridicaSistema: null
     }
     this.gerenciadorPessoaService.cadastrar(pessoaModel).subscribe(response => {
       this.despesaModel.pessoaEstabelecimento = response;

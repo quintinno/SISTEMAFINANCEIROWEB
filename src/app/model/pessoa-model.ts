@@ -5,4 +5,5 @@ export class PessoaModel {
     isAtivo: boolean;
     isPessoaFinanceira: boolean;
     isInstituicaoFinanceira: boolean;
+    nomePessoaJuridicaSistema: string;
 }

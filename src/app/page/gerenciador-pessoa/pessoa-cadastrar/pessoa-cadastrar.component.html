@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <ul class="nav nav-pills nav-secondary  nav-pills-no-bd nav-pills-icons justify-content-center fw-bold text-center"
                             id="pills-tab-with-icon" role="tablist">
-                            <li class="nav-item">
+                            <li *ngIf="isHabilitarAbaDadosPessoa" class="nav-item">
                                 <a id="v-pills-home-tab-icons" data-toggle="pill" href="#aba-dados-pssoais" role="tab"
                                     aria-controls="v-pills-home-icons" aria-selected="true" class="nav-link active"
                                     style="width: 190px;">
@@ -105,7 +105,7 @@
                             </li>
                         </ul>
                         <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
-                            <div class="tab-pane fade show active" id="aba-dados-pssoais" role="tabpanel"
+                            <div *ngIf="isHabilitarAbaDadosPessoa" class="tab-pane fade show active" id="aba-dados-pssoais" role="tabpanel"
                                 aria-labelledby="pills-home-tab-icon">
                                 <form (ngSubmit)="cadastrarDadosPessoa()">
                                     <div class="card-body">
@@ -125,13 +125,9 @@
                                             <div class="col-md-4 col-lg-4">
                                                 <div class="form-group">
                                                     <label for="tipoPessoa">Tipo de Pessoa</label>
-                                                    <select name="tipoPessoa" [(ngModel)]="pessoaModel.tipoPessoa"
-                                                        [disabled]="isCampoDesabilitadoCadastro" placeholder="Selecione"
-                                                        class="form-control">
+                                                    <select name="tipoPessoa" [(ngModel)]="pessoaModel.tipoPessoa" [disabled]="isCampoDesabilitadoCadastro" placeholder="Selecione" class="form-control">
                                                         <option>Selecionar</option>
-                                                        <option *ngFor="let tipo_pessoa_model_ of tipoPessoaModelList"
-                                                            [ngValue]="tipo_pessoa_model_">{{
-                                                            tipo_pessoa_model_.descricao }}</option>
+                                                        <option *ngFor="let tipo_pessoa_model_ of tipoPessoaModelList" [ngValue]="tipo_pessoa_model_">{{tipo_pessoa_model_.descricao}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -154,59 +150,49 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="aba-documentos" role="tabpanel" aria-labelledby="pills-contact-tab-icon">
-                                <form (ngSubmit)="cadastrarDadosPessoa()">
+                            <div *ngIf="isHabilitarAbaDocumento" class="tab-pane fade" id="aba-documentos" role="tabpanel" aria-labelledby="pills-contact-tab-icon">
+                                <form (ngSubmit)="cadastrarDocumentosPessoa()">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-4 col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="data-recebimento disable">Documento</label>
-                                                    <select class="form-control">
-                                                        <option>Selecionar</option>
-                                                        <option>RG - Registro Geral</option>
-                                                        <option>CPF - Cadastro de Pessoa Física</option>
-                                                        <option>TE - Titulo de Eleitor</option>
-                                                        <option>CNH - Carteira Nacional de Habiltação</option>
-                                                        <option>CTPS - Carteira de Trabalho e Previdência Social
-                                                        </option>
+                                                <div [ngClass]="{'form-group has-error has-feedback fw-bold': isCampoCategoriaDocumentoInvalido == true, 'form-group': isCampoCategoriaDocumentoInvalido == false}">
+                                                    <label for="categoriaDocumentoModel">Documento <span class="text-danger">*</span></label>
+                                                    <select id="categoriaDocumentoModel" name="categoriaDocumentoModel" [disabled]="isDesabilidarCampoCategoriaDocumento == true" [(ngModel)]="documentoModel.categoriaDocumentoModel" class="form-control">
+                                                        <option [disabled]="true">Selecionar</option>
+                                                        <option *ngFor="let categoriaDocumentoModel_ of categoriaDocumentoList" [ngValue]="categoriaDocumentoModel_">{{categoriaDocumentoModel_.descricao}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="data-recebimento disable">Número</label>
-                                                    <input type="text" class="form-control form-control" />
+                                                <div [ngClass]="{'form-group has-error has-feedback fw-bold': isCampoNumeroDocumentoInvalido == true, 'form-group': isCampoNumeroDocumentoInvalido == false}">
+                                                    <label for="numero">Número <span class="text-danger">*</span></label>
+                                                    <input id="numero" type="text" name="numero" [disabled]="isDesabilidarCampoCategoriaDocumento == true" [(ngModel)]="documentoModel.numero" class="form-control form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-lg-4">
                                                 <div class="form-group">
-                                                    <label for="data-recebimento disable">Complemento</label>
-                                                    <input type="text" class="form-control form-control" />
+                                                    <label for="complemento">Complemento</label>
+                                                    <input id="complemento" type="text" name="complemento" [disabled]="isDesabilidarCampoCategoriaDocumento == true" [(ngModel)]="documentoModel.complemento" class="form-control form-control" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4 col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="data-recebimento disable">Orgão Expedição</label>
-                                                    <select class="form-control">
-                                                        <option>Selecionar</option>
-                                                        <option>SSP - Secretaria de Segurança Pública</option>
-                                                        <option>Outro</option>
-                                                    </select>
+                                                <div [ngClass]="{'form-group has-error has-feedback fw-bold': isCampoOrgaoEmissorDocumentoInvalido == true, 'form-group': isCampoOrgaoEmissorDocumentoInvalido == false}">
+                                                    <label for="orgao_expeditor">Orgão Expedição <span class="text-danger">*</span></label>
+                                                    <input id="orgao_expeditor" type="text" name="orgao_expeditor" [disabled]="isDesabilidarCampoCategoriaDocumento == true" [(ngModel)]="documentoModel.orgaoEmissor" class="form-control form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4">
+                                                <div [ngClass]="{'form-group has-error has-feedback fw-bold': isCampoDataEmissaoDocumentoInvalido == true, 'form-group': isCampoDataEmissaoDocumentoInvalido == false}">
+                                                    <label for="data-emissao">Data Emissão <span class="text-danger">*</span></label>
+                                                    <input id="data-emissao" type="text" name="data-emissao" [disabled]="isDesabilidarCampoCategoriaDocumento == true" [(ngModel)]="documentoModel.dataEmissao" placeholder="DD/MM/AAAA" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-4 col-lg-4">
                                                 <div class="form-group">
-                                                    <label for="data-recebimento disable">Data Emissão</label>
-                                                    <input type="text" class="form-control form-control"
-                                                        placeholder="DD/MM/AAAA" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <div class="form-group">
-                                                    <label for="data-recebimento disable">Data Validade</label>
-                                                    <input type="text" class="form-control form-control" placeholder="DD/MM/AAAA" />
+                                                    <label for="data-vencimento">Data Vencimento</label>
+                                                    <input id="data-vencimento" type="text" name="documentoModel.data-vencimento" [disabled]="isDesabilidarCampoCategoriaDocumento == true" placeholder="DD/MM/AAAA" class="form-control form-control" />
                                                 </div>
                                             </div>
                                         </div>
@@ -214,16 +200,15 @@
                                         <div class="col-md-4 col-lg-12">
                                             <div class="form-group">
                                                 <div class="input-file input-file-image">
-                                                    <input type="file" class="form-control form-control-file" id="uploadImg" name="uploadImg" required>
-                                                    <label for="uploadImg" class="btn btn-primary btn-round btn-lg col-md-12">
-                                                        <i class="fa fa-file-image"></i> Anexar Documento </label>
+                                                    <input type="file" [disabled]="isDesabilidarCampoCategoriaDocumento == true">
+                                                    <label class="btn btn-primary btn-round btn-lg col-md-12"><i class="fa fa-file-image"></i> Anexar Documento </label>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="separator-solid"></div>
 
-                                        <div>
+                                        <div *ngIf="isApresentarDatatableArquivos">
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-12">
