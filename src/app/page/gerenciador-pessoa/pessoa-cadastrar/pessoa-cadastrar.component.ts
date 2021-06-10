@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CategoriaDocumentoModel } from "../../../model/categoria-documento-model";
+import { DocumentoModel } from "../../../model/documento-model";
 import { PessoaModel } from "../../../model/pessoa-model";
 import { TipoPessoaModel } from "../../../model/tipo-pessoa-model";
-import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
-import { GerenciadorTipoPessoaService } from "../../../service/gerenciador-tipo-pessoa.service";
-import { CategoriaDocumentoModel } from "../../../model/categoria-documento-model";
 import { GerenciadorCategoriaDocumentoService } from "../../../service/gerenciador-categoria-documento.service";
 import { GerenciadorDocumentoService } from "../../../service/gerenciador-documento.service";
-import { DocumentoModel } from "../../../model/documento-model";
+import { GerenciadorPessoaService } from "../../../service/gerenciador-pessoa.service";
+import { GerenciadorTipoPessoaService } from "../../../service/gerenciador-tipo-pessoa.service";
+import { GerenciadorArquivoService } from "../../../service/gerenciador-arquivo.service";
+import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
+import { HtmlParser } from '@angular/compiler';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-pessoa-cadastrar',
@@ -15,6 +19,10 @@ import { DocumentoModel } from "../../../model/documento-model";
   styleUrls: ['./pessoa-cadastrar.component.css']
 })
 export class PessoaCadastrarComponent implements OnInit {
+
+  public arquivoNome: string[] = [];
+
+  public fileStatus = {status: "", requestType: "", percent: 0};
 
   public pessoaModelList: PessoaModel[];
   public tipoPessoaModelList: TipoPessoaModel[];
@@ -31,7 +39,7 @@ export class PessoaCadastrarComponent implements OnInit {
   public isCampoDesabilitadoCadastro: boolean = false;
 
   public isHabilitarAbaDadosPessoa: boolean = true;
-  public isHabilitarAbaDocumento: boolean = false;
+  public isHabilitarAbaDocumento: boolean = true;
   public isHabilitarAbaEndereco: boolean = false;
   public isHabilitarAbaTelefone: boolean = false;
   public isHabilitarAbaEmail: boolean = false;
@@ -47,19 +55,19 @@ export class PessoaCadastrarComponent implements OnInit {
 
   public isDesabilidarCampoCategoriaDocumento: boolean = false;
 
-  constructor( 
+  constructor(
       private router: Router, 
       private gerenciadorPessoaService: GerenciadorPessoaService, 
       private gerenciadorTipoPessoaService: GerenciadorTipoPessoaService,
       private gerenciadorCategoriaDocumentoService: GerenciadorCategoriaDocumentoService,
-      private gerenciadorDocumentoService: GerenciadorDocumentoService ) { }
+      private gerenciadorDocumentoService: GerenciadorDocumentoService,
+      private gerenciadorArquivoService: GerenciadorArquivoService ) { }
 
   ngOnInit(): void {
     this.recuperarTipoPessoa();
     this.recuperarPessoaList();
     this.definirIsntituicaoFinanceiraInicialFormulario();
     this.recuperarCategoriaDocumentoList();
-    this.validarCamposObrigatorios();
   }
 
   cadastrarDadosPessoa() {
@@ -74,7 +82,6 @@ export class PessoaCadastrarComponent implements OnInit {
           this.isHabilitarAbaEndereco = true;
           this.isHabilitarAbaEmail = true;
           this.isHabilitarAbaRedeSocial = true;
-          this.validarCamposObrigatorios();
           setTimeout( () => {
             this.desabilitarAlertaCadastrarDadosPessoa();
           }, 5000);
@@ -97,15 +104,75 @@ export class PessoaCadastrarComponent implements OnInit {
 
   public cadastrarDocumentosPessoa() {
     let documentoCadastrarModel = this.documentoModel;
-    if(this.validarCamposCadastroDocumentoPessoa(documentoCadastrarModel)) {
-      this.gerenciadorDocumentoService.cadastrarDocumento(documentoCadastrarModel).subscribe( response => {
-        this.isApresentarMensagemCadastroSucesso = true;
-        setTimeout( () => {
-          this.desabilitarAlertaCadastrarDadosPessoa();
-        }, 5000);
-        this.limparCamposTelaCadastroDocumentos();
+    console.log(documentoCadastrarModel);
+    // if(this.validarCamposCadastroDocumentoPessoa(documentoCadastrarModel)) {
+    //   this.gerenciadorDocumentoService.cadastrarDocumento(documentoCadastrarModel).subscribe( response => {
+    //     this.isApresentarMensagemCadastroSucesso = true;
+    //     setTimeout( () => {
+    //       this.desabilitarAlertaCadastrarDadosPessoa();
+    //     }, 5000);
+    //     this.limparCamposTelaCadastroDocumentos();
+    //   });
+    // }
+  }
+
+  public realizarUploadArquivos(arquivoList: File[]): void {
+    const arquivoFormData = new FormData();
+    for(const arquivo_ of arquivoList) {
+      arquivoFormData.append('arquivoList', arquivo_, arquivo_.name);
+      console.log(arquivoFormData);
+    }
+    if(arquivoList.length > 0) {
+      this.gerenciadorArquivoService.cadastrar(arquivoList).subscribe( response => {
+        console.log(response);
+        // this.verificarProgressoImportacaoArquivo(response);
+      }, (errorResponse: HttpErrorResponse) => {
+        console.log(errorResponse.error);
+        throw new Error(errorResponse.error);
       });
     }
+  } 
+
+  public realizarDownloadArquivos(arquivoNome: string): void {
+    this.gerenciadorArquivoService.recuperar(arquivoNome).subscribe( response => {
+      console.log(response);
+      this.verificarProgressoImportacaoArquivo(response);
+    }, (errorResponse: HttpErrorResponse) => {
+      console.log(errorResponse);
+    });
+  }
+
+  private verificarProgressoImportacaoArquivo(httpEvent: HttpEvent<string[] | Blob>): void {
+    switch (httpEvent.type) {
+      case HttpEventType.UploadProgress:
+        this.updateStatus(httpEvent.loaded, httpEvent.total!, "Carregando Arquivos...");
+        break;
+      case HttpEventType.DownloadProgress:
+        this.updateStatus(httpEvent.loaded, httpEvent.total!, "Carregando Arquivos...");
+        break;
+      case HttpEventType.ResponseHeader:
+        console.log("Header", httpEvent);
+        break;
+      case HttpEventType.Response:
+        if(httpEvent.body instanceof Array) {
+          for( const nomeArquivo of httpEvent.body) {
+            this.arquivoNome.unshift(nomeArquivo);
+          }
+        } else {
+          saveAs(new File([httpEvent.body!], httpEvent.headers.get('File-Name')!, {
+            type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}));
+        }
+        break;
+        default:
+          console.log(httpEvent);
+    }
+    throw new Error("Funcionalidade com Erro...");
+  }
+
+  private updateStatus(loaded: number, total: number, requestType: string) {
+    this.fileStatus.status = "progress";
+    this.fileStatus.requestType = requestType;
+    this.fileStatus.percent = Math.round(100 * loaded / total);
   }
 
   private tratarDadosPessoaCadastro(pessoaModel: PessoaModel) {
@@ -135,16 +202,6 @@ export class PessoaCadastrarComponent implements OnInit {
   // TODO -- Recuperar dados do endpoint
   private validarPessoaCadastrada(pessoaModel: PessoaModel) {
     return true;
-  }
-
-  public validarCamposObrigatorios() {
-    if(this.pessoaModel == undefined || this.pessoaModel == null) {
-      this.isHabilitarAbaDocumento = false;
-    } else {
-      if(this.pessoaModel.tipoPessoa.sigla == "PF") {
-        this.isHabilitarAbaDocumento = true;
-      }
-    }
   }
 
   public validarCamposCadastroDadosPessoa(pessoaModel: PessoaModel) {
@@ -219,7 +276,7 @@ export class PessoaCadastrarComponent implements OnInit {
   }
 
   atualizarPessoa( codigo: number ) {
-    console.log("ATUALIZAR DADOS DA PESSOA....");
+    throw new Error("Método ATUALIZAR PESSOA não implementado!");
   }
 
   removerPessoa(codigo: number) {

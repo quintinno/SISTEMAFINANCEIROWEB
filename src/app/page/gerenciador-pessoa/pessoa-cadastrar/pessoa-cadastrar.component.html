@@ -197,11 +197,20 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 col-lg-12">
-                                            <div class="form-group">
-                                                <div class="input-file input-file-image">
-                                                    <input type="file" [disabled]="isDesabilidarCampoCategoriaDocumento == true">
-                                                    <label class="btn btn-primary btn-round btn-lg col-md-12"><i class="fa fa-file-image"></i> Anexar Documento </label>
+                                        <form enctype="multipart/form-data">
+                                            <div class="col-md-4 col-lg-12">
+                                                <div class="form-group">
+                                                    <input type="file" (change)="realizarUploadArquivos($event.target.files)" multiple>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <div class="demo">
+                                            <div class="progress-card">
+                                                <div class="progress">
+                                                    <div [style.width]="fileStatus.percent + '%'" aria-valuenow="fileStatus.percent" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="tooltip" data-placement="top" title="Carregando Arquivos" class="progress-bar bg-primary">
+                                                        {{fileStatus.percent}}%
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -322,8 +331,8 @@
                                         <div class="col-md-4 col-lg-4">
                                             <div class="form-group">
                                                 <label for="nome">Nome Completo</label>
-                                                <input type="text" name="nome" [(ngModel)]="pessoaModel.nome"
-                                                    class="form-control form-control" id="defaultInput">
+                                                <!-- <input type="text" name="nome" [(ngModel)]="pessoaModel.nome"
+                                                    class="form-control form-control" id="defaultInput"> -->
                                             </div>
                                         </div>
                                         <div class="col-md-4 col-lg-4">
