@@ -91,139 +91,22 @@
                             </div>
                         </div>
 
-                        <div class="card-body">
+                        <div *ngFor="let despesa_ of despesaList" class="card-body">
 
                             <a routerLink="/despesa-fixa-cadastrar" class="nav-link">
                                 <div class="d-flex">
                                     <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-success"></span>
+                                        <span [ngClass]="{'avatar-title rounded-circle bg-success' : despesa_.valorPagamento != null, 'avatar-title rounded-circle bg-danger' : despesa_.dataPagamento == null}"></span>
                                     </div>
                                     <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">Brava Fibra Internet (Brasília)</h6>
+                                        <h6 class="text-uppercase fw-bold mb-1">{{despesa_.pessoaFavorecido.nome}}</h6>
                                         <span class="text-muted">CONTR202105001 (Plano de Internet - Internet Fixa)</span>
                                     </div>
                                     <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-info fw-bold">R$ 118,00</h3>
+                                        <h3 class="text-danger fw-bold">{{ despesa_.valorPagamento | currency : "BRL": true }}</h3>
                                     </div>
                                 </div>
                             </a>
-
-                            <!-- <a routerLink="/despesa-fixa-cadastrar" class="nav-link">
-                                <div class="d-flex">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-success"></span>
-                                    </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">Brava Fibra Internet (Brasília)</h6>
-                                        <span class="text-muted">CONTR202105001 (Plano de Internet - Internet Fixa)</span>
-                                    </div>
-                                    <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-info fw-bold">R$ 118,00</h3>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="separator-dashed"></div>
-
-                            <a href="" class="nav-link">
-                                <div class="d-flex">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-danger"></span>
-                                    </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">Sinagoga Keter Torah (Brasília)</h6>
-                                        <span class="text-muted">DOAC202105001 (Associação Cultural e Religiosa - Doação)</span>
-                                    </div>
-                                    <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-danger fw-bold">R$ 250,00</h3>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="separator-dashed"></div>
-
-                            <a href="" class="nav-link">
-                                <div class="d-flex">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-danger"></span>
-                                    </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">Tim Telecomunicações (Brasil)</h6>
-                                        <span class="text-muted">CONTR202105001 (Plano de Internet Móvel - +55 061 9-9599-5532)</span>
-                                    </div>
-                                    <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-danger fw-bold">R$ 60,00</h3>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="separator-dashed"></div>
-
-                            <a href="" class="nav-link">
-                                <div class="d-flex">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-danger"></span>
-                                    </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">Tim Telecomunicações (Brasil)</h6>
-                                        <span class="text-muted">CONTR202105002 (Plano de Internet Móvel - +55 061 9-86095998)</span>
-                                    </div>
-                                    <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-danger fw-bold">R$ 60,00</h3>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="separator-dashed"></div>
-
-                            <a href="" class="nav-link">
-                                <div class="d-flex">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-danger"></span>
-                                    </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">OI Telecomunicações (Brasil)</h6>
-                                        <span class="text-muted">CONTR202105002 (Plano de Internet Móvel - +55 061 9-86095998)</span>
-                                    </div>
-                                    <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-danger fw-bold">R$ 60,00</h3>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="separator-dashed"></div>
-
-                            <a href="" class="nav-link">
-                                <div class="d-flex">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-danger"></span>
-                                    </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">Moreh Maurício (Brasil)</h6>
-                                        <span class="text-muted">CONTR202105004 (Educacional - Aulas de Hebraico)</span>
-                                    </div>
-                                    <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-danger fw-bold">R$ 200,00</h3>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="separator-dashed"></div>
-
-                            <a href="" class="nav-link">
-                                <div class="d-flex">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle bg-danger"></span>
-                                    </div>
-                                    <div class="flex-1 ml-3 pt-1">
-                                        <h6 class="text-uppercase fw-bold mb-1">Banco Nubank</h6>
-                                        <span class="text-muted">CONTR202105006 (Faturamento - Fatura de Cartão de Crédito)</span>
-                                    </div>
-                                    <div class="d-flex ml-auto align-items-center">
-                                        <h3 class="text-danger fw-bold">R$ 1000,00</h3>
-                                    </div>
-                                </div>
-                            </a> -->
 
                             <div class="separator-dashed"></div>
                         </div>
@@ -233,7 +116,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Despesa Pagas no mês</div>
+                                <div class="card-title">Movimentação Financeira</div>
                                 <div class="card-tools">
                                     <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
                                         <span class="btn-label">

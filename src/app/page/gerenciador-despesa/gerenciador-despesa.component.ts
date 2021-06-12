@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DespesaModel } from 'src/app/model/despesa-model';
+import { GerenciadorDespesaService } from 'src/app/service/gerenciador-despesa.service';
 
 @Component({
   selector: 'app-gerenciador-despesa',
@@ -8,9 +10,23 @@ import { Router } from '@angular/router';
 })
 export class GerenciadorDespesaComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  public despesaList: DespesaModel[];
 
-  ngOnInit(): void { }
+  constructor(
+    private gerenciadorDespesaService: GerenciadorDespesaService,
+    private router: Router
+    ) { }
+
+  ngOnInit(): void {
+    this.recuperarDespesaFixaMensalList();
+  }
+
+  public recuperarDespesaFixaMensalList() {
+    this.gerenciadorDespesaService.recuperarDespesaFixaMensalList().subscribe( response => {
+      this.despesaList = response;
+      console.log(this.despesaList);
+    });
+  }
 
   redirecionarPaginaCadastrarDespesaFixa() {
     this.router.navigate(["/contrato-cadastrar"]).then( () => {
