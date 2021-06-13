@@ -25,4 +25,12 @@ export class GerenciadorDespesaService {
     return this.httpClient.get<DespesaModel[]>(`${this.URL_BASE_API}/fixa-mensal`);
   }
 
+  public recuperarTotalDespesasPagasAnoFinanceiro() : Observable<number> {
+    return this.httpClient.get<number>(`${this.URL_BASE_API}/totalizador-despesas-pagas`);
+  }
+
+  public recuperarTotalDespesasPendentesAnoFinanceiro() : Observable<number> {
+    return this.httpClient.get<number>(`${this.URL_BASE_API}/totalizador-despesas-pendentes`);
+  }
+
 }
