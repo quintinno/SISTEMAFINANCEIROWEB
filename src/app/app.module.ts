@@ -43,6 +43,7 @@ import { ComposicaoSalarialDetalharComponent } from './page/gerenciador-composic
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { Ng2OrderModule } from "ng2-order-pipe";
 import { NgxPaginationModule } from "ngx-pagination";
+import { NgxMaskModule } from "ngx-mask";
 
 registerLocaleData(localePt);
 
@@ -91,7 +92,10 @@ registerLocaleData(localePt);
     NgSelectModule,
     Ng2SearchPipeModule,
     Ng2OrderModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxMaskModule.forRoot({
+      dropSpecialCharacters: true, // Salva sem a mascara
+    }),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "pt-BR"}
