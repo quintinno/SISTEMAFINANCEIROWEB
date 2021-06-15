@@ -24,6 +24,7 @@ import { MonitoramentoFinanceiroComponent } from './page/monitoramento-financeir
 import { GerenciadorComposicaoSalarialComponent } from './page/gerenciador-composicao-salarial/gerenciador-composicao-salarial.component';
 import { ComposicaoSalarialCadastrarComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-cadastrar/composicao-salarial-cadastrar.component';
 import { ComposicaoSalarialDetalharComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-detalhar/composicao-salarial-detalhar.component';
+import { ManutencaoComponent } from './page/template/manutencao/manutencao.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -50,7 +51,10 @@ const routes: Routes = [
   { path: "gerenciador-composicao-salarial", component: GerenciadorComposicaoSalarialComponent },
   { path: "composicao-salarial-cadastrar", component: ComposicaoSalarialCadastrarComponent },
   { path: "composicao-salarial-detalhar", component: ComposicaoSalarialDetalharComponent },
-  { path: "", redirectTo: "login", pathMatch: "full" }
+
+  { path: "", redirectTo: "login", pathMatch: "full" }, 
+  { path: "manutencao", component: ManutencaoComponent },
+  // { path: "", redirectTo: "manutencao", pathMatch: "full" }
 ];
 
 @NgModule({
