@@ -20,7 +20,7 @@ export class GerenciadorTipoPessoaService {
   constructor( private router: Router, private httpClient: HttpClient ) { }
 
   public cadastrarTipoPessoa( tipoPessoaModel: TipoPessoaModel ) : Observable<Object> {
-    return this.httpClient.post(`${this.URL_BASE_API}`, tipoPessoaModel);
+    return this.httpClient.post<Object>(`${this.URL_BASE_API}`, tipoPessoaModel);
   }
 
   recuperarTipoPessoa() {
