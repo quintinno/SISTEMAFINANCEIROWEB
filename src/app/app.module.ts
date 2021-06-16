@@ -45,6 +45,8 @@ import { Ng2OrderModule } from "ng2-order-pipe";
 import { NgxPaginationModule } from "ngx-pagination";
 import { NgxMaskModule } from "ngx-mask";
 import { ManutencaoComponent } from './page/template/manutencao/manutencao.component';
+import { CategoriaTipoPessoaCadastrarComponent } from './page/gerenciador-configuracao/categoria-tipo-pessoa-cadastrar/categoria-tipo-pessoa-cadastrar.component';
+import { CategoriaTipoPessoaAlterarComponent } from './page/gerenciador-configuracao/categoria-tipo-pessoa-alterar/categoria-tipo-pessoa-alterar.component';
 
 registerLocaleData(localePt);
 
@@ -83,7 +85,9 @@ registerLocaleData(localePt);
     ComposicaoSalarialCadastrarComponent,
     ComposicaoSalarialAlterarComponent,
     ComposicaoSalarialDetalharComponent,
-    ManutencaoComponent
+    ManutencaoComponent,
+    CategoriaTipoPessoaCadastrarComponent,
+    CategoriaTipoPessoaAlterarComponent
   ],
   imports: [
     BrowserModule,

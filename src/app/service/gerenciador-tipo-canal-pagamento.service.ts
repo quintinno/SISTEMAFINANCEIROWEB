@@ -9,7 +9,7 @@ import { environment } from "../../environments/environment";
 })
 export class GerenciadorTipoCanalPagamentoService {
 
-  private URL_BASE_API = environment.url_base_api_homologacao.concat("/tipo-canal-pagamento");
+  private URL_BASE_API = environment.url_base_api.concat("/tipo-canal-pagamento");
 
   constructor( private httpClient: HttpClient ) { }
 

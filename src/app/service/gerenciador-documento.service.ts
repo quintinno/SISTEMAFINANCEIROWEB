@@ -9,7 +9,7 @@ import { DocumentoModel } from '../model/documento-model';
 })
 export class GerenciadorDocumentoService {
 
-  private URL_BASE_API = environment.url_base_api_homologacao.concat("/documento");
+  private URL_BASE_API = environment.url_base_api.concat("/documento");
 
   constructor( private httpClient: HttpClient ) { }
 

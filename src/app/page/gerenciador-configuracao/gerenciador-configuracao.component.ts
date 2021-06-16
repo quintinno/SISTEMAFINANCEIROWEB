@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gerenciador-configuracao',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GerenciadorConfiguracaoComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  public redirecionarPaginaCategoriaTipoPessoaCadastrar() {
+    this.router.navigate(["/configuracao-categoria-tipo-pessoa-cadastrar"]);
+  }
+
+  public redirecionarPaginaCategoriaContratoCadastrar() {
+    throw new Error("Função Não Implementada!");
+  }
+
+  public redirecionarPaginaCategoriaReceitaCadastrar() {
+    throw new Error("Função Não Implementada!");
+  }
+
+  public redirecionarPaginaCategoriaDespesaCadastrar() {
+    throw new Error("Função Não Implementada!");
   }
 
 }

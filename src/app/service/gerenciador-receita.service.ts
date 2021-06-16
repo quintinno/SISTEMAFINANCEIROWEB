@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ReceitaModel } from '../model/receita-model';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GerenciadorReceitaService {
 
-  private URL_BASE_API_RECEITA = "http://localhost:9090/receita";
-  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA = "http://localhost:9090/receita/totalizador-receita-recebida";
-  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE = "http://localhost:9090/receita/totalizador-receita-pendente";
+  private URL_BASE_API_RECEITA = environment.url_base_api.concat("/receita");
+  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA = environment.url_base_api.concat("/receita/totalizador-receita-recebida");
+  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE = environment.url_base_api.concat("/receita/totalizador-receita-pendente");
 
   constructor( private httpClient: HttpClient) { }
 

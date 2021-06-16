@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { ContratoModel } from '../model/contrato-model';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { ContratoModel } from '../model/contrato-model';
 })
 export class GerenciadorContratoService {
 
-  private URL_BASE_API_CONTRATO = "http://localhost:9090/contrato";
+  private URL_BASE_API_CONTRATO = environment.url_base_api.concat("/contrato");
 
   constructor( private httpClient: HttpClient ) { }
 

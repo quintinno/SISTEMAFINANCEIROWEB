@@ -1,1 +1,125 @@
-<p>gerenciador-configuracao works!</p>
+<app-header></app-header>
+
+<div class="main-panel">
+    <div class="content">
+        <div class="panel-header bg-primary-gradient">
+            <div class="page-inner py-5">
+                <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                    <div>
+                        <h2 class="text-white pb-2 fw-bold">Configurações</h2>
+                    </div>
+                    <div class="ml-md-auto py-2 py-md-0">
+                        <button type="button" data-toggle="modal" data-target="#cadastrarNovoLancamentoFinanceiro"
+                            class="btn btn-info btn-border btn-round"> <span class="btn-label"> <i
+                                    class="fa fa-plus"></i></span> Novo Lançamento Financeiro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-inner mt--5">
+            <div class="row mt--2">
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-list">
+                                <div class="item-list">
+                                    <div class="info-user ml-3">
+                                        <div class="fw-bold">Gerenciar Categoria de Pessoas</div>
+                                    </div>
+                                    <button (click)="redirecionarPaginaCategoriaTipoPessoaCadastrar()" class="btn btn-icon btn-primary btn-round btn-xs">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-list">
+                                <div class="item-list">
+                                    <div class="info-user ml-3">
+                                        <div class="fw-bold">Gerenciar Categoria de Contratos</div>
+                                    </div>
+                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-list">
+                                <div class="item-list">
+                                    <div class="info-user ml-3">
+                                        <div class="fw-bold">Gerenciar Categoria de Receitas</div>
+                                    </div>
+                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Categoria de Pessoas</div>
+                                <div class="card-tools">
+                                    <a href="" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive table-hover table-sales">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Descrição</th>
+                                            <th>Sigla</th>
+                                            <th class="text-center">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pessoa Física</td>
+                                            <td>PF</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-icon btn-link">
+                                                    <i class="fa fa-link"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pessoa Jurídica</td>
+                                            <td>PJ</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-icon btn-link">
+                                                    <i class="fa fa-link"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

@@ -9,9 +9,9 @@ import { CartaoBancarioModel } from "../model/cartao-bancario-model";
 })
 export class GerenciadorCartaoBancarioService {
 
-  private URL_BASE_API_CARTAO_BANCARIO_CREDITO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-credito");
-  private URL_BASE_API_CARTAO_BANCARIO_DEBITO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-debito");
-  private URL_BASE_API_CARTAO_ALIEMENTACAO = environment.url_base_api_homologacao.concat("/cartao-bancario/recuperar-cartao-alimentacao");
+  private URL_BASE_API_CARTAO_BANCARIO_CREDITO = environment.url_base_api.concat("/cartao-bancario/recuperar-cartao-credito");
+  private URL_BASE_API_CARTAO_BANCARIO_DEBITO = environment.url_base_api.concat("/cartao-bancario/recuperar-cartao-debito");
+  private URL_BASE_API_CARTAO_ALIEMENTACAO = environment.url_base_api.concat("/cartao-bancario/recuperar-cartao-alimentacao");
 
   constructor( private httpClient: HttpClient  ) { }
 

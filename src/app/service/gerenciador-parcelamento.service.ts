@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ParcelamentoModel } from "../model/parcelamento-model";
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GerenciadorParcelamentoService {
 
-  private URL_BASE_URL_PARCELAMENTO = "http://localhost:9090/parcelamento";
+  private URL_BASE_URL_PARCELAMENTO = environment.url_base_api.concat("/parcelamento");
 
   constructor( private httpClient: HttpClient ) { }
 

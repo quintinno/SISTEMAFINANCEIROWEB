@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 })
 export class GerenciadorArquivoService {
 
-  private URL_BASE_API = environment.url_base_api_homologacao.concat("/arquivo");
+  private URL_BASE_API = environment.url_base_api.concat("/arquivo");
 
   constructor( private httpClient: HttpClient ) { }
 
