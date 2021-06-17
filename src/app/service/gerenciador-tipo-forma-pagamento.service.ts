@@ -9,7 +9,7 @@ import { environment } from "../../environments/environment";
 })
 export class GerenciadorTipoFormaPagamentoService {
 
-  private URL_BASE_API = environment.url_base_api_homologacao.concat("/forma-pagamento");
+  private URL_BASE_API = environment.url_base_api.concat("/forma-pagamento");
 
   constructor( private httpClient: HttpClient ) { }
 

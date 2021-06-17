@@ -9,7 +9,7 @@ import { DespesaModel } from '../model/despesa-model';
 })
 export class GerenciadorDespesaService {
 
-  private URL_BASE_API = environment.url_base_api_homologacao.concat("/despesa");
+  private URL_BASE_API = environment.url_base_api.concat("/despesa");
 
   constructor( private httpClient: HttpClient ) { }
 

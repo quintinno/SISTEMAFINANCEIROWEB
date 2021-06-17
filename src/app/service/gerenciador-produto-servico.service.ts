@@ -9,7 +9,7 @@ import { environment } from "../../environments/environment";
 })
 export class GerenciadorProdutoServicoService {
 
-  private URL_BASE_API = environment.url_base_api_homologacao.concat("/produto-servico");
+  private URL_BASE_API = environment.url_base_api.concat("/produto-servico");
 
   constructor( private httpClient: HttpClient ) { }
 

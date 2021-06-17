@@ -9,7 +9,7 @@ import { CategoriaDocumentoModel } from '../model/categoria-documento-model';
 })
 export class GerenciadorCategoriaDocumentoService {
 
-  private URL_BASE_API = environment.url_base_api_homologacao.concat("/categoria-documento");
+  private URL_BASE_API = environment.url_base_api.concat("/categoria-documento");
 
   constructor( private httpClient: HttpClient ) { }
 

@@ -26,12 +26,14 @@ import { ComposicaoSalarialCadastrarComponent } from './page/gerenciador-composi
 import { ComposicaoSalarialDetalharComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-detalhar/composicao-salarial-detalhar.component';
 import { ManutencaoComponent } from './page/template/manutencao/manutencao.component';
 
+// Configuracao
+import { CategoriaTipoPessoaCadastrarComponent } from './page/gerenciador-configuracao/categoria-tipo-pessoa-cadastrar/categoria-tipo-pessoa-cadastrar.component';
+
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "monitoramento-financeiro", component: MonitoramentoFinanceiroComponent },
   { path: "pessoa-monitoramento", component: GerenciadorPessoaComponent },
   { path: "pessoa-cadastrar", component: PessoaCadastrarComponent },
-  { path: "gerenciador-configuracao", component: GerenciadorConfiguracaoComponent },
   { path: "emprestimo-monitoramento", component: GerenciadorEmprestimoComponent },
   { path: "contrato-monitoramento", component: GerenciadorContratoComponent },
   { path: "contrato-cadastrar", component:  ContratoCadastrarComponent },
@@ -57,8 +59,15 @@ const routes: Routes = [
   { path: "manutencao", component: ManutencaoComponent },
   // { path: "", redirectTo: "manutencao", pathMatch: "full" }
 
+<<<<<<< HEAD
   // Configuração
   { path: "configuracao", component: GerenciadorConfiguracaoComponent },
+=======
+  // Configuracoes
+  { path: "gerenciador-configuracao", component: GerenciadorConfiguracaoComponent },
+  { path: "configuracao-categoria-tipo-pessoa-cadastrar", component: CategoriaTipoPessoaCadastrarComponent },
+
+>>>>>>> master
 ];
 
 @NgModule({
