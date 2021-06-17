@@ -9,15 +9,9 @@ import { environment } from 'src/environments/environment';
 })
 export class GerenciadorReceitaService {
 
-<<<<<<< HEAD
-  private URL_BASE_API_RECEITA = "http://sistemafinanceiroapip.herokuapp.com/receita";
-  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA = "http://sistemafinanceiroapip.herokuapp.com/receita/totalizador-receita-recebida";
-  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE = "http://sistemafinanceiroapip.herokuapp.com/receita/totalizador-receita-pendente";
-=======
   private URL_BASE_API_RECEITA = environment.url_base_api.concat("/receita");
   private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA = environment.url_base_api.concat("/receita/totalizador-receita-recebida");
   private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE = environment.url_base_api.concat("/receita/totalizador-receita-pendente");
->>>>>>> master
 
   constructor( private httpClient: HttpClient) { }
 

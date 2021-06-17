@@ -9,11 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GerenciadorParcelamentoService {
 
-<<<<<<< HEAD
-  private URL_BASE_URL_PARCELAMENTO = "http://sistemafinanceiroapip.herokuapp.com/parcelamento";
-=======
   private URL_BASE_URL_PARCELAMENTO = environment.url_base_api.concat("/parcelamento");
->>>>>>> master
 
   constructor( private httpClient: HttpClient ) { }
 

@@ -10,9 +10,9 @@ import { GerenciadorAutenticacaoService } from 'src/app/service/gerenciador-aute
 })
 export class LoginComponent implements OnInit {
 
-  private usuarioSistemaModel: UsuarioSistemaModel = new UsuarioSistemaModel();
+  public usuarioSistemaModel: UsuarioSistemaModel = new UsuarioSistemaModel();
 
-  private isApresentaMensagemErro: boolean = false;
+  public isApresentaMensagemErro: boolean = false;
 
   constructor(
     private router: Router,
@@ -24,7 +24,9 @@ export class LoginComponent implements OnInit {
   public registrarLoginUsuario() {
     this.gerenciadorAutenticacaoService.registrarLoginUsuario(this.usuarioSistemaModel).subscribe( response => {
       if(response) {
-        this.redirecionarPaginaMonitoramentoFinanceiro();
+        setTimeout(() => {
+          this.redirecionarPaginaMonitoramentoFinanceiro();
+        }, 3000);
       } else {
         this.isApresentaMensagemErro = true;
         setTimeout(() => {

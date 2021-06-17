@@ -9,11 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GerenciadorCategoriaReceitaService {
 
-<<<<<<< HEAD
-  private URL_BASE_API_CATEGORRIA_RECEITA = "http://sistemafinanceiroapip.herokuapp.com/categoria-receita";
-=======
   private URL_BASE_API_CATEGORRIA_RECEITA = environment.url_base_api.concat("/categoria-receita");
->>>>>>> master
 
   constructor( private httpClient: HttpClient ) { }
 

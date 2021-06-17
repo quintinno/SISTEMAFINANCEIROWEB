@@ -6,12 +6,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GerenciadorService {
 
-<<<<<<< HEAD
-  // private URL_BASE_API = "http://sistemafinanceiroapip.herokuapp.com";
-  private URL_BASE_API = "https://sistemafinanceiroapip.herokuapp.com";
-=======
   private URL_BASE_API = environment.url_base_api;
->>>>>>> master
 
   constructor() { }
 
