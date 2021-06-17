@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class GerenciadorService {
 
-  // private URL_BASE_API = "http://localhost:9090";
-  private URL_BASE_API = "https://sistemafinanceiroapi.herokuapp.com";
+  // private URL_BASE_API = "http://sistemafinanceiroapip.herokuapp.com";
+  private URL_BASE_API = "https://sistemafinanceiroapip.herokuapp.com";
 
   constructor() { }
 

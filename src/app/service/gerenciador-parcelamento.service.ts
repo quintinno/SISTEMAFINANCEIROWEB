@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GerenciadorParcelamentoService {
 
-  private URL_BASE_URL_PARCELAMENTO = "http://localhost:9090/parcelamento";
+  private URL_BASE_URL_PARCELAMENTO = "http://sistemafinanceiroapip.herokuapp.com/parcelamento";
 
   constructor( private httpClient: HttpClient ) { }
 

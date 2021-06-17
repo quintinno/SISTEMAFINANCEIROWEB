@@ -8,7 +8,7 @@ import { TipoSituacaoPagamentoModel } from '../model/tipo-situacao-pagamento-mod
 })
 export class GerenciadorTipoSituacaoPagamentoService {
 
-  private URL_BASE_API_TIPO_SITUACAO_PAGAMENTO = "http://localhost:9090/tipo-situacao-pagamento";
+  private URL_BASE_API_TIPO_SITUACAO_PAGAMENTO = "http://sistemafinanceiroapip.herokuapp.com/tipo-situacao-pagamento";
 
   constructor( private httpClient: HttpClient ) { }
 

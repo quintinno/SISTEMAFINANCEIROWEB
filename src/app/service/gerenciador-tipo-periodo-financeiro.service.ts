@@ -10,7 +10,7 @@ import { ReceitaRemoverComponent } from '../page/gerenciador-receita/receita-rem
 })
 export class GerenciadorTipoPeriodoFinanceiroService {
 
-  private BASE_URL_API_TIPO_PERIODO_FINANCEIRO = "http://localhost:9090/tipo-periodo_financeiro";
+  private BASE_URL_API_TIPO_PERIODO_FINANCEIRO = "http://sistemafinanceiroapip.herokuapp.com/tipo-periodo_financeiro";
 
   constructor( private httpClient: HttpClient ) { }
 

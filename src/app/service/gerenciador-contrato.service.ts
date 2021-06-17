@@ -8,7 +8,7 @@ import { ContratoModel } from '../model/contrato-model';
 })
 export class GerenciadorContratoService {
 
-  private URL_BASE_API_CONTRATO = "http://localhost:9090/contrato";
+  private URL_BASE_API_CONTRATO = "http://sistemafinanceiroapip.herokuapp.com/contrato";
 
   constructor( private httpClient: HttpClient ) { }
 

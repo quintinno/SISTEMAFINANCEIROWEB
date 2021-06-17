@@ -52,9 +52,13 @@ const routes: Routes = [
   { path: "composicao-salarial-cadastrar", component: ComposicaoSalarialCadastrarComponent },
   { path: "composicao-salarial-detalhar", component: ComposicaoSalarialDetalharComponent },
 
+  // Manutenção
   { path: "", redirectTo: "login", pathMatch: "full" }, 
   { path: "manutencao", component: ManutencaoComponent },
   // { path: "", redirectTo: "manutencao", pathMatch: "full" }
+
+  // Configuração
+  { path: "configuracao", component: GerenciadorConfiguracaoComponent },
 ];
 
 @NgModule({

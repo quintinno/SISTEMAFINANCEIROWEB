@@ -8,7 +8,7 @@ import { TipoReceitaModel } from "../model/tipo-receita-model"
 })
 export class GerenciadorTipoReceitaService {
 
-  public URL_BASE_API_TIPO_RECEITA = "http://localhost:9090/tipo-receita";
+  public URL_BASE_API_TIPO_RECEITA = "http://sistemafinanceiroapip.herokuapp.com/tipo-receita";
 
   constructor( private httpClient: HttpClient ) { }
 

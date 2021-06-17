@@ -8,7 +8,7 @@ import { ContaBancariaModel } from '../model/conta-bancaria-model';
 })
 export class GerenciadorContaBancariaService {
 
-  private URL_BASE_API_CONTA_BANCARIA = "http://localhost:9090/conta-bancaria";
+  private URL_BASE_API_CONTA_BANCARIA = "http://sistemafinanceiroapip.herokuapp.com/conta-bancaria";
 
   constructor( private httpClient: HttpClient ) { }
 

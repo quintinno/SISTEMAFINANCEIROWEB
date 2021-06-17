@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class GerenciadorReceitaService {
 
-  private URL_BASE_API_RECEITA = "http://localhost:9090/receita";
-  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA = "http://localhost:9090/receita/totalizador-receita-recebida";
-  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE = "http://localhost:9090/receita/totalizador-receita-pendente";
+  private URL_BASE_API_RECEITA = "http://sistemafinanceiroapip.herokuapp.com/receita";
+  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_RECEBIDA = "http://sistemafinanceiroapip.herokuapp.com/receita/totalizador-receita-recebida";
+  private URL_BASE_API_RECEITA_TOTALIZADOR_RECEITA_PENDENTE = "http://sistemafinanceiroapip.herokuapp.com/receita/totalizador-receita-pendente";
 
   constructor( private httpClient: HttpClient) { }
 
