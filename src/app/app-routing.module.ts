@@ -59,7 +59,7 @@ const routes: Routes = [
   { path: "manutencao", component: ManutencaoComponent },
   // { path: "", redirectTo: "manutencao", pathMatch: "full" }
 
-  // Configuracoes
+  // Configuracoes do Sistema
   { path: "gerenciador-configuracao", component: GerenciadorConfiguracaoComponent },
   { path: "configuracao-categoria-tipo-pessoa-cadastrar", component: CategoriaTipoPessoaCadastrarComponent },
 
