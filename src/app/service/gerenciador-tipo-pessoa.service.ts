@@ -23,7 +23,7 @@ export class GerenciadorTipoPessoaService {
     return this.httpClient.post<Object>(`${this.URL_BASE_API}`, tipoPessoaModel);
   }
 
-  recuperarTipoPessoa() {
+  recuperarTipoPessoa() : Observable<TipoPessoaModel[]> {
     return this.httpClient.get<TipoPessoaModel[]>(`${this.URL_BASE_API}`);
   }
 

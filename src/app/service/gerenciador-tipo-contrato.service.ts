@@ -17,4 +17,8 @@ export class GerenciadorTipoContratoService {
     return this.httpClient.get<TipoContratoModel[]>(`${this.URL_BASE_API_TIPO_CONTRATO}`);
   }
 
+  cadastrarTipoContrato( tipoContratoModel: TipoContratoModel ) : Observable<Object> {
+    return this.httpClient.post(`${this.URL_BASE_API_TIPO_CONTRATO}`, tipoContratoModel);
+  }
+
 }

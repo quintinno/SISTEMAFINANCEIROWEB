@@ -21,12 +21,13 @@ export class CategoriaTipoPessoaCadastrarComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  // TODO -- Implementar Validacao de Dados ao cadastrar
   public cadastrarCategoriaTipoPessoa() {
     this.gerenciadorTipoPessoaService.cadastrarTipoPessoa(this.tipoPessoaModel).subscribe( response => {
       this.isCategoriaTipoPessoaCadastradaComSucesso = true;
       setTimeout(() => {
         this.redirecionarPaginaAnterior();
-      }, 4000);
+      }, 2000);
     });
   }
 
