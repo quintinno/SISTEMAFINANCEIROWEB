@@ -51,7 +51,7 @@ export class ContratoCadastrarComponent implements OnInit {
       this.isApresentarMensagemCadastroSucesso = true;
       this.limparCampos();
       setTimeout(() => {
-        this.redirecionarPaginaMonitoramentoContrato();
+        this.redirecionarPaginaAnterior();
       }, 2000);
     }, responseError => {
       this.isApresentarMensagemErro = true;

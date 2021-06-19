@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TipoContratoModel } from 'src/app/model/tipo-contrato-model';
 import { TipoPessoaModel } from 'src/app/model/tipo-pessoa-model';
+import { CategoriaDespesaModel } from '../../model/categoria-despesa-model';
 import { GerenciadorTipoContratoService } from 'src/app/service/gerenciador-tipo-contrato.service';
 import { GerenciadorTipoPessoaService } from 'src/app/service/gerenciador-tipo-pessoa.service';
+import { GerenciadorCategoriaDespesaService } from 'src/app/service/gerenciador-categoria-despesa.service';
 
 @Component({
   selector: 'app-gerenciador-configuracao',
@@ -16,16 +18,19 @@ export class GerenciadorConfiguracaoComponent implements OnInit {
 
   public tipoPessoaModelList: TipoPessoaModel[];
   public tipoContratoList: TipoContratoModel[];
+  public categoriaDespesaList: CategoriaDespesaModel[];
 
   constructor(
     private router: Router,
     private gerenciadorTipoPessoaService: GerenciadorTipoPessoaService,
     private gerenciadorTipoContratoService: GerenciadorTipoContratoService,
+    private gerenciadorCategoriaDespesaService: GerenciadorCategoriaDespesaService,
   ) { }
 
   ngOnInit(): void {
     this.recuperarTipoPessoa();
     this.recuperarTipoContrato();
+    this.recuperarCategoriaDespesa();
   }
 
   public recuperarTipoPessoa() {
@@ -37,7 +42,13 @@ export class GerenciadorConfiguracaoComponent implements OnInit {
   public recuperarTipoContrato() {
     this.gerenciadorTipoContratoService.recuperarTipoContratoList().subscribe(response => {
       this.tipoContratoList = response;
-      console.log(this.tipoContratoList);
+    });
+  }
+
+  public recuperarCategoriaDespesa() {
+    this.gerenciadorCategoriaDespesaService.recuperarCategoriaDespesaList().subscribe(response => {
+      this.categoriaDespesaList = response;
+      console.log(this.categoriaDespesaList);
     });
   }
 
@@ -53,8 +64,8 @@ export class GerenciadorConfiguracaoComponent implements OnInit {
     throw new Error("Função Não Implementada!");
   }
 
-  public redirecionarPaginaCategoriaDespesaCadastrar() {
-    throw new Error("Função Não Implementada!");
+  public redirecionarPaginaTipoDespesaCadastrar() {
+    this.router.navigate(["/configuracao-tipo-despesa-cadastrar"]);
   }
 
 }

@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<form (ngSubmit)="cadastrarCategoriaDespesa()">
+    <div class="main-panel">
+        <div class="col-md-12" style="margin-top: 100px;">
+
+            <div *ngIf="isCategoriaDespesaCadastradaComSucesso == true" style="margin-top: 150px;">
+                <div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-success" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a (click)="desabilitarMensagem()">×</a></button><span data-notify="icon" class="fa fa-bell"></span> <span data-notify="title">Sistema Financeiro</span> <span data-notify="message">Categoria Tipo Pessoa Cadastrada com Sucesso!</span><a href="index.html" target="_blank" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a> </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Cadastro de Tipo de Despesa</div>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-2 col-lg-8">
+                            <div class="form-group">
+                                <label for="descricao">Descrição da Categoria</label>
+                                <input id="descricao" type="text" name="descricao" [(ngModel)]="categoriaDespesaModel.descricao" placeholder="Descrição da Categoria" class="form-control form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-lg-4">
+                            <div class="form-group">
+                                <label for="sigla">Sigla da Categoria</label>
+                                <input id="sigla" type="text" name="sigla" [(ngModel)]="categoriaDespesaModel.sigla" placeholder="Sigla da Categoria" class="form-control form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-primary btn-lg col-md-7" style="margin: 2px;">Cadastrar Categoria</button>
+                    <button type="button" (click)="redirecionarPaginaAnterior()" class="btn btn-danger btn-border btn-lg col-md-4" style="margin: 2px;">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

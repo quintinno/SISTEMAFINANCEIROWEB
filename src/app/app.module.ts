@@ -48,6 +48,7 @@ import { FooterComponent } from './page/template/footer/footer.component';
 import { HeaderComponent } from './page/template/header/header.component';
 import { ManutencaoComponent } from './page/template/manutencao/manutencao.component';
 import { TipoContratoCadastrarComponent } from './page/gerenciador-configuracao/tipo-contrato-cadastrar/tipo-contrato-cadastrar.component';
+import { TipoDespesaCadastrarComponent } from './page/gerenciador-configuracao/tipo-despesa-cadastrar/tipo-despesa-cadastrar.component';
 
 registerLocaleData(localePt);
 
@@ -90,6 +91,7 @@ registerLocaleData(localePt);
     CategoriaTipoPessoaCadastrarComponent,
     CategoriaTipoPessoaAlterarComponent,
     TipoContratoCadastrarComponent,
+    TipoDespesaCadastrarComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,7 @@ registerLocaleData(localePt);
     Ng2OrderModule,
     NgxPaginationModule,
     NgxMaskModule.forRoot({
-      dropSpecialCharacters: true, // Salva sem a mascara
+      dropSpecialCharacters: false, // Salva sem a mascara
     }),
   ],
   providers: [

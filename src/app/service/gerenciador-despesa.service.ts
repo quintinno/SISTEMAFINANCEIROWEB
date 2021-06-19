@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DespesaModel } from '../model/despesa-model';
+import { DespesaFixaModel } from '../model/despesa-fixa-model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class GerenciadorDespesaService {
     return this.httpClient.post(`${this.URL_BASE_API}`, despesaModel);
   }
 
-  public recuperarDespesaFixaMensalList() : Observable<DespesaModel[]> {
-    return this.httpClient.get<DespesaModel[]>(`${this.URL_BASE_API}/fixa-mensal`);
+  public recuperarDespesaFixaMensalList() : Observable<DespesaFixaModel[]> {
+    return this.httpClient.get<DespesaFixaModel[]>(`${this.URL_BASE_API}/fixa-mensal`);
   }
 
   public recuperarTotalDespesasPagasAnoFinanceiro() : Observable<number> {

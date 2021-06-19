@@ -10,12 +10,16 @@ import { GerenciadorService } from "./gerenciador.service";
 })
 export class GerenciadorCategoriaDespesaService {
 
-  private ENDPOINT_CATEGORIA_DESPESA = environment.url_base_api.concat("/categoria-despesa");
+  private URL_BASE_API = environment.url_base_api.concat("/categoria-despesa");
 
   constructor( private httpClient: HttpClient, private gerenciadorService: GerenciadorService ) { }
 
   recuperarCategoriaDespesaList() : Observable<CategoriaDespesaModel[]> {
-    return this.httpClient.get<CategoriaDespesaModel[]>(this.gerenciadorService.recuperarUrlBaseAPI().concat(`${this.ENDPOINT_CATEGORIA_DESPESA}`));
+    return this.httpClient.get<CategoriaDespesaModel[]>(`${this.URL_BASE_API}`);
+  }
+
+  public cadastrar( object: CategoriaDespesaModel ) : Observable<Object> {
+    return this.httpClient.post<Object>(`${this.URL_BASE_API}`, object);
   }
 
 }

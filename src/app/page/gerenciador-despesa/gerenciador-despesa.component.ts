@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DespesaFixaModel } from 'src/app/model/despesa-fixa-model';
 import { DespesaModel } from 'src/app/model/despesa-model';
 import { GerenciadorDespesaService } from 'src/app/service/gerenciador-despesa.service';
 import { GerenciadorParcelamentoService } from 'src/app/service/gerenciador-parcelamento.service';
@@ -12,6 +13,7 @@ import { GerenciadorParcelamentoService } from 'src/app/service/gerenciador-parc
 export class GerenciadorDespesaComponent implements OnInit {
 
   public despesaList: DespesaModel[];
+  public despesaFixaList: DespesaFixaModel[];
 
   public totalizadorDespesasPagasAnoFinanceiro: number;
   public totalizadorDespesasPendentesAnoFinanceiro: number;
@@ -30,7 +32,8 @@ export class GerenciadorDespesaComponent implements OnInit {
 
   public recuperarDespesaFixaMensalList() {
     this.gerenciadorDespesaService.recuperarDespesaFixaMensalList().subscribe( response => {
-      this.despesaList = response;
+      this.despesaFixaList = response;
+      console.log(this.despesaFixaList);
     });
   }
 

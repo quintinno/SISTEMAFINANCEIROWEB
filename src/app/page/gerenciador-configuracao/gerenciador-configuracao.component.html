@@ -8,11 +8,6 @@
                     <div>
                         <h2 class="text-white pb-2 fw-bold">Configurações</h2>
                     </div>
-                    <div class="ml-md-auto py-2 py-md-0">
-                        <button type="button" data-toggle="modal" data-target="#cadastrarNovoLancamentoFinanceiro"
-                            class="btn btn-info btn-border btn-round"> <span class="btn-label"> <i
-                                    class="fa fa-plus"></i></span> Novo Lançamento Financeiro</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -193,7 +188,7 @@
                             <div class="card-head-row">
                                 <div class="card-title">Categoria de Despesas</div>
                                 <div class="card-tools">
-                                    <button class="btn btn-icon btn-primary btn-round btn-xs">
+                                    <button (click)="redirecionarPaginaTipoDespesaCadastrar()" class="btn btn-icon btn-primary btn-round btn-xs">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -210,15 +205,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr *ngFor="let item_ of itemList">
-                                            <td>{{item_.descricao}}</td>
-                                            <td>{{item_.sigla}}</td>
+                                        <tr *ngFor="let index_ of categoriaDespesaList">
+                                            <td>{{index_.descricao}}</td>
+                                            <td>{{index_.sigla}}</td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-icon btn-link">
                                                     <i class="fa fa-link"></i>
                                                 </button>
                                             </td>
-                                        </tr> -->
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

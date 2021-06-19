@@ -29,6 +29,7 @@ import { ManutencaoComponent } from './page/template/manutencao/manutencao.compo
 // Configuracao
 import { CategoriaTipoPessoaCadastrarComponent } from './page/gerenciador-configuracao/categoria-tipo-pessoa-cadastrar/categoria-tipo-pessoa-cadastrar.component';
 import { TipoContratoCadastrarComponent } from './page/gerenciador-configuracao/tipo-contrato-cadastrar/tipo-contrato-cadastrar.component';
+import { TipoDespesaCadastrarComponent } from './page/gerenciador-configuracao/tipo-despesa-cadastrar/tipo-despesa-cadastrar.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -64,6 +65,7 @@ const routes: Routes = [
   { path: "gerenciador-configuracao", component: GerenciadorConfiguracaoComponent },
   { path: "configuracao-categoria-tipo-pessoa-cadastrar", component: CategoriaTipoPessoaCadastrarComponent },
   { path: "configuracao-tipo-contrato-cadastrar", component: TipoContratoCadastrarComponent },
+  { path: "configuracao-tipo-despesa-cadastrar", component: TipoDespesaCadastrarComponent },
 
 ];
 
