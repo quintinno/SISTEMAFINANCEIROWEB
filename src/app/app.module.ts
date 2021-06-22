@@ -1,4 +1,4 @@
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from "@angular/common/http";
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
@@ -108,7 +108,8 @@ registerLocaleData(localePt);
     }),
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "pt-BR"}
+    { provide: LOCALE_ID, useValue: "pt-BR"},
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
