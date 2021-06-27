@@ -1,1 +1,248 @@
-<p>despesa-detalhar works!</p>
+<app-header></app-header>
+
+<div class="main-panel">
+	<div class="col-md-12" style="margin-top: 100px;">
+
+		<!-- <div *ngIf="isApresentarMensagemSucessoPagamentoParcelaRegistradaSucesso == true" style="margin-top: 150px;">
+			<div data-notify="container" 
+				 class="col-10 col-xs-11 col-sm-4 alert alert-success" 
+				 role="alert"
+				 data-notify-position="top-right"
+				 style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+				<button type="button" 
+						aria-hidden="true" 
+						class="close" 
+						data-notify="dismiss"
+						style="position: absolute; right: 10px; top: 5px; z-index: 1033;">
+						<a (click)="desabilitarAlerta()">×</a></button>
+						<span data-notify="icon" class="fa fa-bell"></span>
+						<span data-notify="title">Sistema Financeiro</span> 
+						<span data-notify="message">Pagamento de Parcelamento Registrado com Sucesso!</span>
+						<a href="index.html" target="_blank" data-notify="url" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
+			</div>
+		</div> -->
+
+		<!-- <div *ngIf="isApresentarMensagemErro == true" style="margin-top: 150px;">
+			<div data-notify="container" class="col-10 col-xs-11 col-sm-4 alert alert-danger" role="alert" data-notify-position="top-right"
+				 style="display: inline-block; margin: 0px auto; padding-left: 65px; position: fixed; transition: all 0.9s ease-in-out 0s; z-index: 1031; top: 20px; right: 20px;">
+				<button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;"><a (click)="desabilitarAlerta()">×</a></button><span data-notify="icon" class="fa fa-bell"></span>
+				<span data-notify="title">Sistema Financeiro</span> <span data-notify="message">Erro ao tentar cadastrar
+					a Receita</span><a href="index.html" target="_blank" data-notify="url"
+				   style="background-image: url(&quot;data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&quot;); height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; z-index: 1032;"></a>
+			</div>
+		</div> -->
+
+		<div *ngIf="!isEsconderConteudo" class="card">
+
+			<div class="card-header">
+				<div class="text-left">
+					<a routerLink="/receita-monitoramento" style="text-decoration: none;">Monitoramento de Despesas</a>
+					<b> > </b> <strong>Detalhar Despesas Fixas</strong>
+				</div>
+				<div class="text-right">
+					<button type="button" (click)="redirecionarPaginaAtualizarReceita(receitaModel.codigo)"
+						class="btn btn-icon btn-round btn-warning" style="margin: 4px;">
+						<i class="fa fa-edit"></i>
+					</button>
+					<button type="button" data-toggle="modal" data-target="#verificarOpcaoUsuarioModal"
+						class="btn btn-icon btn-round btn-danger" style="margin: 4px;">
+						<i class="fa fa-trash"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="card-body">
+				<div class="row">
+
+					<div class="main-panel">
+						<div class="page-inner">
+							<div class="row justify-content-center">
+								<div class="col-12 col-lg-12 col-xl-12">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="card card-invoice">
+
+												<div class="card-body">
+
+													<div class="text-center">
+														<h1>Despesa Fixa</h1>
+													</div>
+
+													<div class="separator-solid  mb-3"></div>
+
+													<div class="row"> <br /><br /> </div>
+
+													<div class="row">
+
+														<div class="col-4 col-stats">
+															<div class="numbers">
+																<p class="text-center">Responsável pelo Pagamento</p>
+																<!-- <h4 class="text-center"> {{
+																	receitaModel.responsavelPagamento.nome }} </h4>
+															</div> -->
+														</div>
+
+														<div class="col-4 col-stats">
+															<div class="numbers">
+																<p class="text-center">Categoria da Receita</p>
+																<!-- <h4 class="text-center"> {{
+																	receitaModel.categoriaReceita.descricao }} </h4> -->
+															</div>
+														</div>
+
+														<div class="col-4 col-stats">
+															<div class="numbers">
+																<p class="text-center">Forma de Pagamento</p>
+																<!-- <h4 class="text-center"> {{
+																	receitaModel.tipoFormaPagamento.descricao }} </h4> -->
+															</div>
+														</div>
+
+													</div>
+
+													<div class="row"> <br /><br /> </div>
+
+													<div class="row">
+
+														<div class="col-4 col-stats">
+															<div class="numbers">
+																<p class="text-center">Situação do Pagamento</p>
+																<!-- <h4 class=" text-center"> {{
+																	receitaModel.tipoSituacaoPagamento }} </h4> -->
+															</div>
+														</div>
+
+														<div class="col-4 col-stats">
+															<div class="numbers">
+																<p class="text-center">Período Financeiro</p>
+																<!-- <h4 class="text-center"> {{
+																	receitaModel.tipoPeriodoFinanceiro }} </h4> -->
+															</div>
+														</div>
+
+														<div class="col-4 col-stats">
+															<div class="numbers">
+																<p class="text-center">Valor do Pagamento</p>
+																<!-- <h4 class="text-center"> {{ receitaModel.valorPagamento
+																	| currency : "BRL": true }} </h4> -->
+															</div>
+														</div>
+
+													</div>
+
+													<div class="row">
+														<br /><br />
+													</div>
+
+													<div *ngIf="true" class="row">
+														<div class="col-md-12">
+															<div class="invoice-detail">
+																<div class="invoice-top">
+																	<h5 class="title"><strong>Parcelamento de
+																			Receita</strong></h5>
+																</div>
+																<div class="invoice-item">
+																	<div class="table-responsive">
+																		<table class="table table-striped">
+																			<thead>
+																				<tr>
+																					<td><strong>Número da
+																							Parcela</strong></td>
+																					<td class="text-left">
+																						<strong>Vencimento</strong>
+																					</td>
+																					<td class="text-center">
+																						<strong>Valor da
+																							Parcela</strong>
+																					</td>
+																					<td class="text-center">
+																						<strong>Situação
+																							Pagamento</strong>
+																					</td>
+																					<td class="text-center">
+																						<strong>Ações</strong>
+																					</td>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<!-- <tr
+																					*ngFor="let parcelamento_ of parcelamentoList">
+																					<td class="text-center"
+																						style="width: 170px;">
+																						{{parcelamento_.numeroParcela}}
+																					</td>
+																					<td class="text-cemter">
+																						{{parcelamento_.dataVencimentoParcela}}
+																					</td>
+																					<td class="text-center">
+																						{{parcelamento_.valorPrevistoParcela |
+																						currency : "BRL": true}} </td>
+																					<td class="text-center">
+																						{{parcelamento_.situacaoPagamento}} </td>
+																					<td class="text-center">
+																						<button type="button" *ngIf=" parcelamento_.situacaoPagamento != 'Pago' " data-toggle="modal" data-target="#registrarPagamentoParcelamentoModal" (click)="recuperarParcelamentoSelecionado(parcelamento_)" class="btn btn-warning btn-border" style="margin: 4px;"> Registrar Pagamento </button>
+																						<button type="button" disabled *ngIf=" parcelamento_.situacaoPagamento == 'Pago' " data-toggle="modal" data-target="#registrarPagamentoParcelamentoModal" (click)="recuperarParcelamentoSelecionado(parcelamento_)" class="btn btn-success" style="margin: 4px;"> Parcela Paga </button>
+																					</td>
+																				</tr> -->
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="registrarPagamentoParcelamentoModal" class="modal animated fadeIn" tabindex="-1" role="dialog" focus>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">Registrar o Pagamento da Parcela</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4 col-lg-6">
+						<div class="form-group">
+							<label for="dataRecebimentoPagamento">Data do Pagamento</label>
+							<!-- <input id="dataRecebimentoPagamento" type="text" name="dataRecebimentoPagamento" [(ngModel)]="parcelamentoModel.dataPagamentoParcela" placeholder="DD/MM/AAAA" class="form-control form-control" /> -->
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-6">
+						<div class="form-group">
+							<label for="valorPagamento">Valor da Parcela</label>
+							<!-- <input id="valorPagamento" type="text" name="valorPagamento" [(ngModel)]="parcelamentoModel.valorEfetivoParcela" placeholder="R$ {{receitaModel.valorPagamento}}" class="form-control" /> -->
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-12">
+						<div class="form-group">
+							<label for="tipoSituacaoPagamento">Situação do Pagamento</label>
+							<!-- <select id="tipoSituacaoPagamento" name="tipoSituacaoPagamento" [(ngModel)]="parcelamentoModel.situacaoPagamento" class="form-control"> -->
+								<!-- <option [disabled]="true">Selecione</option> -->
+								<!-- <option *ngFor="let tipo_situacao_pagamento_ of tipoSituacaoPagamentoList" [ngValue]="tipo_situacao_pagamento_"> {{tipo_situacao_pagamento_}} </option> -->
+							<!-- </select> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" (click)="registrarPagamentoParcela(parcelamentoModel)" data-dismiss="modal" class="btn btn-primary col-md-10">Registrar Pagamento</button>
+				<button type="button" data-dismiss="modal" class="btn btn-secondary btn-border col-md-2">Cancelar</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -20,6 +20,8 @@ import { ReceitaListarComponent } from './page/gerenciador-receita/receita-lista
 import { LoginComponent } from './page/login/login.component';
 import { MonitoramentoFinanceiroComponent } from './page/monitoramento-financeiro/monitoramento-financeiro.component';
 
+import { DespesaDetalharComponent } from './page/gerenciador-despesa/despesa-detalhar/despesa-detalhar.component';
+
 // Composicao Salarial
 import { GerenciadorComposicaoSalarialComponent } from './page/gerenciador-composicao-salarial/gerenciador-composicao-salarial.component';
 import { ComposicaoSalarialCadastrarComponent } from './page/gerenciador-composicao-salarial/composicao-salarial-cadastrar/composicao-salarial-cadastrar.component';
@@ -50,6 +52,7 @@ const routes: Routes = [
   { path: "despesa-monitoramento", component: GerenciadorDespesaComponent },
   { path: "despesa-cadastrar", component: DespesaCadastrarComponent },
   { path: "despesa-fixa-cadastrar", component: DespesaFixaCadastrarComponent },
+  { path: "despesa-fixa-detalhar", component: DespesaDetalharComponent },
 
   // Composicao Salarial
   { path: "gerenciador-composicao-salarial", component: GerenciadorComposicaoSalarialComponent },

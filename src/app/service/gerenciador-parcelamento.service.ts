@@ -24,5 +24,9 @@ export class GerenciadorParcelamentoService {
   public registrarPagamentoParcela(parcelamentoModel: ParcelamentoModel) : Observable<Object> {
     return this.httpClient.put(`${this.URL_BASE_URL_PARCELAMENTO}`, parcelamentoModel);
   }
+
+  public recuperarValorTotalDespesasFixasMesCorrente() : Observable<number> {
+    return this.httpClient.get<number>(`${this.URL_BASE_URL_PARCELAMENTO}/despesa/valor-total-despesa-fixa-mes-corrente`);
+  }
   
 }

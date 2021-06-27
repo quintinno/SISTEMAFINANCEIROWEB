@@ -34,4 +34,8 @@ export class GerenciadorDespesaService {
     return this.httpClient.get<number>(`${this.URL_BASE_API}/totalizador-despesas-pendentes`);
   }
 
+  public recuperarDespesaPorCodigo() : Observable<number> {
+    return this.httpClient.get<number>(`${this.URL_BASE_API}/totalizador-despesas-pendentes`);
+  }
+
 }

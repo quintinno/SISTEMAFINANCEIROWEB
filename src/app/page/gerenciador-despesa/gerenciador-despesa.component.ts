@@ -17,6 +17,7 @@ export class GerenciadorDespesaComponent implements OnInit {
 
   public totalizadorDespesasPagasAnoFinanceiro: number;
   public totalizadorDespesasPendentesAnoFinanceiro: number;
+  public valorTotalDespesasFixasMesCorrente: number;
 
   constructor(
     private gerenciadorDespesaService: GerenciadorDespesaService,
@@ -28,12 +29,12 @@ export class GerenciadorDespesaComponent implements OnInit {
     this.recuperarDespesaFixaMensalList();
     this.recuperarTotalizadorDespesasPagasAnoFinanceiro();
     this.recuperarTotalizadorDespesasPendenteAnoFinanceiro();
+    this.recuperarValorTotalDespesasFixasMesCorrente();
   }
 
   public recuperarDespesaFixaMensalList() {
     this.gerenciadorDespesaService.recuperarDespesaFixaMensalList().subscribe( response => {
       this.despesaFixaList = response;
-      console.log(this.despesaFixaList);
     });
   }
 
@@ -49,6 +50,12 @@ export class GerenciadorDespesaComponent implements OnInit {
     });
   }
 
+  public recuperarValorTotalDespesasFixasMesCorrente() {
+    this.gerenciadorParcelamentoService.recuperarValorTotalDespesasFixasMesCorrente().subscribe( response => {
+      this.valorTotalDespesasFixasMesCorrente = response;
+    });
+  }
+
   redirecionarPaginaCadastrarDespesaFixa() {
     this.router.navigate(["/contrato-cadastrar"]).then( () => {
       window.location.reload();
@@ -57,6 +64,12 @@ export class GerenciadorDespesaComponent implements OnInit {
 
   redirecionarPaginaCadastrarDespesaVariavel() {
     this.router.navigate(["/despesa-cadastrar"]).then( () => {
+      window.location.reload();
+    });
+  }
+
+  redirecionarPaginaDetalhararDespesaFixa() {
+    this.router.navigate(["/despesa-fixa-detalhar"]).then( () => {
       window.location.reload();
     });
   }
