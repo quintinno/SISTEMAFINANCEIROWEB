@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       if(response) {
         setTimeout(() => {
           this.redirecionarPaginaMonitoramentoFinanceiro();
-        }, 3000);
+        }, 2000);
       } else {
         this.isApresentaMensagemErro = true;
         setTimeout(() => {

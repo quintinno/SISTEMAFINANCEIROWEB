@@ -24,5 +24,9 @@ export class GerenciadorParcelamentoService {
   public registrarPagamentoParcela(parcelamentoModel: ParcelamentoModel) : Observable<Object> {
     return this.httpClient.put(`${this.URL_BASE_URL_PARCELAMENTO}`, parcelamentoModel);
   }
+
+  public recuperarTotalizadorParcelamentoDespesaFixaMensal() : Observable<number> {
+    return this.httpClient.get<number>(`${this.URL_BASE_URL_PARCELAMENTO}/recuperar-totalizador-parcelamento-despesa-fixa-mensal`);
+  }
   
 }

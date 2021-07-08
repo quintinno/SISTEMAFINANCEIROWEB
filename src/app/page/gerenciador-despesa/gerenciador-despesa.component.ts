@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DespesaFixaModel } from 'src/app/model/despesa-fixa-model';
@@ -13,10 +14,11 @@ import { GerenciadorParcelamentoService } from 'src/app/service/gerenciador-parc
 export class GerenciadorDespesaComponent implements OnInit {
 
   public despesaList: DespesaModel[];
-  public despesaFixaList: DespesaFixaModel[];
+  public despesaFixaList = new Array();
 
   public totalizadorDespesasPagasAnoFinanceiro: number;
   public totalizadorDespesasPendentesAnoFinanceiro: number;
+  public totalizadorDespesasFixasMesal: number = 0;
 
   constructor(
     private gerenciadorDespesaService: GerenciadorDespesaService,
@@ -28,12 +30,12 @@ export class GerenciadorDespesaComponent implements OnInit {
     this.recuperarDespesaFixaMensalList();
     this.recuperarTotalizadorDespesasPagasAnoFinanceiro();
     this.recuperarTotalizadorDespesasPendenteAnoFinanceiro();
+    this.recuperarTotalizadorDespesaFixaMensal();
   }
 
   public recuperarDespesaFixaMensalList() {
     this.gerenciadorDespesaService.recuperarDespesaFixaMensalList().subscribe( response => {
       this.despesaFixaList = response;
-      console.log(this.despesaFixaList);
     });
   }
 
@@ -46,6 +48,12 @@ export class GerenciadorDespesaComponent implements OnInit {
   public recuperarTotalizadorDespesasPendenteAnoFinanceiro() {
     this.gerenciadorDespesaService.recuperarTotalDespesasPendentesAnoFinanceiro().subscribe( response => {
       this.totalizadorDespesasPendentesAnoFinanceiro = response;
+    });
+  }
+
+  public recuperarTotalizadorDespesaFixaMensal() {
+    this.gerenciadorParcelamentoService.recuperarTotalizadorParcelamentoDespesaFixaMensal().subscribe( response => {
+      this.totalizadorDespesasFixasMesal = response;
     });
   }
 
