@@ -19,14 +19,14 @@ import { GerenciadorComposicaoSalarialComponent } from './page/gerenciador-compo
 import { CategoriaTipoPessoaAlterarComponent } from './page/gerenciador-configuracao/categoria-tipo-pessoa-alterar/categoria-tipo-pessoa-alterar.component';
 import { CategoriaTipoPessoaCadastrarComponent } from './page/gerenciador-configuracao/categoria-tipo-pessoa-cadastrar/categoria-tipo-pessoa-cadastrar.component';
 import { GerenciadorConfiguracaoComponent } from './page/gerenciador-configuracao/gerenciador-configuracao.component';
+import { TipoContratoCadastrarComponent } from './page/gerenciador-configuracao/tipo-contrato-cadastrar/tipo-contrato-cadastrar.component';
+import { TipoDespesaCadastrarComponent } from './page/gerenciador-configuracao/tipo-despesa-cadastrar/tipo-despesa-cadastrar.component';
 import { ContaBancariaAlterarComponent } from './page/gerenciador-conta-bancaria/conta-bancaria-alterar/conta-bancaria-alterar.component';
 import { ContaBancariaCadastrarComponent } from './page/gerenciador-conta-bancaria/conta-bancaria-cadastrar/conta-bancaria-cadastrar.component';
 import { GerenciadorContaBancariaComponent } from './page/gerenciador-conta-bancaria/gerenciador-conta-bancaria.component';
 import { ContratoAtualizarComponent } from './page/gerenciador-contrato/contrato-atualizar/contrato-atualizar.component';
 import { ContratoCadastrarComponent } from './page/gerenciador-contrato/contrato-cadastrar/contrato-cadastrar.component';
 import { GerenciadorContratoComponent } from './page/gerenciador-contrato/gerenciador-contrato.component';
-import { DespesaFixaCadastrarComponent } from './page/gerenciador-despesa-fixa/despesa-fixa-cadastrar/despesa-fixa-cadastrar.component';
-import { GerenciadorDespesaFixaComponent } from './page/gerenciador-despesa-fixa/gerenciador-despesa-fixa.component';
 import { DespesaAlterarComponent } from './page/gerenciador-despesa/despesa-alterar/despesa-alterar.component';
 import { DespesaCadastrarComponent } from './page/gerenciador-despesa/despesa-cadastrar/despesa-cadastrar.component';
 import { DespesaDetalharComponent } from './page/gerenciador-despesa/despesa-detalhar/despesa-detalhar.component';
@@ -47,8 +47,6 @@ import { MonitoramentoFinanceiroComponent } from './page/monitoramento-financeir
 import { FooterComponent } from './page/template/footer/footer.component';
 import { HeaderComponent } from './page/template/header/header.component';
 import { ManutencaoComponent } from './page/template/manutencao/manutencao.component';
-import { TipoContratoCadastrarComponent } from './page/gerenciador-configuracao/tipo-contrato-cadastrar/tipo-contrato-cadastrar.component';
-import { TipoDespesaCadastrarComponent } from './page/gerenciador-configuracao/tipo-despesa-cadastrar/tipo-despesa-cadastrar.component';
 
 registerLocaleData(localePt);
 
@@ -81,8 +79,6 @@ registerLocaleData(localePt);
     DespesaCadastrarComponent,
     DespesaAlterarComponent,
     DespesaDetalharComponent,
-    GerenciadorDespesaFixaComponent,
-    DespesaFixaCadastrarComponent,
     GerenciadorComposicaoSalarialComponent,
     ComposicaoSalarialCadastrarComponent,
     ComposicaoSalarialAlterarComponent,

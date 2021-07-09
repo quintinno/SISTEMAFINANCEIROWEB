@@ -6,7 +6,6 @@ import { GerenciadorContaBancariaComponent } from './page/gerenciador-conta-banc
 import { ContratoAtualizarComponent } from './page/gerenciador-contrato/contrato-atualizar/contrato-atualizar.component';
 import { ContratoCadastrarComponent } from './page/gerenciador-contrato/contrato-cadastrar/contrato-cadastrar.component';
 import { GerenciadorContratoComponent } from './page/gerenciador-contrato/gerenciador-contrato.component';
-import { DespesaFixaCadastrarComponent } from './page/gerenciador-despesa-fixa/despesa-fixa-cadastrar/despesa-fixa-cadastrar.component';
 import { DespesaCadastrarComponent } from './page/gerenciador-despesa/despesa-cadastrar/despesa-cadastrar.component';
 import { GerenciadorDespesaComponent } from './page/gerenciador-despesa/gerenciador-despesa.component';
 import { GerenciadorEmprestimoComponent } from './page/gerenciador-emprestimo/gerenciador-emprestimo.component';
@@ -30,6 +29,7 @@ import { ManutencaoComponent } from './page/template/manutencao/manutencao.compo
 import { CategoriaTipoPessoaCadastrarComponent } from './page/gerenciador-configuracao/categoria-tipo-pessoa-cadastrar/categoria-tipo-pessoa-cadastrar.component';
 import { TipoContratoCadastrarComponent } from './page/gerenciador-configuracao/tipo-contrato-cadastrar/tipo-contrato-cadastrar.component';
 import { TipoDespesaCadastrarComponent } from './page/gerenciador-configuracao/tipo-despesa-cadastrar/tipo-despesa-cadastrar.component';
+import { DespesaDetalharComponent } from './page/gerenciador-despesa/despesa-detalhar/despesa-detalhar.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -49,7 +49,7 @@ const routes: Routes = [
   { path: "receita-detalhar/:codigo", component:  ReceitaDetalharComponent },
   { path: "despesa-monitoramento", component: GerenciadorDespesaComponent },
   { path: "despesa-cadastrar", component: DespesaCadastrarComponent },
-  { path: "despesa-fixa-cadastrar", component: DespesaFixaCadastrarComponent },
+  { path: "despesa-detalhar", component: DespesaDetalharComponent },
 
   // Composicao Salarial
   { path: "gerenciador-composicao-salarial", component: GerenciadorComposicaoSalarialComponent },

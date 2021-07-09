@@ -69,4 +69,10 @@ export class GerenciadorDespesaComponent implements OnInit {
     });
   }
 
+  redirecionarPaginaRegistrarPagamentoDespesaFixa() {
+    this.router.navigate(["/despesa-detalhar"]).then( () => {
+      window.location.reload();
+    });
+  }
+
 }
