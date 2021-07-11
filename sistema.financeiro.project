@@ -14,7 +14,7 @@
         npm i ngx-pagination
         npm install -g angular-cli-ghpages
 
-        ng build --prod --base-href "https://quintinno.github.io/SISTEMAFINANCEIROWEB"
+        ng build --prod --deploy-url "https://quintinno.github.io/sistemafinanceiroweb"
 
     + FUNCIONALIDADES
 
