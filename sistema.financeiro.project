@@ -12,6 +12,9 @@
         npm i ng2-search-filter
         npm i ng2-order-pipe
         npm i ngx-pagination
+        npm install -g angular-cli-ghpages
+
+        ng build --prod --base-href "https://quintinno.github.io/SISTEMAFINANCEIROWEB"
 
     + FUNCIONALIDADES
 
